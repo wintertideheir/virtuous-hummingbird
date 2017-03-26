@@ -7,9 +7,9 @@ import Graphics.UI.GLFW as GLFW
 import Graphics.Rendering.OpenGL.GL as GL
 
 toInt32 :: Int -> Int32
-main :: IO ()
-
 toInt32 x = fromInteger $ toInteger x
+
+main :: IO ()
 main = do
   glfwInitSuccess <- GLFW.init
   when (not glfwInitSuccess) (ioError (userError "GLFW failed to initialize."))
