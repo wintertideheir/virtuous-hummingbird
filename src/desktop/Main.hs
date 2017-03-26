@@ -9,8 +9,8 @@ import Graphics.Rendering.OpenGL.GL as GL
 toInt32 :: Int -> Int32
 toInt32 x = fromInteger $ toInteger x
 
-main :: IO ()
-main = do
+begin :: IO Window
+begin = do
   glfwInitSuccess <- GLFW.init
   when (not glfwInitSuccess) (ioError (userError "GLFW failed to initialize."))
   windowHint (WindowHint'ContextVersionMajor 3)
@@ -23,15 +23,25 @@ main = do
       makeContextCurrent newWindow
       windowSize <- getFramebufferSize window
       viewport $= (Position 0 0, Size (toInt32 $ fst windowSize) (toInt32 $ snd windowSize))
-      loop where
-        loop = do
-          closeRequest <- windowShouldClose window
-          if closeRequest
-          then return ()
-          else do
-            pollEvents
-            swapBuffers window
-            clear [ColorBuffer]
-            loop
+      return window
     Nothing -> ioError (userError "GLFW failed to create new window.")
-  terminate
+
+loop :: Window -> IO ()
+loop window = do
+  closeRequest <- windowShouldClose window
+  if closeRequest
+    then return ()
+    else do
+      pollEvents
+      swapBuffers window
+      clear [ColorBuffer]
+      loop window
+
+end :: IO ()
+end = terminate
+
+main :: IO ()
+main = do
+  window <- begin
+  loop window
+  end
