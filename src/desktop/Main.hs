@@ -6,9 +6,6 @@ import System.IO.Error
 import Graphics.UI.GLFW as GLFW
 import Graphics.Rendering.OpenGL.GL as GL
 
-toInt32 :: Int -> Int32
-toInt32 x = fromInteger $ toInteger x
-
 begin :: IO Window
 begin = do
   glfwInitSuccess <- GLFW.init
@@ -22,7 +19,8 @@ begin = do
     Just window -> do
       makeContextCurrent newWindow
       windowSize <- getFramebufferSize window
-      viewport $= (Position 0 0, Size (toInt32 $ fst windowSize) (toInt32 $ snd windowSize))
+      let toInt32 x = fromInteger $ toInteger x in
+        viewport $= (Position 0 0, Size (toInt32 $ fst windowSize) (toInt32 $ snd windowSize))
       return window
     Nothing -> ioError (userError "GLFW failed to create new window.")
 
