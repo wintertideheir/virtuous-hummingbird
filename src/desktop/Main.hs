@@ -4,7 +4,7 @@ import Data.Int
 import Control.Monad
 import System.IO.Error
 import Graphics.UI.GLFW as GLFW
-import Graphics.Rendering.OpenGL.GL as GL
+import Graphics.GL.Core33
 
 begin :: IO Window
 begin = do
@@ -20,7 +20,7 @@ begin = do
       makeContextCurrent newWindow
       windowSize <- getFramebufferSize window
       let toInt32 x = fromInteger $ toInteger x in
-        viewport $= (Position 0 0, Size (toInt32 $ fst windowSize) (toInt32 $ snd windowSize))
+        glViewport 0 0 (toInt32 $ fst windowSize) (toInt32 $ snd windowSize)
       return window
     Nothing -> ioError (userError "GLFW failed to create new window.")
 
@@ -32,7 +32,7 @@ loop window = do
     else do
       pollEvents
       swapBuffers window
-      clear [ColorBuffer]
+      glClear GL_COLOR_BUFFER_BIT
       loop window
 
 end :: IO ()
