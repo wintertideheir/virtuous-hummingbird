@@ -1,6 +1,5 @@
 module Main where
 
-import Data.Int
 import Control.Monad
 import System.IO.Error
 import Graphics.UI.GLFW as GLFW
