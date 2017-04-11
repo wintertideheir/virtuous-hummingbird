@@ -3,7 +3,23 @@ module Aikaterine where
 import Data.Graph.Inductive
 import Data.Map
 
-type RegionIdentifier = [String]
+newtype RegionIdentifier = RegionIdentifier [String]
+  deriving (Eq, Ord)
+
+regionIdentifier :: String -> Maybe RegionIdentifier
+regionIdentifier "" = Just (RegionIdentifier [])
+regionIdentifier ('.':_) = Nothing
+regionIdentifier pri =
+  regionIdentifier' pri [] [] False
+    where
+      regionIdentifier' :: String -> String -> [String] -> Bool -> Maybe RegionIdentifier
+      regionIdentifier' ('.':_) _ _ True = Nothing
+      regionIdentifier' ('.':x) q l False =
+        regionIdentifier' x [] (q:l) True
+      regionIdentifier' (x:xs) q l _ =
+        regionIdentifier' xs (x:q) l False
+      regionIdentifier' [] q l True = Nothing
+      regionIdentifier' [] q l False = Just (RegionIdentifier (q:l))
 
 data Idea n = Idea { region     :: RegionIdentifier
                    , name       :: String
