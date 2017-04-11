@@ -39,7 +39,7 @@ regionsFromNetwork (KnowledgeNetwork kn) =
       updateRegion i mis =
         case mis of
           Just is -> Just (i:is)
-          Nothing -> Nothing
+          Nothing -> Just [i]
       getRegions [] rm = rm
       getRegions (i:is) rm =
         getRegions is (alter (updateRegion i) (region i) rm)
