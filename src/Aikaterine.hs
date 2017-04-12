@@ -1,40 +1,34 @@
 module Aikaterine where
 
+import qualified Data.Text as T
 import Data.Graph.Inductive
-import Data.Map
+import qualified Data.Map as M
 
-newtype RegionIdentifier = RegionIdentifier [String]
+newtype RegionIdentifier = RegionIdentifier [T.Text]
   deriving (Eq, Ord)
 
-regionIdentifier :: String -> Maybe RegionIdentifier
-regionIdentifier "" = Just (RegionIdentifier [])
-regionIdentifier ('.':_) = Nothing
+regionIdentifier :: T.Text -> Maybe RegionIdentifier
 regionIdentifier pri =
-  regionIdentifier' pri [] [] False
+  if any T.null pri'
+  then Nothing
+  else Just (RegionIdentifier pri')
     where
-      regionIdentifier' :: String -> String -> [String] -> Bool -> Maybe RegionIdentifier
-      regionIdentifier' ('.':_) _ _ True = Nothing
-      regionIdentifier' ('.':x) q l False =
-        regionIdentifier' x [] (q:l) True
-      regionIdentifier' (x:xs) q l _ =
-        regionIdentifier' xs (x:q) l False
-      regionIdentifier' [] q l True = Nothing
-      regionIdentifier' [] q l False = Just (RegionIdentifier (q:l))
+      pri' = T.split (=='.') pri
 
 data Idea n = Idea { region     :: RegionIdentifier
-                   , name       :: String
+                   , name       :: T.Text
                    , importance :: Int
                    , value      :: n }
 
-newtype Relation = Relation String
+newtype Relation = Relation T.Text
 
 newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
 
 data Region n = Region RegionIdentifier [Idea n] [Region n]
 
-regionsFromNetwork :: KnowledgeNetwork n -> Map RegionIdentifier [Idea n]
+regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier [Idea n]
 regionsFromNetwork (KnowledgeNetwork kn) =
-  getRegions (Prelude.map snd (labNodes kn)) Data.Map.empty
+  getRegions (map snd (labNodes kn)) M.empty
     where
       updateRegion i mis =
         case mis of
@@ -42,4 +36,4 @@ regionsFromNetwork (KnowledgeNetwork kn) =
           Nothing -> Just [i]
       getRegions [] rm = rm
       getRegions (i:is) rm =
-        getRegions is (alter (updateRegion i) (region i) rm)
+        getRegions is (M.alter (updateRegion i) (region i) rm)
