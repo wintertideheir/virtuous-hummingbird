@@ -2,6 +2,8 @@ module Aikaterine where
 
 import qualified Data.Text as T
 import Data.Graph.Inductive
+import Data.Sequence
+import qualified Data.Vector as V
 import qualified Data.Map as M
 
 newtype RegionIdentifier = RegionIdentifier [T.Text]
@@ -24,7 +26,7 @@ newtype Relation = Relation T.Text
 
 newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
 
-data Region n = Region RegionIdentifier [Idea n] [Region n]
+data Region n = Region RegionIdentifier (V.Vector (Idea n)) (V.Vector (Region n))
 
 regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier [Idea n]
 regionsFromNetwork (KnowledgeNetwork kn) =
