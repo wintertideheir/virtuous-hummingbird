@@ -6,14 +6,14 @@ import Data.Sequence
 import qualified Data.Vector as V
 import qualified Data.Map as M
 
-newtype RegionIdentifier = RegionIdentifier [T.Text]
+newtype RegionIdentifier = RegionIdentifier (V.Vector T.Text)
   deriving (Eq, Ord)
 
 regionIdentifier :: T.Text -> Maybe RegionIdentifier
 regionIdentifier pri =
   if any T.null pri'
   then Nothing
-  else Just (RegionIdentifier pri')
+  else Just (RegionIdentifier (V.fromList pri'))
     where
       pri' = T.split (=='.') pri
 
@@ -28,9 +28,9 @@ newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
 
 data Region n = Region RegionIdentifier (V.Vector (Idea n)) (V.Vector (Region n))
 
-regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier [Idea n]
+regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier (V.Vector (Idea n))
 regionsFromNetwork (KnowledgeNetwork kn) =
-  getRegions (map snd (labNodes kn)) M.empty
+  M.map V.fromList (getRegions (map snd (labNodes kn)) M.empty)
     where
       updateRegion i mis =
         case mis of
