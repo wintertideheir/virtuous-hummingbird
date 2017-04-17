@@ -26,11 +26,11 @@ newtype Relation = Relation T.Text
 
 newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
 
-data Region n = Region RegionIdentifier (V.Vector (Idea n)) (V.Vector (Region n))
+data Region n = Region RegionIdentifier (V.Vector Node) (V.Vector (Region n))
 
-regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier (V.Vector (Idea n))
+regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier (V.Vector Node)
 regionsFromNetwork (KnowledgeNetwork kn) =
-  M.map V.fromList (getRegions (map snd (labNodes kn)) M.empty)
+  M.map V.fromList (getRegions (labNodes kn) M.empty)
     where
       updateRegion i mis =
         case mis of
@@ -38,4 +38,4 @@ regionsFromNetwork (KnowledgeNetwork kn) =
           Nothing -> Just [i]
       getRegions [] rm = rm
       getRegions (i:is) rm =
-        getRegions is (M.alter (updateRegion i) (region i) rm)
+        getRegions is (M.alter (updateRegion (fst i)) (region (snd i)) rm)
