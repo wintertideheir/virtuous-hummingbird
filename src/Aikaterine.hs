@@ -1,6 +1,7 @@
 module Aikaterine where
 
 import qualified Data.Text as T
+import Data.Maybe
 import Data.Graph.Inductive
 import Data.Sequence
 import qualified Data.Vector as V
@@ -26,12 +27,23 @@ newtype Relation = Relation T.Text
 
 newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
 
-data Region n = Region RegionIdentifier (V.Vector Node) (V.Vector (Region n))
+data Region = Region RegionIdentifier (V.Vector Node) (V.Vector Region)
 
-regionsFromNetwork :: KnowledgeNetwork n -> M.Map RegionIdentifier (V.Vector Node)
+regionsFromNetwork :: KnowledgeNetwork n -> Region
 regionsFromNetwork (KnowledgeNetwork kn) =
-  M.map V.fromList (getRegions (labNodes kn) M.empty)
+  createRegion (M.map V.fromList (getRegions (labNodes kn) M.empty)) 1
     where
+      unwrapRegionIdentifier (RegionIdentifier ri) = ri
+      createRegion m l =
+        Region ri (fromMaybe V.empty (M.lookup ri m))
+               (partitionRegions (M.delete ri m) V.empty)
+          where
+            ri = RegionIdentifier (V.take l (unwrapRegionIdentifier (fst (M.elemAt 0 m))))
+            partitionRegions m v =
+              if M.null m then v else partitionRegions (snd p) (V.cons (createRegion (fst p) (l+1)) v)
+                where
+                  sr = V.take (l+1) (unwrapRegionIdentifier (fst (M.elemAt 0 m)))
+                  p = M.partitionWithKey (\ (RegionIdentifier k) _ -> (V.take (l+1) k) == sr) m
       updateRegion i mis =
         case mis of
           Just is -> Just (i:is)
