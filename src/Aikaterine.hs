@@ -20,7 +20,6 @@ regionIdentifier pri =
 
 data Idea n = Idea { region     :: RegionIdentifier
                    , name       :: T.Text
-                   , importance :: Int
                    , value      :: n }
 
 newtype Relation = Relation T.Text
