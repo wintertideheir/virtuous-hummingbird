@@ -50,3 +50,8 @@ regionsFromNetwork (KnowledgeNetwork kn) =
       getRegions [] rm = rm
       getRegions (i:is) rm =
         getRegions is (M.alter (updateRegion (fst i)) (region (snd i)) rm)
+
+data Position = Position { x :: Int
+                         , y :: Int }
+
+newtype NodePositions = NodePositions (M.Map Node Position)
