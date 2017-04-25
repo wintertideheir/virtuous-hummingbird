@@ -24,12 +24,12 @@ data Idea n = Idea { region     :: RegionIdentifier
 
 newtype Relation = Relation T.Text
 
-newtype KnowledgeNetwork n = KnowledgeNetwork (Gr (Idea n) Relation)
+newtype KnowledgeGraph n = KnowledgeGraph (Gr (Idea n) Relation)
 
 data Region = Region RegionIdentifier (V.Vector Node) (V.Vector Region)
 
-regionsFromNetwork :: KnowledgeNetwork n -> Region
-regionsFromNetwork (KnowledgeNetwork kn) =
+regionsFromNetwork :: KnowledgeGraph n -> Region
+regionsFromNetwork (KnowledgeGraph kn) =
   createRegion (M.map V.fromList (getRegions (labNodes kn) M.empty)) 1
     where
       unwrapRegionIdentifier (RegionIdentifier ri) = ri
