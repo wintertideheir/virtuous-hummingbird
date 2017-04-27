@@ -29,8 +29,8 @@ newtype KnowledgeGraph n = KnowledgeGraph (Gr (Idea n) Relation)
 
 data Region = Region RegionIdentifier (V.Vector Node) (V.Vector Region)
 
-regionsFromNetwork :: KnowledgeGraph n -> Region
-regionsFromNetwork (KnowledgeGraph kn) =
+regionsFromGraph :: KnowledgeGraph n -> Region
+regionsFromGraph (KnowledgeGraph kn) =
   createRegion (M.map V.fromList (getRegions (labNodes kn) M.empty)) 1
     where
       unwrapRegionIdentifier (RegionIdentifier ri) = ri
