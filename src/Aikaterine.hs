@@ -3,7 +3,6 @@ module Aikaterine where
 import qualified Data.Text as T
 import Data.Maybe
 import Data.Graph.Inductive
-import Data.Sequence
 import Data.Bits
 import qualified Data.Vector as V
 import qualified Data.Map as M
