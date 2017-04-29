@@ -34,8 +34,8 @@ regionsFromGraph (KnowledgeGraph kn) =
     where
       unwrapRegionIdentifier (RegionIdentifier ri) = ri
       createRegion m l =
-        Region ri (fromMaybe V.empty (M.lookup ri m))
-               (partitionRegions (M.delete ri m) V.empty)
+        Region ri (sortNodes (fromMaybe V.empty (M.lookup ri m)))
+               (sortRegions (partitionRegions (M.delete ri m) V.empty))
           where
             ri = RegionIdentifier (V.take l (unwrapRegionIdentifier (fst (M.elemAt 0 m))))
             partitionRegions m v =
@@ -50,17 +50,12 @@ regionsFromGraph (KnowledgeGraph kn) =
       getRegions [] rm = rm
       getRegions (i:is) rm =
         getRegions is (M.alter (updateRegion (fst i)) (region (snd i)) rm)
-
-sortRegion :: Region -> KnowledgeGraph n -> Region
-sortRegion (Region i n r) (KnowledgeGraph kn) =
-  Region i (sortNodes n) (sortRegions r)
-    where
       radixSortBy v f = radixSortBy' v f 0 (finiteBitSize (0 :: Int))
       radixSortBy' v f i m =
         if i > m then v else radixSortBy' ((fst part) V.++ (snd part)) f (i + 1) m
           where part = V.partition (\ x -> testBit (f x) i) v
       sortNodes n = radixSortBy n (deg kn)
-      sortRegions r = V.map (\r -> sortRegion r (KnowledgeGraph kn)) (radixSortBy r degree)
+      sortRegions r = radixSortBy r degree
       degree (Region _ n r) =
         (V.foldr (\ r -> (+) (degree r)) 0 r) + (V.foldr (\ n -> (+) (deg kn n)) 0 n)
 
