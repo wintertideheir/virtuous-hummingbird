@@ -59,7 +59,16 @@ regionsFromGraph (KnowledgeGraph kn) =
       degree (Region _ n r) =
         (V.foldr (\ r -> (+) (degree r)) 0 r) + (V.foldr (\ n -> (+) (deg kn n)) 0 n)
 
-data Position = Position { x :: Int
-                         , y :: Int }
+data Position = Position { x :: Float
+                         , y :: Float }
 
-newtype NodePositions = NodePositions (M.Map Node Position)
+type NodePositions = M.Map Node Position
+
+minEdgeLen :: Float
+minEdgeLen = 2
+
+nodeDiameter :: Float
+nodeDiameter = 1
+
+minNodeDist :: Float
+minNodeDist = nodeDiameter + minEdgeLen
