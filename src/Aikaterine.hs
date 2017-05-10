@@ -72,3 +72,25 @@ nodeDiameter = 1
 
 minNodeDist :: Float
 minNodeDist = nodeDiameter + minEdgeLen
+
+positionCircle :: Float -> Int -> V.Vector Node -> NodePositions -> Float -> Float -> NodePositions
+positionCircle r n ns m x y =
+  if V.null ns
+  then m
+  else positionCircle r n (V.tail ns) (M.insert (V.head ns) (Position x y) m) (c*x - s*y) (s*x + c*y)
+    where
+      theta = 2 * (pi :: Float) / (fromIntegral n)
+      c = cos theta
+      s = sin theta
+
+positionNodes :: V.Vector Node -> NodePositions
+positionNodes ns = positionNodes' 0 1 ns M.empty
+
+positionNodes' :: Int -> Int -> V.Vector Node -> NodePositions -> NodePositions
+positionNodes' l n ns m =
+  if V.null ns
+  then m
+  else positionNodes' (l + 1) (n + 4) (V.drop n ns)
+                     (positionCircle nodeDist (min n (V.length ns)) ns m 0 nodeDist)
+    where
+      nodeDist = (fromIntegral l) * minNodeDist
