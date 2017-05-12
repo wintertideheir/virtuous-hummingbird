@@ -90,7 +90,9 @@ positionNodes' :: Int -> Int -> V.Vector Node -> NodePositions -> NodePositions
 positionNodes' l n ns m =
   if V.null ns
   then m
-  else positionNodes' (l + 1) (n + 4) (V.drop n ns)
+  else positionNodes' l' (ceiling (pi / (asin (minNodeDist / (2 * nodeDist'))))) (V.drop n ns)
                      (positionCircle nodeDist (min n (V.length ns)) ns m 0 nodeDist)
     where
+      l' = l + 1
       nodeDist = (fromIntegral l) * minNodeDist
+      nodeDist' = (fromIntegral l') * minNodeDist
