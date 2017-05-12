@@ -64,35 +64,27 @@ data Position = Position { x :: Float
 
 type NodePositions = M.Map Node Position
 
-minEdgeLen :: Float
-minEdgeLen = 2
-
-nodeDiameter :: Float
-nodeDiameter = 1
-
-minNodeDist :: Float
-minNodeDist = nodeDiameter + minEdgeLen
-
-positionCircle :: Float -> Int -> V.Vector Node -> NodePositions -> Float -> Float -> NodePositions
-positionCircle r n ns m x y =
-  if V.null ns
-  then m
-  else positionCircle r n (V.tail ns) (M.insert (V.head ns) (Position x y) m) (c*x - s*y) (s*x + c*y)
+positionNodes :: Float -> V.Vector Node -> NodePositions
+positionNodes minNodeDist ns =
+  if minNodeDist < 1
+  then undefined
+  else positionNodes' 0 1 ns M.empty
     where
-      theta = 2 * (pi :: Float) / (fromIntegral n)
-      c = cos theta
-      s = sin theta
-
-positionNodes :: V.Vector Node -> NodePositions
-positionNodes ns = positionNodes' 0 1 ns M.empty
-
-positionNodes' :: Int -> Int -> V.Vector Node -> NodePositions -> NodePositions
-positionNodes' l n ns m =
-  if V.null ns
-  then m
-  else positionNodes' l' (ceiling (pi / (asin (minNodeDist / (2 * nodeDist'))))) (V.drop n ns)
-                     (positionCircle nodeDist (min n (V.length ns)) ns m 0 nodeDist)
-    where
-      l' = l + 1
-      nodeDist = (fromIntegral l) * minNodeDist
-      nodeDist' = (fromIntegral l') * minNodeDist
+      positionNodes' l n ns m =
+        if V.null ns
+        then m
+        else positionNodes' l' (ceiling (pi / (asin (minNodeDist / (2 * nodeDist')))))
+             (V.drop n ns) (positionCircle ns m 0 nodeDist)
+          where
+            l' = l + 1
+            nMin = min n (V.length ns)
+            nodeDist = (fromIntegral l) * minNodeDist
+            nodeDist' = (fromIntegral l') * minNodeDist
+            theta = 2 * (pi :: Float) / (fromIntegral nMin)
+            c = cos theta
+            s = sin theta
+            positionCircle ns m x y =
+              if V.null ns
+              then m
+              else positionCircle (V.tail ns) (M.insert (V.head ns) (Position x y) m)
+                                  (c*x - s*y) (s*x + c*y)
