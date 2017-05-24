@@ -3,10 +3,9 @@ module Aikaterine where
 import qualified Data.Text as T
 import Data.Graph.Inductive
 import qualified Data.Vector as V
-import qualified Data.Map as M
+import qualified Data.IntMap as IM
 
 newtype RegionIdentifier = RegionIdentifier (V.Vector T.Text)
-  deriving (Eq, Ord)
 
 regionIdentifier :: T.Text -> Maybe RegionIdentifier
 regionIdentifier pri =
@@ -16,10 +15,13 @@ regionIdentifier pri =
     where
       pri' = T.split (=='.') pri
 
-data Idea n = Idea { region     :: RegionIdentifier
+data Idea n = Idea { region     :: IM.Key
                    , name       :: T.Text
                    , value      :: n }
 
 newtype Relation = Relation T.Text
 
-newtype KnowledgeGraph n = KnowledgeGraph (Gr (Idea n) Relation)
+data KnowledgeGraph n =
+  KnowledgeGraph { regionM :: IM.IntMap RegionIdentifier
+                 , relationM :: IM.IntMap Relation
+                 , graph :: Gr (Idea n) IM.Key }
