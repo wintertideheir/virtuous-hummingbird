@@ -15,6 +15,9 @@ regionIdentifier pri =
     where
       pri' = T.split (=='.') pri
 
+data Position = Position { x :: Float
+                         , y :: Float }
+
 data Idea n = Idea { region     :: IM.Key
                    , name       :: T.Text
                    , value      :: n }
@@ -24,4 +27,5 @@ newtype Relation = Relation T.Text
 data KnowledgeGraph n =
   KnowledgeGraph { regionM :: IM.IntMap RegionIdentifier
                  , relationM :: IM.IntMap Relation
+                 , positionM :: IM.IntMap Position
                  , graph :: Gr (Idea n) IM.Key }
