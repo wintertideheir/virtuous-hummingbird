@@ -18,6 +18,11 @@ regionIdentifier pri =
 data Position = Position { x :: Float
                          , y :: Float }
 
+type NodePositions = IM.IntMap Position
+
+data KdTree = Branch Float KdTree KdTree
+            | Leaf NodePositions
+
 data Idea n = Idea { region     :: IM.Key
                    , name       :: T.Text
                    , value      :: n }
@@ -27,5 +32,5 @@ newtype Relation = Relation T.Text
 data KnowledgeGraph n =
   KnowledgeGraph { regionM :: IM.IntMap RegionIdentifier
                  , relationM :: IM.IntMap Relation
-                 , positionM :: IM.IntMap Position
+                 , kdTree :: KdTree
                  , graph :: Gr (Idea n) IM.Key }
