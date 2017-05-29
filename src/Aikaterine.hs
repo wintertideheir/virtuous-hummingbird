@@ -34,3 +34,8 @@ data KnowledgeGraph n =
                  , relationM :: IM.IntMap Relation
                  , kdTree :: KdTree
                  , graph :: Gr (Idea n) IM.Key }
+
+data GraphView = GraphView { center :: Position
+                           , radius :: Float
+                           , minRadius :: Float
+                           , maxRadius :: Float }
