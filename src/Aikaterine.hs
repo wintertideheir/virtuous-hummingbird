@@ -23,19 +23,18 @@ type NodePositions = IM.IntMap Position
 data KdTree = Branch Float KdTree KdTree
             | Leaf NodePositions
 
-data Idea n = Idea { region     :: IM.Key
-                   , name       :: T.Text
-                   , value      :: n }
+data Idea n = Idea { region :: IM.Key
+                   , name   :: T.Text
+                   , value  :: n }
 
 newtype Relation = Relation T.Text
 
-data KnowledgeGraph n =
-  KnowledgeGraph { regionM :: IM.IntMap RegionIdentifier
-                 , relationM :: IM.IntMap Relation
-                 , kdTree :: KdTree
-                 , graph :: Gr (Idea n) IM.Key }
+data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
+                                       , relationM :: IM.IntMap Relation
+                                       , kdTree    :: KdTree
+                                       , graph     :: Gr (Idea n) IM.Key }
 
-data GraphView = GraphView { center :: Position
-                           , radius :: Float
+data GraphView = GraphView { center    :: Position
+                           , radius    :: Float
                            , minRadius :: Float
                            , maxRadius :: Float }
