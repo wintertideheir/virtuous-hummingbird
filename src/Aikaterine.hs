@@ -6,6 +6,7 @@ import qualified Data.Text as T
 import Data.Graph.Inductive
 import qualified Data.Vector as V
 import qualified Data.IntMap as IM
+import qualified Data.Word as W
 
 -- |A sequence of identifiers denoting a category of ideas, or a region
 -- spatially/aesthetically.
@@ -62,10 +63,7 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
 -- |An auxiliary type to help drawing the graph in center-radius form.
 data GraphView = GraphView { center    :: Position
                            -- ^The center of the graph view.
-                           , radius    :: Float
-                           -- ^The radius of visibility.
-                           , minRadius :: Float
-                           -- ^The minimum radius of visibility.
-                           , maxRadius :: Float
-                           -- ^The maximum radius of visibility.
+                           , radius    :: W.Word
+                           -- ^The radius of visibility, as a multiple of the
+                           -- radius of a point (which is always 1).
                            }
