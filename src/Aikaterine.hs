@@ -38,7 +38,13 @@ data Circle = Circle { center    :: Position
                      -- ^The radius of visibility.
                      }
 
--- |A k-d tree of 'NodePositions'.
+-- |A k-d tree of 'NodePositions'. The 'Branch' constructor has a 'Float'
+-- parameter, which gives the line of seperation of the branch. The line of
+-- seperation is either x=n or y=n, depending on the depth of the branch. The
+-- axis of the line of seperation alternates every depth, and the root of the
+-- tree is always seperated by a line x=n. The first KdTree is the tree of all
+-- points on or above/right of the line of seperation. The second KdTree is the
+-- tree of all points below/right of the line of seperation.
 data KdTree = Branch Float KdTree KdTree
             | Leaf NodePositions
 
