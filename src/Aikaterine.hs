@@ -31,6 +31,13 @@ data Position = Position { x :: Float
 -- to 'IM.IntMap' (which is more performant).
 type NodePositions = IM.IntMap Position
 
+-- |A circle in center-radius form.
+data Circle = Circle { center    :: Position
+                     -- ^The center of the circle.
+                     , radius    :: Float
+                     -- ^The radius of visibility.
+                     }
+
 -- |A k-d tree of 'NodePositions'.
 data KdTree = Branch Float KdTree KdTree
             | Leaf NodePositions
@@ -59,11 +66,3 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
                                        -- ^A graph of 'Idea's and the relations
                                        -- between them.
                                        }
-
--- |An auxiliary type to help drawing the graph in center-radius form.
-data GraphView = GraphView { center    :: Position
-                           -- ^The center of the graph view.
-                           , radius    :: W.Word
-                           -- ^The radius of visibility, as a multiple of the
-                           -- radius of a point (which is always 1).
-                           }
