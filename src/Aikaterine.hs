@@ -38,15 +38,11 @@ data Circle = Circle { center    :: Position
                      -- ^The radius of visibility.
                      }
 
--- |A k-d tree of 'NodePositions'. The 'Branch' constructor has a 'Float'
--- parameter, which gives the line of seperation of the branch. The line of
--- seperation is either x=n or y=n, depending on the depth of the branch. The
--- axis of the line of seperation alternates every depth, and the root of the
--- tree is always seperated by a line x=n. The first KdTree is the tree of all
--- points on or above/right of the line of seperation. The second KdTree is the
--- tree of all points below/right of the line of seperation.
-data KdTree = Branch Float KdTree KdTree
-            | Leaf NodePositions
+-- |A quad tree of 'NodePositions'. The 'Branch' constructor has four 'KdTree'
+-- parameters, which correspond to the up-left, up-right, down-left and
+-- down-right quadrants respectively.
+data QuadTree = Branch QuadTree QuadTree QuadTree QuadTree
+              | Leaf NodePositions
 
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
@@ -65,9 +61,8 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
                                        , relationM :: IM.IntMap Relation
                                        -- ^A mapping of 'Int' indices to
                                        -- 'Relation's (for performance).
-                                       , kdTree    :: KdTree
-                                       -- ^A field to store and query the
-                                       -- 'Position's of 'Idea's.
+                                       , quadTree  :: QuadTree
+                                       -- ^A spatial database of Idea's.
                                        , graph     :: Gr (Idea n) IM.Key
                                        -- ^A graph of 'Idea's and the relations
                                        -- between them.
