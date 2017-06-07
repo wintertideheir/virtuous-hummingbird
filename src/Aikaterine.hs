@@ -31,11 +31,11 @@ data Position = Position { x :: Float
 -- to 'IM.IntMap' (which is more performant).
 type NodePositions = IM.IntMap Position
 
--- |A circle in center-radius form.
-data Circle = Circle { center    :: Position
-                     -- ^The center of the circle.
-                     , radius    :: Float
-                     -- ^The radius of visibility.
+-- |A square.
+data Square = Square { center    :: Position
+                     -- ^The center of the square.
+                     , side      :: Float
+                     -- ^The length of a side.
                      }
 
 -- |A quad tree of 'NodePositions'. The 'Branch' constructor has four 'KdTree'
@@ -61,7 +61,7 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
                                        , relationM :: IM.IntMap Relation
                                        -- ^A mapping of 'Int' indices to
                                        -- 'Relation's (for performance).
-                                       , quadTree  :: QuadTree
+                                       , quadTree  :: (Square, QuadTree)
                                        -- ^A spatial database of Idea's.
                                        , graph     :: Gr (Idea n) IM.Key
                                        -- ^A graph of 'Idea's and the relations
