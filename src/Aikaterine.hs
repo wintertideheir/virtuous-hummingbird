@@ -38,12 +38,6 @@ data Square = Square { center    :: Position
                      -- ^The length of a side.
                      }
 
--- |A quad tree of 'NodePositions'. The 'Branch' constructor has four 'KdTree'
--- parameters, which correspond to the up-left, up-right, down-left and
--- down-right quadrants respectively.
-data QuadTree = Branch QuadTree QuadTree QuadTree QuadTree
-              | Leaf NodePositions
-
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
                    , name   :: T.Text -- ^An optional name.
@@ -61,7 +55,7 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
                                        , relationM :: IM.IntMap Relation
                                        -- ^A mapping of 'Int' indices to
                                        -- 'Relation's (for performance).
-                                       , quadTree  :: (Square, QuadTree)
+                                       , nodes     :: NodePositions
                                        -- ^A spatial database of Idea's.
                                        , graph     :: Gr (Idea n) IM.Key
                                        -- ^A graph of 'Idea's and the relations
