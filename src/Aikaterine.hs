@@ -38,6 +38,11 @@ data Rectangle = Rectangle { corner1 :: Position
                            -- ^The upper-right corner.
                            }
 
+-- |Determine if a a 'Position' is inside a 'Rectangle'.
+inBounds :: Position -> Rectangle -> Bool
+inBounds p (Rectangle c1 c2) =
+  (((x p) >= (x c1)) && ((x p) <= (x c2))) && (((y p) >= (y c1)) && ((y p) <= (y c2)))
+
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
                    , name   :: T.Text -- ^An optional name.
