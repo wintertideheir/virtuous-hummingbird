@@ -31,12 +31,12 @@ data Position = Position { x :: Float
 -- to 'IM.IntMap' (which is more performant).
 type NodePositions = IM.IntMap Position
 
--- |A square.
-data Square = Square { center    :: Position
-                     -- ^The center of the square.
-                     , side      :: Float
-                     -- ^The length of a side.
-                     }
+-- |A rectangle.
+data Rectangle = Rectangle { corner1 :: Position
+                           -- ^The lower-left corner.
+                           , corner2 :: Position
+                           -- ^The upper-right corner.
+                           }
 
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
