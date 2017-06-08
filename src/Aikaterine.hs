@@ -38,6 +38,18 @@ data Rectangle = Rectangle { corner1 :: Position
                            -- ^The upper-right corner.
                            }
 
+-- |Smart constructor for 'Rectangle'. Ensures that the rectangle obeys the
+-- invariant that the first 'Position' is the lower-left corner, and the second
+-- 'Position' the upper-right corner.
+rectangle :: Position -> Position -> Rectangle
+rectangle p1 p2 =
+  Rectangle (Position lx ly) (Position gx gy)
+    where
+      lx = min (x p1) (x p2)
+      ly = min (y p1) (y p2)
+      gx = max (x p1) (x p2)
+      gy = max (y p1) (y p2)
+
 -- |Determine if a a 'Position' is inside a 'Rectangle'.
 inBounds :: Position -> Rectangle -> Bool
 inBounds p (Rectangle c1 c2) =
