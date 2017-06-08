@@ -24,7 +24,8 @@ regionIdentifier pri =
 
 -- |A coordinate, point or position in the Cartesian coordinate system.
 data Position = Position { x :: Float
-                         , y :: Float }
+                         , y :: Float
+                         }
 
 -- |A mapping of 'Node's (i.e. 'Idea's) to 'Position's. 'Node's are type
 -- synonyms for 'Int's, therefore 'Data.Map.Map' 'Node' 'Position' is equivalent
@@ -53,7 +54,8 @@ rectangle p1 p2 =
 -- |Determine if a a 'Position' is inside a 'Rectangle'.
 inBounds :: Position -> Rectangle -> Bool
 inBounds p (Rectangle c1 c2) =
-  (((x p) >= (x c1)) && ((x p) <= (x c2))) && (((y p) >= (y c1)) && ((y p) <= (y c2)))
+  ((x p) >= (x c1)) && ((x p) <= (x c2)) &&
+  ((y p) >= (y c1)) && ((y p) <= (y c2))
 
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
