@@ -33,45 +33,39 @@ data Position = Position { x :: Float
 type NodePositions = IM.IntMap Position
 
 -- |A rectangle.
-data Rectangle = Rectangle { corner1 :: Position
-                           -- ^The lower-left corner.
-                           , corner2 :: Position
-                           -- ^The upper-right corner.
+data Rectangle = Rectangle { center :: Position
+                           -- ^The center.
+                           , offset :: Position
+                           -- ^The offset from the center.
                            }
 
 -- |Smart constructor for 'Rectangle'. Ensures that the rectangle obeys the
--- invariant that the first 'Position' is the lower-left corner, and the second
--- 'Position' the upper-right corner.
+-- invariant that the offset is in the first quadrant.
 rectangle :: Position -> Position -> Rectangle
-rectangle p1 p2 =
-  Rectangle (Position lx ly) (Position gx gy)
-    where
-      lx = min (x p1) (x p2)
-      ly = min (y p1) (y p2)
-      gx = max (x p1) (x p2)
-      gy = max (y p1) (y p2)
+rectangle c o = Rectangle c (Position (abs (x o)) (abs (y o)))
 
 -- |Scale a rectangle about it's center.
 scale :: Rectangle -> W.Word -> Rectangle
-scale (Rectangle (Position x1 y1) (Position x2 y2)) s =
-  Rectangle (Position (scalex x1) (scaley y1)) (Position (scalex x2) (scaley y2))
+scale (Rectangle c o) s =
+  Rectangle c (Position ((x o) * si) ((y o) * si))
     where
-      scalex c = (si * (c - centerx)) + centerx
-      centerx = (x1 + x2) / 2
-      scaley c = (si * (c - centery)) + centery
-      centery = (y1 + y2) / 2
       si = fromIntegral s
 
 -- |Move a rectangle.
 move :: Rectangle -> Position -> Rectangle
-move (Rectangle (Position x1 y1) (Position x2 y2)) p =
-  Rectangle (Position (x1 + (x p)) (y1 + (y p))) (Position (x2 + (x p)) (y2 + (y p)))
+move (Rectangle (Position cx cy) o) d =
+  Rectangle (Position (cx + (x d)) (cy + (y d))) o
 
 -- |Determine if a a 'Position' is inside a 'Rectangle'.
 inBounds :: Position -> Rectangle -> Bool
-inBounds p (Rectangle c1 c2) =
-  ((x p) >= (x c1)) && ((x p) <= (x c2)) &&
-  ((y p) >= (y c1)) && ((y p) <= (y c2))
+inBounds p (Rectangle (Position cx cy) (Position ox oy)) =
+  ((x p) >= p1x) && ((x p) <= p2x) &&
+  ((y p) >= p1y) && ((y p) <= p2y)
+    where
+      p1x = cx - ox
+      p1y = cx - oy
+      p2x = cx + ox
+      p2y = cx + oy
 
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
