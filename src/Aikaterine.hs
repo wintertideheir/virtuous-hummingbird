@@ -45,11 +45,11 @@ rectangle :: Position -> Position -> Rectangle
 rectangle c o = Rectangle c (Position (abs (x o)) (abs (y o)))
 
 -- |Scale a rectangle about it's center.
-scale :: Rectangle -> W.Word -> Rectangle
+scale :: Rectangle -> Float -> Rectangle
 scale (Rectangle c o) s =
   Rectangle c (Position ((x o) * si) ((y o) * si))
     where
-      si = fromIntegral s
+      si = abs s
 
 -- |Move a rectangle.
 move :: Rectangle -> Position -> Rectangle
