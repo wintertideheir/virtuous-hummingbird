@@ -51,6 +51,22 @@ rectangle p1 p2 =
       gx = max (x p1) (x p2)
       gy = max (y p1) (y p2)
 
+-- |Scale a rectangle about it's center.
+scale :: Rectangle -> W.Word -> Rectangle
+scale (Rectangle (Position x1 y1) (Position x2 y2)) s =
+  Rectangle (Position (scalex x1) (scaley y1)) (Position (scalex x2) (scaley y2))
+    where
+      scalex c = (si * (c - centerx)) + centerx
+      centerx = (x1 + x2) / 2
+      scaley c = (si * (c - centery)) + centery
+      centery = (y1 + y2) / 2
+      si = fromIntegral s
+
+-- |Move a rectangle.
+move :: Rectangle -> Position -> Rectangle
+move (Rectangle (Position x1 y1) (Position x2 y2)) p =
+  Rectangle (Position (x1 + (x p)) (y1 + (y p))) (Position (x2 + (x p)) (y2 + (y p)))
+
 -- |Determine if a a 'Position' is inside a 'Rectangle'.
 inBounds :: Position -> Rectangle -> Bool
 inBounds p (Rectangle c1 c2) =
