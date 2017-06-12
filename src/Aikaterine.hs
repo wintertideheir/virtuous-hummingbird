@@ -56,17 +56,6 @@ move :: Rectangle -> Position -> Rectangle
 move (Rectangle (Position cx cy) o) d =
   Rectangle (Position (cx + (x d)) (cy + (y d))) o
 
--- |Determine if a a 'Position' is inside a 'Rectangle'.
-inBounds :: Position -> Rectangle -> Bool
-inBounds p (Rectangle (Position cx cy) (Position ox oy)) =
-  ((x p) >= p1x) && ((x p) <= p2x) &&
-  ((y p) >= p1y) && ((y p) <= p2y)
-    where
-      p1x = cx - ox
-      p1y = cx - oy
-      p2x = cx + ox
-      p2y = cx + oy
-
 -- |An thought, argument or assertion.
 data Idea n = Idea { region :: IM.Key -- ^The map key of a category or region.
                    , name   :: T.Text -- ^An optional name.
@@ -90,3 +79,17 @@ data KnowledgeGraph n = KnowledgeGraph { regionM   :: IM.IntMap RegionIdentifier
                                        -- ^A graph of 'Idea's and the relations
                                        -- between them.
                                        }
+
+-- |Find all 'Node's of a 'KnowledgeGraph' and their 'Position's within a
+-- 'Rectangle'.
+inBounds :: KnowledgeGraph n -> Rectangle -> NodePositions
+inBounds kn (Rectangle (Position cx cy) (Position ox oy)) =
+  IM.filter inBounds' (Aikaterine.nodes kn)
+    where
+      inBounds' p =
+        ((x p) >= p1x) && ((x p) <= p2x) &&
+        ((y p) >= p1y) && ((y p) <= p2y)
+      p1x = cx - ox
+      p1y = cx - oy
+      p2x = cx + ox
+      p2y = cx + oy
