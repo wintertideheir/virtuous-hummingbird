@@ -5,6 +5,11 @@
 
 #define return_ glfwTerminate(); return 0;
 
+void framebufferSizeCallback(GLFWwindow *w, int x, int y)
+{
+  glViewport(0, 0, x, y);
+}
+
 int main(int argc, char const *argv[])
 {
   if(!glfwInit())
@@ -39,6 +44,7 @@ int main(int argc, char const *argv[])
   int sizex, sizey;
   glfwGetFramebufferSize(window, &sizex, &sizey);
   glViewport(0, 0, sizex, sizey);
+  glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
 
   while (!glfwWindowShouldClose(window)) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
