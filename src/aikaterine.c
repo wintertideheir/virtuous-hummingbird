@@ -1,14 +1,6 @@
+#include "aikaterine.h"
+
 #include <glib.h>
-
-struct Position {
-  float x;
-  float y;
-};
-
-struct Rectangle {
-  struct Position center;
-  struct Position offset;
-};
 
 struct Edge {
   int relation;
