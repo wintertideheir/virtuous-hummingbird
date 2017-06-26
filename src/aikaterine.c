@@ -17,12 +17,12 @@ struct Edge {
 
 struct Vertex {
   int region;
-  struct Edge* edges;
+  GArray edges;
   const char* idea;
 };
 
 struct KnowledgeGraph {
   GHashTable* relationMap;
   GHashTable* regionMap;
-  struct Vertex* graph;
+  GArray graph;
 };
