@@ -10,4 +10,7 @@ struct Rectangle {
   struct Position offset;
 };
 
-struct KnowledgeGraph;
+typedef struct KnowledgeGraph KnowledgeGraph;
+
+KnowledgeGraph* knowledge_graph_new();
+void knowledge_graph_free(KnowledgeGraph*);
