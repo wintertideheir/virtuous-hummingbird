@@ -15,21 +15,21 @@ struct Vertex {
 };
 
 struct KnowledgeGraph {
-  GHashTable* relationMap;
-  GHashTable* regionMap;
+  GArray* relations;
+  GArray* regions;
   GArray* graph;
 };
 
 KnowledgeGraph* knowledge_graph_new() {
   KnowledgeGraph* kn = malloc(sizeof(KnowledgeGraph));
-  kn->relationMap = g_hash_table_new(g_int_hash, g_int_equal);
-  kn->regionMap = g_hash_table_new(g_int_hash, g_int_equal);
+  kn->relations = g_array_new(FALSE, FALSE, sizeof(const char*));
+  kn->regions = g_array_new(FALSE, FALSE, sizeof(const char*));
   kn->graph = g_array_new(FALSE, FALSE, sizeof(int));
 }
 
 void knowledge_graph_free(KnowledgeGraph* kn) {
-  g_hash_table_destroy(kn->relationMap);
-  g_hash_table_destroy(kn->relationMap);
+  g_array_free(kn->relations, TRUE);
+  g_array_free(kn->regions, TRUE);
   g_array_free(kn->graph, TRUE);
   free(kn);
 }
