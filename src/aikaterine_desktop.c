@@ -22,7 +22,7 @@ GLuint createShader(GLenum type, GLsizei number,
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &size);
     GLchar info[size];
     glGetShaderInfoLog(shader, size, NULL, info);
-    fprintf(stderr, "OpenGL shader failed to compile (%s)", info);
+    fprintf(stderr, "OpenGL shader failed to compile\n%s", info);
 
 	  glDeleteShader(shader);
     glfwTerminate();
@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
   GLenum glewStatus = glewInit();
   if (glewStatus != GLEW_OK)
   {
-    fprintf(stderr, "GLEW failed to initialize (%s)\n",
+    fprintf(stderr, "GLEW failed to initialize: %s\n",
             glewGetErrorString(glewStatus));
     return_;
   }
