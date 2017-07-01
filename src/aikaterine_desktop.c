@@ -2,8 +2,35 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define return_ glfwTerminate(); return 0;
+
+GLuint createShader(GLenum type, GLsizei number,
+                    const GLchar **code, const GLint *length)
+{
+  GLuint shader = glCreateShader(type);
+  glShaderSource(shader, number, code, length);
+  glCompileShader(shader);
+
+  GLint success = 0;
+  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
+  if (success == GL_FALSE)
+  {
+    GLint size = 0;
+    glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &size);
+    GLchar info[size];
+    glGetShaderInfoLog(shader, size, NULL, info);
+    fprintf(stderr, "OpenGL shader failed to compile (%s)", info);
+
+	  glDeleteShader(shader);
+    glfwTerminate();
+    exit(EXIT_FAILURE);
+  }
+
+  return shader;
+};
 
 void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
