@@ -6,6 +6,9 @@
 
 #define return_ glfwTerminate(); return 0;
 
+int windowX = 800;
+int windowY = 600;
+
 GLuint createShader(GLenum type, GLsizei number,
                     const GLchar **code, const GLint *length)
 {
@@ -34,6 +37,8 @@ GLuint createShader(GLenum type, GLsizei number,
 
 void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
+  windowX = x;
+  windowY = y;
   glViewport(0, 0, x, y);
 }
 
@@ -50,7 +55,7 @@ int main(int argc, char const *argv[])
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-  GLFWwindow* window = glfwCreateWindow(800, 600, "Aikaterine", NULL, NULL);
+  GLFWwindow* window = glfwCreateWindow(windowX, windowY, "Aikaterine", NULL, NULL);
   if (window == NULL)
   {
     fprintf(stderr, "GLFW failed to create new window\n");
