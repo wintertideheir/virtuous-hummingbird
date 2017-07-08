@@ -135,7 +135,6 @@ int main(int argc, char const *argv[])
   glUniform1f(scaleUniform, scale);
   glUniform1i(windowXUniform, windowX);
   glUniform1i(windowYUniform, windowY);
-  glUseProgram(0);
 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
@@ -168,7 +167,6 @@ int main(int argc, char const *argv[])
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
