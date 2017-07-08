@@ -6,8 +6,14 @@
 
 #define return_ glfwTerminate(); return 0;
 
+const float scale = 25;
+
 int windowX = 800;
 int windowY = 600;
+
+GLint scaleUniform;
+GLint windowXUniform;
+GLint windowYUniform;
 
 GLuint createShader(GLenum type, GLsizei number,
                     const GLchar **code, const GLint *length)
@@ -39,6 +45,8 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
   windowX = x;
   windowY = y;
+  glUniform1i(windowXUniform, x);
+  glUniform1i(windowYUniform, y);
   glViewport(0, 0, x, y);
 }
 
@@ -81,9 +89,12 @@ int main(int argc, char const *argv[])
   const GLchar* vertexShaderCode =
     "#version 330 core\n"
     "layout (location = 0) in vec3 pos;\n"
+    "uniform float scale;\n"
+    "uniform int windowX;\n"
+    "uniform int windowY;\n"
     "void main()\n"
     "{\n"
-    "    gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);\n"
+    "    gl_Position = vec4(scale * pos.xy / vec2(windowX, windowY), pos.z, 1.0);\n"
     "}\n";
 
   const GLchar* fragmentShaderCode =
@@ -115,6 +126,16 @@ int main(int argc, char const *argv[])
     glfwTerminate();
     exit(EXIT_FAILURE);
   }
+
+  scaleUniform = glGetUniformLocation(shaderProgram, "scale");
+  windowXUniform = glGetUniformLocation(shaderProgram, "windowX");
+  windowYUniform = glGetUniformLocation(shaderProgram, "windowY");
+
+  glUseProgram(shaderProgram);
+  glUniform1f(scaleUniform, scale);
+  glUniform1i(windowXUniform, windowX);
+  glUniform1i(windowYUniform, windowY);
+  glUseProgram(0);
 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
