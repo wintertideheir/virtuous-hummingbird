@@ -81,11 +81,6 @@ int main(int argc, char const *argv[])
     return_;
   }
 
-  int sizex, sizey;
-  glfwGetFramebufferSize(window, &sizex, &sizey);
-  glViewport(0, 0, sizex, sizey);
-  glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
-
   const GLchar* vertexShaderCode =
     "#version 330 core\n"
     "layout (location = 0) in vec3 pos;\n"
@@ -135,6 +130,11 @@ int main(int argc, char const *argv[])
   glUniform1f(scaleUniform, scale);
   glUniform1i(windowXUniform, windowX);
   glUniform1i(windowYUniform, windowY);
+
+  int sizex, sizey;
+  glfwGetFramebufferSize(window, &sizex, &sizey);
+  glViewport(0, 0, sizex, sizey);
+  glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
