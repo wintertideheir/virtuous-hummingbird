@@ -70,6 +70,7 @@ int main(int argc, char const *argv[])
     return_;
   }
 
+  glfwSetWindowSizeLimits(window, windowX, windowY, GLFW_DONT_CARE, GLFW_DONT_CARE);
   glfwMakeContextCurrent(window);
 
   glewExperimental = GL_TRUE;
