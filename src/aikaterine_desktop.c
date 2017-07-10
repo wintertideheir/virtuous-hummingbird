@@ -3,10 +3,13 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define return_ glfwTerminate(); return 0;
 
-const float scale = 25;
+const float minScale = 5;
+const float maxScale = 25;
+float scale = 15;
 
 int windowX = 800;
 int windowY = 600;
@@ -50,6 +53,12 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
   glViewport(0, 0, x, y);
 }
 
+void scrollCallback(GLFWwindow* w, double x, double y)
+{
+  scale = fmin(fmax(scale+x, minScale), maxScale);
+  glUniform1f(scaleUniform, scale);
+}
+
 int main(int argc, char const *argv[])
 {
   if(!glfwInit())
@@ -90,7 +99,7 @@ int main(int argc, char const *argv[])
     "uniform int windowY;\n"
     "void main()\n"
     "{\n"
-    "    gl_Position = vec4(scale * pos.xy / vec2(windowX, windowY), pos.z, 1.0);\n"
+    "    gl_Position = vec4(5 * scale * pos.xy / vec2(windowX, windowY), pos.z, 1.0);\n"
     "}\n";
 
   const GLchar* fragmentShaderCode =
@@ -136,6 +145,7 @@ int main(int argc, char const *argv[])
   glfwGetFramebufferSize(window, &sizex, &sizey);
   glViewport(0, 0, sizex, sizey);
   glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
+  glfwSetScrollCallback(window, &scrollCallback);
 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
