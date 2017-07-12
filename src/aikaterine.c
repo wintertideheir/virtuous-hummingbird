@@ -28,13 +28,24 @@ KnowledgeGraph* knowledge_graph_new() {
 }
 
 void knowledge_graph_add(KnowledgeGraph* kn, int region, const char* idea) {
+  for (guint i = 0; i < kn->graph->len; i++) {
+    struct Vertex* v = &g_array_index(kn->graph, struct Vertex, i);
+    if (v->region == -1) {
+      v->region = region;
+      v->edges = g_array_new(FALSE, FALSE, sizeof(struct Edge));
+      v->idea = idea;
+      return;
+    }
+  }
   struct Vertex v = { region, g_array_new(FALSE, FALSE, sizeof(struct Edge)), idea };
   g_array_append_val(kn->graph, v);
 }
 
 void knowledge_graph_remove(KnowledgeGraph* kn, int vertex) {
-  g_array_free(g_array_index(kn->graph, struct Vertex, vertex).edges, TRUE);
-  g_array_remove_index_fast(kn->graph, vertex);
+  struct Vertex* v = &g_array_index(kn->graph, struct Vertex, vertex);
+  v->region = -1;
+  g_array_free(v->edges, TRUE);
+  free(v->idea);
 }
 
 void knowledge_graph_relate(KnowledgeGraph* kn, int from, int to, int relation) {
