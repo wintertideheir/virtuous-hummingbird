@@ -20,11 +20,17 @@ struct KnowledgeGraph {
   GArray* graph;
 };
 
+void vertex_destructor(struct Vertex v) {
+  g_array_free(v.edges, TRUE);
+  free(v.idea);
+}
+
 KnowledgeGraph* knowledge_graph_new() {
   KnowledgeGraph* kn = malloc(sizeof(KnowledgeGraph));
   kn->relations = g_array_new(FALSE, FALSE, sizeof(const char*));
   kn->regions = g_array_new(FALSE, FALSE, sizeof(const char*));
   kn->graph = g_array_new(FALSE, FALSE, sizeof(struct Vertex));
+  g_array_set_clear_func(kn->graph, vertex_destructor);
 }
 
 void knowledge_graph_add(KnowledgeGraph* kn, int region, const char* idea) {
