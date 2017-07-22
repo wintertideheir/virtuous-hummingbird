@@ -15,5 +15,6 @@ typedef struct KnowledgeGraph KnowledgeGraph;
 KnowledgeGraph* knowledge_graph_new();
 void knowledge_graph_add(KnowledgeGraph*, int, const char*);
 void knowledge_graph_remove(KnowledgeGraph*, int);
-void knowledge_graph_relate(KnowledgeGraph*, int, int, int);
+void knowledge_graph_connect(KnowledgeGraph*, int, int, int);
+void knowledge_graph_disconnect(KnowledgeGraph*, int, int, int);
 void knowledge_graph_free(KnowledgeGraph*);
