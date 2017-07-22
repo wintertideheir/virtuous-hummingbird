@@ -58,7 +58,7 @@ void knowledge_graph_remove(KnowledgeGraph* kn, int vertex) {
       struct Edge edge = g_array_index(e, struct Edge, y);
       if (edge.vertex == vertex)
       {
-        g_array_remove_index_fast(edges, y);
+        g_array_remove_index_fast(e, y);
       }
     }
   }
