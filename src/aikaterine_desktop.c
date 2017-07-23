@@ -14,6 +14,8 @@ float scale = 15;
 int windowX = 800;
 int windowY = 600;
 
+GLint shaderProgram;
+
 GLint scaleUniform;
 GLint windowXUniform;
 GLint windowYUniform;
@@ -48,15 +50,15 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
   windowX = x;
   windowY = y;
-  glUniform1i(windowXUniform, x);
-  glUniform1i(windowYUniform, y);
+  glProgramUniform1i(shaderProgram, windowXUniform, x);
+  glProgramUniform1i(shaderProgram, windowYUniform, y);
   glViewport(0, 0, x, y);
 }
 
 void scrollCallback(GLFWwindow* w, double x, double y)
 {
   scale = fmin(fmax(scale+x, minScale), maxScale);
-  glUniform1f(scaleUniform, scale);
+  glProgramUniform1f(shaderProgram, scaleUniform, scale);
 }
 
 int main(int argc, char const *argv[])
@@ -113,7 +115,7 @@ int main(int argc, char const *argv[])
   GLuint vertexShader = createShader(GL_VERTEX_SHADER, 1, &vertexShaderCode, NULL);
   GLuint fragmentShader = createShader(GL_FRAGMENT_SHADER, 1, &fragmentShaderCode, NULL);
 
-  GLuint shaderProgram = glCreateProgram();
+  shaderProgram = glCreateProgram();
 
   glAttachShader(shaderProgram, vertexShader);
   glAttachShader(shaderProgram, fragmentShader);
@@ -137,9 +139,9 @@ int main(int argc, char const *argv[])
   windowYUniform = glGetUniformLocation(shaderProgram, "windowY");
 
   glUseProgram(shaderProgram);
-  glUniform1f(scaleUniform, scale);
-  glUniform1i(windowXUniform, windowX);
-  glUniform1i(windowYUniform, windowY);
+  glProgramUniform1f(shaderProgram, scaleUniform, scale);
+  glProgramUniform1i(shaderProgram, windowXUniform, windowX);
+  glProgramUniform1i(shaderProgram, windowYUniform, windowY);
 
   int sizex, sizey;
   glfwGetFramebufferSize(window, &sizex, &sizey);
