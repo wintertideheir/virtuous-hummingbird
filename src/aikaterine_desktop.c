@@ -57,7 +57,7 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 
 void scrollCallback(GLFWwindow* w, double x, double y)
 {
-  scale = fmin(fmax(scale+x, minScale), maxScale);
+  scale = fmin(fmax(scale+y, minScale), maxScale);
   glProgramUniform1f(shaderProgram, scaleUniform, scale);
 }
 
