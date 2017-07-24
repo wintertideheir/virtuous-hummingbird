@@ -12,7 +12,7 @@ struct Vertex {
   int region;
   GArray* edges;
   char* idea;
-  struct Position pos;
+  struct Vector pos;
 };
 
 struct KnowledgeGraph {
@@ -34,7 +34,7 @@ KnowledgeGraph* knowledge_graph_new() {
   g_array_set_clear_func(kn->graph, (GDestroyNotify) vertex_destructor);
 }
 
-void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Position pos) {
+void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Vector pos) {
   for (guint i = 0; i < kn->graph->len; i++) {
     struct Vertex* v = &g_array_index(kn->graph, struct Vertex, i);
     if (v->region == -1) {
