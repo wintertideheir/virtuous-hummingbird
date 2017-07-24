@@ -12,6 +12,7 @@ struct Vertex {
   int region;
   GArray* edges;
   char* idea;
+  struct Position pos;
 };
 
 struct KnowledgeGraph {
@@ -33,17 +34,18 @@ KnowledgeGraph* knowledge_graph_new() {
   g_array_set_clear_func(kn->graph, vertex_destructor);
 }
 
-void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea) {
+void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Position pos) {
   for (guint i = 0; i < kn->graph->len; i++) {
     struct Vertex* v = &g_array_index(kn->graph, struct Vertex, i);
     if (v->region == -1) {
       v->region = region;
       v->edges = g_array_new(FALSE, FALSE, sizeof(struct Edge));
       v->idea = idea;
+      v->pos = pos;
       return;
     }
   }
-  struct Vertex v = { region, g_array_new(FALSE, FALSE, sizeof(struct Edge)), idea };
+  struct Vertex v = { region, g_array_new(FALSE, FALSE, sizeof(struct Edge)), idea, pos };
   g_array_append_val(kn->graph, v);
 }
 
