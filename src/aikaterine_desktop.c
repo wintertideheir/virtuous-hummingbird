@@ -14,7 +14,7 @@ float scale = 15;
 int windowX = 800;
 int windowY = 600;
 
-GLint shaderProgram;
+GLuint shaderProgram;
 
 GLint scaleUniform;
 GLint windowXUniform;
