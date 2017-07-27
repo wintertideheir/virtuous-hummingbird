@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 #define return_ glfwTerminate(); return 0;
 
@@ -15,6 +16,8 @@ int windowX = 800;
 int windowY = 600;
 
 GLuint shaderProgram;
+
+GLint circleTexture;
 
 GLint scaleUniform;
 GLint windowXUniform;
@@ -45,6 +48,63 @@ GLuint createShader(GLenum type, GLsizei number,
 
   return shader;
 };
+
+// Creates a circular texture by the midpoint circle algorithm.
+void generateCircleTexture() {
+  GLsizei length = maxScale * 5;
+  GLubyte texture[length][length][4];
+    // 4th element the alpha value. Here it is used for alignment.
+  memset(texture, 0, sizeof(texture));
+
+  GLubyte colorOuter[3] = {255, 255, 255};
+  GLubyte colorInner[3] = {0, 0, 0};
+
+  #define square(x) ((x) * (x))
+
+  int radius = length/2;
+  int x = radius;
+  int y = 0;
+  int p = square(x - 0.5) + square(y + 1) - square(radius);
+
+  #undef square
+
+  #define draw(a,b) \
+    texture[radius+a][radius-b][0] = colorOuter[0]; \
+    texture[radius+a][radius-b][1] = colorOuter[1]; \
+    texture[radius+a][radius-b][2] = colorOuter[2]; \
+    texture[radius-a][radius-b][0] = colorOuter[0]; \
+    texture[radius-a][radius-b][1] = colorOuter[1]; \
+    texture[radius-a][radius-b][2] = colorOuter[2]; \
+    for (int i = 1-a; i < a; i++) { \
+      texture[radius+i][radius+b][0] = colorInner[0]; \
+      texture[radius+i][radius+b][1] = colorInner[1]; \
+      texture[radius+i][radius+b][2] = colorInner[2]; \
+    } \
+
+  while (x > y)
+  {
+    y++;
+    if (p > 0)
+    {
+      x--;
+      p += 2 * y - 2 * x + 1;
+    } else {
+      p += 2 * y + 1;
+    }
+
+    draw(x,y);
+    draw(x,-y);
+    draw(y,x);
+    draw(y,-x);
+  }
+
+  #undef draw
+
+  glGenTextures(1, &circleTexture);
+  glBindTexture(GL_TEXTURE_2D, circleTexture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, length, length, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+  glGenerateMipmap(GL_TEXTURE_2D);
+}
 
 void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
@@ -99,17 +159,21 @@ int main(int argc, char const *argv[])
     "uniform float scale;\n"
     "uniform int windowX;\n"
     "uniform int windowY;\n"
+    "out vec2 texturePos;\n"
     "void main()\n"
     "{\n"
     "    gl_Position = vec4(5 * scale * pos.xy / vec2(windowX, windowY), 0.0, 1.0);\n"
+    "    texturePos = pos.xy + 0.5;\n"
     "}\n";
 
   const GLchar* fragmentShaderCode =
     "#version 330 core\n"
     "out vec4 FragColor;\n"
+    "in vec2 texturePos;\n"
+    "uniform sampler2D circleTexture;"
     "void main()\n"
     "{\n"
-    "    FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
+    "    FragColor = texture(circleTexture, texturePos);\n"
     "}\n";
 
   GLuint vertexShader = createShader(GL_VERTEX_SHADER, 1, &vertexShaderCode, NULL);
@@ -175,6 +239,8 @@ int main(int argc, char const *argv[])
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
+
+  generateCircleTexture();
 
   while (!glfwWindowShouldClose(window)) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
