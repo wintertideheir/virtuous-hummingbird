@@ -56,8 +56,8 @@ void generateCircleTexture() {
     // 4th element the alpha value. Here it is used for alignment.
   memset(texture, 0, sizeof(texture));
 
-  GLubyte colorOuter[3] = {255, 255, 255};
-  GLubyte colorInner[3] = {0, 0, 0};
+  GLubyte colorOuter[4] = {255, 255, 255, 255};
+  GLubyte colorInner[4] = { 15,  15,  15, 255};
 
   #define square(x) ((x) * (x))
 
@@ -68,21 +68,32 @@ void generateCircleTexture() {
 
   #undef square
 
-  #define draw(a,b) \
-    texture[radius+a][radius-b][0] = colorOuter[0]; \
-    texture[radius+a][radius-b][1] = colorOuter[1]; \
-    texture[radius+a][radius-b][2] = colorOuter[2]; \
-    texture[radius-a][radius-b][0] = colorOuter[0]; \
-    texture[radius-a][radius-b][1] = colorOuter[1]; \
-    texture[radius-a][radius-b][2] = colorOuter[2]; \
-    for (int i = 1-a; i < a; i++) { \
-      texture[radius+i][radius+b][0] = colorInner[0]; \
-      texture[radius+i][radius+b][1] = colorInner[1]; \
-      texture[radius+i][radius+b][2] = colorInner[2]; \
-    } \
+  #define draw(a, b, color) \
+    texture[radius+a][radius+b][0] = color[0]; \
+    texture[radius+a][radius+b][1] = color[1]; \
+    texture[radius+a][radius+b][2] = color[2]; \
+    texture[radius+a][radius+b][3] = color[3]; \
 
-  while (x > y)
+  while (x >= y)
   {
+    if (y != radius) {
+      for (int a = -x+1; a < x; a++) {
+        draw(a, y, colorInner);
+        draw(a, -y, colorInner);
+        draw(y, a, colorInner);
+        draw(-y, a, colorInner);
+      }
+    }
+
+    draw(x, y, colorOuter);
+    draw(x, -y, colorOuter);
+    draw(y, x, colorOuter);
+    draw(y, -x, colorOuter);
+    draw(-x, y, colorOuter);
+    draw(-x, -y, colorOuter);
+    draw(-y, x, colorOuter);
+    draw(-y, -x, colorOuter);
+
     y++;
     if (p > 0)
     {
@@ -91,11 +102,6 @@ void generateCircleTexture() {
     } else {
       p += 2 * y + 1;
     }
-
-    draw(x,y);
-    draw(x,-y);
-    draw(y,x);
-    draw(y,-x);
   }
 
   #undef draw
