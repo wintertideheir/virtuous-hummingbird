@@ -50,66 +50,72 @@ GLuint createShader(GLenum type, GLsizei number,
 };
 
 // Creates a circular texture by the midpoint circle algorithm.
-void generateCircleTexture() {
-  GLsizei length = maxScale * 5;
-  GLubyte texture[length][length][4];
-    // 4th element the alpha value. Here it is used for alignment.
-  memset(texture, 0, sizeof(texture));
+void generateCircleTexture()
+{
+  glGenTextures(1, &circleTexture);
+  glBindTexture(GL_TEXTURE_2D, circleTexture);
+
+  GLsizei maxLength = pow(2, ceil(log(maxScale * 5) / log(2)));
 
   GLubyte colorOuter[4] = {255, 255, 255, 255};
   GLubyte colorInner[4] = { 15,  15,  15, 255};
 
-  #define square(x) ((x) * (x))
+  for (int level = 0; (maxLength / pow(2, level)) >= 1; level++) {
+    GLsizei length = maxLength / pow(2, level);
+    GLubyte texture[length][length][4];
+      // 4th element the alpha value. Here it is used for alignment.
+    memset(texture, 0, sizeof(texture));
 
-  int radius = length/2;
-  int x = radius;
-  int y = 0;
-  int p = square(x - 0.5) + square(y + 1) - square(radius);
+    #define square(x) ((x) * (x))
 
-  #undef square
+    int radius = length/2 - 1;
+      // The midpoint circle algorithm draws a circle with a diameter of 2r+1
+    int x = radius;
+    int y = 0;
+    int p = square(x - 0.5) + square(y + 1) - square(radius);
 
-  #define draw(a, b, color) \
-    texture[radius+a][radius+b][0] = color[0]; \
-    texture[radius+a][radius+b][1] = color[1]; \
-    texture[radius+a][radius+b][2] = color[2]; \
-    texture[radius+a][radius+b][3] = color[3]; \
+    #undef square
 
-  while (x >= y)
-  {
-    if (y != radius) {
-      for (int a = -x+1; a < x; a++) {
-        draw(a, y, colorInner);
-        draw(a, -y, colorInner);
-        draw(y, a, colorInner);
-        draw(-y, a, colorInner);
+    #define draw(a, b, color) \
+      texture[radius+a][radius+b][0] = color[0]; \
+      texture[radius+a][radius+b][1] = color[1]; \
+      texture[radius+a][radius+b][2] = color[2]; \
+      texture[radius+a][radius+b][3] = color[3]; \
+
+    while (x >= y)
+    {
+      if (y != radius) {
+        for (int a = -x+1; a < x; a++) {
+          draw(a, y, colorInner);
+          draw(a, -y, colorInner);
+          draw(y, a, colorInner);
+          draw(-y, a, colorInner);
+        }
+      }
+
+      draw(x, y, colorOuter);
+      draw(x, -y, colorOuter);
+      draw(y, x, colorOuter);
+      draw(y, -x, colorOuter);
+      draw(-x, y, colorOuter);
+      draw(-x, -y, colorOuter);
+      draw(-y, x, colorOuter);
+      draw(-y, -x, colorOuter);
+
+      y++;
+      if (p > 0)
+      {
+        x--;
+        p += 2 * y - 2 * x + 1;
+      } else {
+        p += 2 * y + 1;
       }
     }
 
-    draw(x, y, colorOuter);
-    draw(x, -y, colorOuter);
-    draw(y, x, colorOuter);
-    draw(y, -x, colorOuter);
-    draw(-x, y, colorOuter);
-    draw(-x, -y, colorOuter);
-    draw(-y, x, colorOuter);
-    draw(-y, -x, colorOuter);
+    #undef draw
 
-    y++;
-    if (p > 0)
-    {
-      x--;
-      p += 2 * y - 2 * x + 1;
-    } else {
-      p += 2 * y + 1;
-    }
+    glTexImage2D(GL_TEXTURE_2D, level, GL_RGB, length, length, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
   }
-
-  #undef draw
-
-  glGenTextures(1, &circleTexture);
-  glBindTexture(GL_TEXTURE_2D, circleTexture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, length, length, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
-  glGenerateMipmap(GL_TEXTURE_2D);
 }
 
 void framebufferSizeCallback(GLFWwindow *w, int x, int y)
