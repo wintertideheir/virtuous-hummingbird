@@ -58,7 +58,7 @@ void generateCircleTexture()
   GLsizei maxLength = pow(2, ceil(log(maxScale * 5) / log(2)));
 
   GLubyte colorOuter[4] = {255, 255, 255, 255};
-  GLubyte colorInner[4] = { 15,  15,  15, 255};
+  GLubyte colorInner[4] = { 15,  15,  15,  15};
 
   for (int level = 0; (maxLength / pow(2, level)) >= 1; level++) {
     GLsizei length = maxLength / pow(2, level);
@@ -253,6 +253,9 @@ int main(int argc, char const *argv[])
   glBindVertexArray(0);
 
   generateCircleTexture();
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   while (!glfwWindowShouldClose(window)) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
