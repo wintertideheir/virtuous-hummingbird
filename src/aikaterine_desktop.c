@@ -17,8 +17,6 @@ int windowY = 600;
 
 GLuint shaderProgram;
 
-GLint circleTexture;
-
 GLint scaleUniform;
 GLint windowXUniform;
 GLint windowYUniform;
