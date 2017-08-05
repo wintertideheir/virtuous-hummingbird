@@ -32,6 +32,7 @@ KnowledgeGraph* knowledge_graph_new() {
   kn->regions = g_array_new(FALSE, FALSE, sizeof(char*));
   kn->graph = g_array_new(FALSE, FALSE, sizeof(struct Vertex));
   g_array_set_clear_func(kn->graph, (GDestroyNotify) vertex_destructor);
+  return kn;
 }
 
 void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Vector pos) {
