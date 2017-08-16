@@ -68,6 +68,13 @@ void knowledge_graph_remove(KnowledgeGraph* kn, int vertex) {
 }
 
 void knowledge_graph_connect(KnowledgeGraph* kn, int from, int to, int relation) {
+  GArray* edges = g_array_index(kn->graph, struct Vertex, from).edges;
+  for (guint i = 0; i < edges->len; i++) {
+    struct Edge e = g_array_index(edges, struct Edge, i);
+    if (e.vertex == to && e.relation == relation) {
+      return;
+    }
+  }
   struct Edge e = { relation, to };
   g_array_append_val(g_array_index(kn->graph, struct Vertex, from).edges, e);
 }
