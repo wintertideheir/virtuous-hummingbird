@@ -1,21 +1,21 @@
 #pragma once
 
-struct Vector {
+struct AikaterineVector {
   float x;
   float y;
 };
 
-struct Rectangle {
-  struct Vector center;
-  struct Vector offset;
+struct AikaterineRectangle {
+  struct AikaterineVector center;
+  struct AikaterineVector offset;
     // The offset's attributes should never be less than zero.
 };
 
-typedef struct KnowledgeGraph KnowledgeGraph;
+typedef struct AikaterineGraph AikaterineGraph;
 
-KnowledgeGraph* knowledge_graph_new();
-void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Vector pos);
-void knowledge_graph_remove(KnowledgeGraph* kn, int vertex);
-void knowledge_graph_connect(KnowledgeGraph* kn, int from, int to, int relation);
-void knowledge_graph_disconnect(KnowledgeGraph* kn, int from, int to, int relation);
-void knowledge_graph_free(KnowledgeGraph*);
+AikaterineGraph* aikaterine_new();
+void aikaterine_add(AikaterineGraph* an, int region, char* idea, struct AikaterineVector pos);
+void aikaterine_remove(AikaterineGraph* an, int vertex);
+void aikaterine_connect(AikaterineGraph* an, int from, int to, int relation);
+void aikaterine_disconnect(AikaterineGraph* an, int from, int to, int relation);
+void aikaterine_free(AikaterineGraph* an);

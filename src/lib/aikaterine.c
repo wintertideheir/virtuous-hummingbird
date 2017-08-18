@@ -12,10 +12,10 @@ struct Vertex {
   int region;
   GArray* edges;
   char* idea;
-  struct Vector pos;
+  struct AikaterineVector pos;
 };
 
-struct KnowledgeGraph {
+struct AikaterineGraph {
   GArray* relations;
   GArray* regions;
   GArray* graph;
@@ -26,8 +26,8 @@ void vertex_destructor(struct Vertex v) {
   free(v.idea);
 }
 
-KnowledgeGraph* knowledge_graph_new() {
-  KnowledgeGraph* kn = malloc(sizeof(KnowledgeGraph));
+AikaterineGraph* aikaterine_new() {
+  AikaterineGraph* kn = malloc(sizeof(AikaterineGraph));
   kn->relations = g_array_new(FALSE, FALSE, sizeof(char*));
   kn->regions = g_array_new(FALSE, FALSE, sizeof(char*));
   kn->graph = g_array_new(FALSE, FALSE, sizeof(struct Vertex));
@@ -35,7 +35,7 @@ KnowledgeGraph* knowledge_graph_new() {
   return kn;
 }
 
-void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Vector pos) {
+void aikaterine_add(AikaterineGraph* kn, int region, char* idea, struct AikaterineVector pos) {
   for (guint i = 0; i < kn->graph->len; i++) {
     struct Vertex* v = &g_array_index(kn->graph, struct Vertex, i);
     if (v->region == -1) {
@@ -50,7 +50,7 @@ void knowledge_graph_add(KnowledgeGraph* kn, int region, char* idea, struct Vect
   g_array_append_val(kn->graph, v);
 }
 
-void knowledge_graph_remove(KnowledgeGraph* kn, int vertex) {
+void aikaterine_remove(AikaterineGraph* kn, int vertex) {
   struct Vertex* v = &g_array_index(kn->graph, struct Vertex, vertex);
   v->region = -1;
   g_array_free(v->edges, TRUE);
@@ -67,7 +67,7 @@ void knowledge_graph_remove(KnowledgeGraph* kn, int vertex) {
   }
 }
 
-void knowledge_graph_connect(KnowledgeGraph* kn, int from, int to, int relation) {
+void aikaterine_connect(AikaterineGraph* kn, int from, int to, int relation) {
   GArray* edges = g_array_index(kn->graph, struct Vertex, from).edges;
   for (guint i = 0; i < edges->len; i++) {
     struct Edge e = g_array_index(edges, struct Edge, i);
@@ -79,7 +79,7 @@ void knowledge_graph_connect(KnowledgeGraph* kn, int from, int to, int relation)
   g_array_append_val(g_array_index(kn->graph, struct Vertex, from).edges, e);
 }
 
-void knowledge_graph_disconnect(KnowledgeGraph* kn, int from, int to, int relation) {
+void aikaterine_disconnect(AikaterineGraph* kn, int from, int to, int relation) {
   GArray* edges = g_array_index(kn->graph, struct Vertex, from).edges;
   for (guint i = 0; i < edges->len; i++) {
     struct Edge e = g_array_index(edges, struct Edge, i);
@@ -90,7 +90,7 @@ void knowledge_graph_disconnect(KnowledgeGraph* kn, int from, int to, int relati
   }
 }
 
-void knowledge_graph_free(KnowledgeGraph* kn) {
+void aikaterine_free(AikaterineGraph* kn) {
   g_array_free(kn->relations, TRUE);
   g_array_free(kn->regions, TRUE);
   g_array_free(kn->graph, TRUE);
