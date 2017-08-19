@@ -35,18 +35,19 @@ AikaterineGraph* aikaterine_new() {
   return kn;
 }
 
-void aikaterine_add(AikaterineGraph* kn, int region, char* idea, struct AikaterineVector pos) {
+void aikaterine_add(AikaterineGraph* kn, struct AikaterineIdea vertex) {
   for (guint i = 0; i < kn->graph->len; i++) {
     struct Vertex* v = &g_array_index(kn->graph, struct Vertex, i);
     if (v->region == -1) {
-      v->region = region;
+      v->region = vertex.region;
       v->edges = g_array_new(FALSE, FALSE, sizeof(struct Edge));
-      v->idea = idea;
-      v->pos = pos;
+      v->idea = vertex.idea;
+      v->pos = vertex.pos;
       return;
     }
   }
-  struct Vertex v = { region, g_array_new(FALSE, FALSE, sizeof(struct Edge)), idea, pos };
+  struct Vertex v = { vertex.region, g_array_new(FALSE, FALSE, sizeof(struct Edge)),
+                      vertex.idea, vertex.pos };
   g_array_append_val(kn->graph, v);
 }
 
