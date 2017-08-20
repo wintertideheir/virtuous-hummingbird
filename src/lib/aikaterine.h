@@ -20,8 +20,8 @@ struct AikaterineIdea {
 typedef struct AikaterineGraph AikaterineGraph;
 
 AikaterineGraph* aikaterine_new();
-void aikaterine_add(AikaterineGraph* an, struct AikaterineIdea vertex);
-void aikaterine_remove(AikaterineGraph* an, int vertex);
-void aikaterine_connect(AikaterineGraph* an, int from, int to, int relation);
-void aikaterine_disconnect(AikaterineGraph* an, int from, int to, int relation);
-void aikaterine_free(AikaterineGraph* an);
+void aikaterine_add(AikaterineGraph* ag, struct AikaterineIdea vertex);
+void aikaterine_remove(AikaterineGraph* ag, int vertex);
+void aikaterine_connect(AikaterineGraph* ag, int from, int to, int relation);
+void aikaterine_disconnect(AikaterineGraph* ag, int from, int to, int relation);
+void aikaterine_free(AikaterineGraph* ag);
