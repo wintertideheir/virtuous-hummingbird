@@ -25,3 +25,4 @@ void aikaterine_remove(AikaterineGraph* ag, int vertex);
 void aikaterine_connect(AikaterineGraph* ag, int from, int to, int relation);
 void aikaterine_disconnect(AikaterineGraph* ag, int from, int to, int relation);
 void aikaterine_free(AikaterineGraph* ag);
+int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area);
