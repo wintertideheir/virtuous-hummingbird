@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <aikaterine.h>
 
 #define return_ glfwTerminate(); return 0;
 
