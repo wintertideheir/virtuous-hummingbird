@@ -114,3 +114,7 @@ int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
   vertices[0] = len;
   return realloc(vertices, 1 + len);
 }
+
+struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex) {
+  return &g_array_index(ag->graph, struct Vertex, vertex).wrapper;
+}

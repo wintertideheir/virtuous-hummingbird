@@ -28,3 +28,4 @@ void aikaterine_free(AikaterineGraph* ag);
 /* aikaterine_view returns an array of all vertices in an area. The first
   element of the array is the number of vertices. */
 int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area);
+struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex);
