@@ -9,10 +9,8 @@ struct Edge {
 };
 
 struct Vertex {
-  int region;
+  struct AikaterineIdea wrapper;
   GArray* edges;
-  char* idea;
-  struct AikaterineVector pos;
 };
 
 struct AikaterineGraph {
@@ -25,7 +23,7 @@ const int ARRAY_PREALLOCATION = 8;
 
 void vertex_destructor(struct Vertex v) {
   g_array_free(v.edges, TRUE);
-  free(v.idea);
+  free(v.wrapper.idea);
 }
 
 AikaterineGraph* aikaterine_new() {
@@ -40,24 +38,21 @@ AikaterineGraph* aikaterine_new() {
 void aikaterine_add(AikaterineGraph* ag, struct AikaterineIdea vertex) {
   for (guint i = 0; i < ag->graph->len; i++) {
     struct Vertex* v = &g_array_index(ag->graph, struct Vertex, i);
-    if (v->region == -1) {
-      v->region = vertex.region;
+    if (v->wrapper.region == -1) {
+      v->wrapper = vertex;
       v->edges = g_array_new(FALSE, FALSE, sizeof(struct Edge));
-      v->idea = vertex.idea;
-      v->pos = vertex.pos;
       return;
     }
   }
-  struct Vertex v = { vertex.region, g_array_new(FALSE, FALSE, sizeof(struct Edge)),
-                      vertex.idea, vertex.pos };
+  struct Vertex v = { vertex, g_array_new(FALSE, FALSE, sizeof(struct Edge)) };
   g_array_append_val(ag->graph, v);
 }
 
 void aikaterine_remove(AikaterineGraph* ag, int vertex) {
   struct Vertex* v = &g_array_index(ag->graph, struct Vertex, vertex);
-  v->region = -1;
+  v->wrapper.region = -1;
   g_array_free(v->edges, TRUE);
-  free(v->idea);
+  free(v->wrapper.idea);
   for (guint x = 0; x < ag->graph->len; x++) {
     GArray* e = g_array_index(ag->graph, struct Vertex, x).edges;
     for (guint y = e->len - 1; y >= 0; y--) {
@@ -105,7 +100,7 @@ int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
   int pre = ARRAY_PREALLOCATION;
   int* vertices = malloc(1 + pre);
   for (guint i = 0; i < ag->graph->len; i++) {
-    struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).pos;
+    struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).wrapper.pos;
     if (pos.x <= (area.center.x + area.offset.x) && pos.x >= (area.center.x - area.offset.x) &&
         pos.y <= (area.center.y + area.offset.y) && pos.y >= (area.center.y - area.offset.y)) {
       len++;
