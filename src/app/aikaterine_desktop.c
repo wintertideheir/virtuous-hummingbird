@@ -7,7 +7,7 @@
 #include <string.h>
 #include <aikaterine.h>
 
-#define return_ glfwTerminate(); return 0;
+#define exitProcedure glfwTerminate();
 
 const float minScale = 5;
 const float maxScale = 25;
@@ -41,7 +41,7 @@ GLuint createShader(GLenum type, GLsizei number,
     fprintf(stderr, "OpenGL shader failed to compile\n%s", info);
 
 	  glDeleteShader(shader);
-    glfwTerminate();
+    exitProcedure;
     exit(EXIT_FAILURE);
   }
 
@@ -68,7 +68,8 @@ int main(int argc, char const *argv[])
   if(!glfwInit())
   {
     fprintf(stderr, "GLFW failed to initialize\n");
-    return 0;
+    exitProcedure;
+    return EXIT_FAILURE;
   }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -80,7 +81,8 @@ int main(int argc, char const *argv[])
   if (window == NULL)
   {
     fprintf(stderr, "GLFW failed to create new window\n");
-    return_;
+    exitProcedure;
+    return EXIT_FAILURE;
   }
 
   glfwSetWindowSizeLimits(window, windowX, windowY, GLFW_DONT_CARE, GLFW_DONT_CARE);
@@ -92,7 +94,8 @@ int main(int argc, char const *argv[])
   {
     fprintf(stderr, "GLEW failed to initialize: %s\n",
             glewGetErrorString(glewStatus));
-    return_;
+    exitProcedure;
+    return EXIT_FAILURE;
   }
 
   const GLchar* vertexShaderCode =
@@ -140,8 +143,8 @@ int main(int argc, char const *argv[])
     glGetProgramInfoLog(shaderProgram, size, NULL, infoLog);
     fprintf(stderr, "OpenGL program failed to link\n%s", infoLog);
 
-    glfwTerminate();
-    exit(EXIT_FAILURE);
+    exitProcedure;
+    return EXIT_FAILURE;
   }
 
   scaleUniform = glGetUniformLocation(shaderProgram, "scale");
@@ -203,5 +206,5 @@ int main(int argc, char const *argv[])
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
 
-  return_;
+  exitProcedure;
 }
