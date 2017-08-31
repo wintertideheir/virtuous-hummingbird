@@ -1,26 +1,19 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "desktop.h"
+
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <aikaterine.h>
 
-#define exitProcedure glfwTerminate();
-
-const float minScale = 5;
-const float maxScale = 25;
-float scale = 15;
-
-int windowX = 800;
-int windowY = 600;
+GLFWwindow* window;
 
 GLuint shaderProgram;
 
 GLint scaleUniform;
 GLint windowXUniform;
 GLint windowYUniform;
+
+unsigned int VBO;
+unsigned int VAO;
 
 GLuint createShader(GLenum type, GLsizei number,
                     const GLchar **code, const GLint *length)
@@ -41,8 +34,7 @@ GLuint createShader(GLenum type, GLsizei number,
     fprintf(stderr, "OpenGL shader failed to compile\n%s", info);
 
 	  glDeleteShader(shader);
-    exitProcedure;
-    exit(EXIT_FAILURE);
+    earlyExit();
   }
 
   return shader;
@@ -63,13 +55,12 @@ void scrollCallback(GLFWwindow* w, double x, double y)
   glProgramUniform1f(shaderProgram, scaleUniform, scale);
 }
 
-int main(int argc, char const *argv[])
+void drawingBegin()
 {
   if(!glfwInit())
   {
     fprintf(stderr, "GLFW failed to initialize\n");
-    exitProcedure;
-    return EXIT_FAILURE;
+    earlyExit();
   }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -77,12 +68,11 @@ int main(int argc, char const *argv[])
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-  GLFWwindow* window = glfwCreateWindow(windowX, windowY, "Aikaterine", NULL, NULL);
+  window = glfwCreateWindow(windowX, windowY, "Aikaterine", NULL, NULL);
   if (window == NULL)
   {
     fprintf(stderr, "GLFW failed to create new window\n");
-    exitProcedure;
-    return EXIT_FAILURE;
+    earlyExit();
   }
 
   glfwSetWindowSizeLimits(window, windowX, windowY, GLFW_DONT_CARE, GLFW_DONT_CARE);
@@ -94,8 +84,7 @@ int main(int argc, char const *argv[])
   {
     fprintf(stderr, "GLEW failed to initialize: %s\n",
             glewGetErrorString(glewStatus));
-    exitProcedure;
-    return EXIT_FAILURE;
+    earlyExit();
   }
 
   const GLchar* vertexShaderCode =
@@ -143,8 +132,7 @@ int main(int argc, char const *argv[])
     glGetProgramInfoLog(shaderProgram, size, NULL, infoLog);
     fprintf(stderr, "OpenGL program failed to link\n%s", infoLog);
 
-    exitProcedure;
-    return EXIT_FAILURE;
+    earlyExit();
   }
 
   scaleUniform = glGetUniformLocation(shaderProgram, "scale");
@@ -174,9 +162,6 @@ int main(int argc, char const *argv[])
     -1.0f,  1.0f,
   };
 
-  unsigned int VBO;
-  unsigned int VAO;
-
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
   glBindVertexArray(VAO);
@@ -191,20 +176,28 @@ int main(int argc, char const *argv[])
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
-  while (!glfwWindowShouldClose(window)) {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+void drawingLoop()
+{
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
 
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+  glBindVertexArray(VAO);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-  }
+  glfwSwapBuffers(window);
+  glfwPollEvents();
+}
 
+int drawingShouldClose() {
+  return glfwWindowShouldClose(window);
+}
+
+void drawingEnd()
+{
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
 
-  exitProcedure;
+  glfwTerminate();
 }
