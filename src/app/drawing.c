@@ -4,6 +4,13 @@
 #include <math.h>
 #include <string.h>
 
+const float minScale = 5;
+const float maxScale = 25;
+float scale = 15;
+
+int windowX = 800;
+int windowY = 600;
+
 GLFWwindow* window;
 
 GLuint shaderProgram;

@@ -4,11 +4,6 @@
 
 int main(int argc, char const *argv[])
 {
-  scale = 15;
-
-  windowX = 800;
-  windowY = 600;
-
   drawingBegin();
   while(!drawingShouldClose())
   {
