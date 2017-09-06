@@ -1,7 +1,3 @@
-.stack-work
-dist
-
 bin/*
 !bin/README.md
-*.o
 .sconsign.dblite
