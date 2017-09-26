@@ -19,8 +19,6 @@ struct AikaterineGraph {
   GArray* graph;
 };
 
-const int ARRAY_PREALLOCATION = 8;
-
 void vertex_destructor(struct Vertex* v) {
   g_array_free(v->edges, TRUE);
   free(v->wrapper.idea);
@@ -96,23 +94,16 @@ void aikaterine_free(AikaterineGraph* ag) {
 }
 
 int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
-  int len = 0;
-  int pre = ARRAY_PREALLOCATION;
-  int* vertices = malloc(1 + pre);
+  GArray* vertices = g_array_new(FALSE, FALSE, sizeof(int));
   for (guint i = 0; i < ag->graph->len; i++) {
     struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).wrapper.pos;
     if (pos.x <= (area.center.x + area.offset.x) && pos.x >= (area.center.x - area.offset.x) &&
         pos.y <= (area.center.y + area.offset.y) && pos.y >= (area.center.y - area.offset.y)) {
-      len++;
-      if (pre < 1) {
-        pre = ARRAY_PREALLOCATION - 1;
-        vertices = realloc(vertices, 1 + len + ARRAY_PREALLOCATION);
-      }
-      vertices[len] = i;
+      g_array_append_val(vertices, i);
     }
   }
-  vertices[0] = len;
-  return realloc(vertices, 1 + len);
+  g_array_prepend_val(vertices, vertices->len);
+  return (int*) g_array_free(vertices, FALSE);
 }
 
 struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex) {
