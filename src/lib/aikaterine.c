@@ -21,9 +21,9 @@ struct AikaterineGraph {
 
 const int ARRAY_PREALLOCATION = 8;
 
-void vertex_destructor(struct Vertex v) {
-  g_array_free(v.edges, TRUE);
-  free(v.wrapper.idea);
+void vertex_destructor(struct Vertex* v) {
+  g_array_free(v->edges, TRUE);
+  free(v->wrapper.idea);
 }
 
 AikaterineGraph* aikaterine_new() {
