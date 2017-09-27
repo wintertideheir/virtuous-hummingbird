@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <aikaterine.h>
 
+AikaterineGraph* ag;
+
 void drawingBegin();
 void drawingLoop();
 int drawingShouldClose();

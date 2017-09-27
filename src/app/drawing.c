@@ -1,5 +1,6 @@
 #include "desktop.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -18,9 +19,25 @@ GLuint shaderProgram;
 GLint scaleUniform;
 GLint windowXUniform;
 GLint windowYUniform;
+GLint offsetUniform;
 
 unsigned int VBO;
 unsigned int VAO;
+
+int visibleLength;
+struct AikaterineVector* visible;
+
+void visibleFind() {
+  struct AikaterineVector center = {0, 0};
+  struct AikaterineVector offset = {100, 100};
+  struct AikaterineRectangle area = {center, offset};
+  int* visibleVertices = aikaterine_view(ag, area);
+  visibleLength = visibleVertices[0];
+  visible = malloc(sizeof(struct AikaterineVector) * visibleLength);
+  for (int i = 0; i < visibleLength; i++) {
+    visible[i] = aikaterine_idea(ag, visibleVertices[1+i])->pos;
+  }
+}
 
 GLuint createShader(GLenum type, GLsizei number,
                     const GLchar **code, const GLint *length)
@@ -64,6 +81,8 @@ void scrollCallback(GLFWwindow* w, double x, double y)
 
 void drawingBegin()
 {
+  visibleFind();
+
   if(!glfwInit())
   {
     fprintf(stderr, "GLFW failed to initialize\n");
@@ -98,12 +117,13 @@ void drawingBegin()
     "#version 330 core\n"
     "layout (location = 0) in vec2 pos;\n"
     "out vec2 normalizedPos;\n"
+    "uniform vec2 offset;\n"
     "uniform float scale;\n"
     "uniform int windowX;\n"
     "uniform int windowY;\n"
     "void main()\n"
     "{\n"
-    "    gl_Position = vec4(2.5 * scale * pos.xy / vec2(windowX, windowY), 0.0, 1.0);\n"
+    "    gl_Position = vec4(2.5 * scale * (pos.xy + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
     "    normalizedPos = pos;\n"
     "}\n";
 
@@ -145,6 +165,7 @@ void drawingBegin()
   scaleUniform = glGetUniformLocation(shaderProgram, "scale");
   windowXUniform = glGetUniformLocation(shaderProgram, "windowX");
   windowYUniform = glGetUniformLocation(shaderProgram, "windowY");
+  offsetUniform = glGetUniformLocation(shaderProgram, "offset");
 
   glUseProgram(shaderProgram);
   glProgramUniform1f(shaderProgram, scaleUniform, scale);
@@ -191,7 +212,10 @@ void drawingLoop()
   glClear(GL_COLOR_BUFFER_BIT);
 
   glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 6);
+  for (int i = 0; i < visibleLength; i++) {
+    glProgramUniform2f(shaderProgram, offsetUniform, visible[i].x, visible[i].y);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+  }
 
   glfwSwapBuffers(window);
   glfwPollEvents();
@@ -203,6 +227,8 @@ int drawingShouldClose() {
 
 void drawingEnd()
 {
+  free(visible);
+
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
 
