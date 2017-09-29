@@ -29,7 +29,7 @@ struct AikaterineVector* visible;
 
 void visibleFind() {
   struct AikaterineVector center = {0, 0};
-  struct AikaterineVector offset = {100, 100};
+  struct AikaterineVector offset = {windowX / (2.5 * minScale), windowY / (2.5 * minScale)};
   struct AikaterineRectangle area = {center, offset};
   int* visibleVertices = aikaterine_view(ag, area);
   visibleLength = visibleVertices[0];
