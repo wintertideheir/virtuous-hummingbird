@@ -68,6 +68,8 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
   windowX = x;
   windowY = y;
+  free(visible);
+  visibleFind();
   glProgramUniform1i(shaderProgram, windowXUniform, x);
   glProgramUniform1i(shaderProgram, windowYUniform, y);
   glViewport(0, 0, x, y);
