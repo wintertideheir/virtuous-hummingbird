@@ -17,6 +17,13 @@ struct AikaterineIdea {
   struct AikaterineVector pos;
 };
 
+struct AikaterineView {
+  int verts_len;
+  int* verts;
+  int edges_len;
+  int (*edges)[3];
+};
+
 typedef struct AikaterineGraph AikaterineGraph;
 
 AikaterineGraph* aikaterine_new();
@@ -25,7 +32,5 @@ void aikaterine_remove(AikaterineGraph* ag, int vertex);
 void aikaterine_connect(AikaterineGraph* ag, int from, int to, int relation);
 void aikaterine_disconnect(AikaterineGraph* ag, int from, int to, int relation);
 void aikaterine_free(AikaterineGraph* ag);
-/* aikaterine_view returns an array of all vertices in an area. The first
-  element of the array is the number of vertices. */
-int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area);
+struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area);
 struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex);

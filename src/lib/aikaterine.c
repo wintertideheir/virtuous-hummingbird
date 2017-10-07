@@ -93,7 +93,9 @@ void aikaterine_free(AikaterineGraph* ag) {
   free(ag);
 }
 
-int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
+struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
+  struct AikaterineView av;
+
   GArray* vertices = g_array_new(FALSE, FALSE, sizeof(int));
   for (guint i = 0; i < ag->graph->len; i++) {
     struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).wrapper.pos;
@@ -102,8 +104,37 @@ int* aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area) {
       g_array_append_val(vertices, i);
     }
   }
-  g_array_prepend_val(vertices, vertices->len);
-  return (int*) g_array_free(vertices, FALSE);
+  av.verts_len = vertices->len;
+  av.verts = (int*) g_array_free(vertices, FALSE);
+
+  GArray* edges = g_array_new(FALSE, FALSE, 3 * sizeof(int));
+  for (guint i = 0; i < ag->graph->len; i++) {
+    struct Vertex* v = &g_array_index(ag->graph, struct Vertex, i);
+    for (int j = 0; j < av.verts_len; j++) {
+      if (i == av.verts[j]) {
+        for (guint k = 0; k < v->edges->len; k++) {
+          struct Edge* e = &g_array_index(v->edges, struct Edge, k);
+          int elem[3] = {i, e->relation, e->vertex};
+          g_array_append_val(edges, elem);
+        }
+        break;
+      }
+    }
+    for (guint j = 0; j < v->edges->len; j++) {
+      struct Edge* e = &g_array_index(edges, struct Edge, j);
+      for (int k = 0; k < av.verts_len; k++) {
+        if (e->vertex == av.verts[k]) {
+          int elem[3] = {i, e->relation, e->vertex};
+          g_array_append_val(edges, elem);
+          continue;
+        }
+      }
+    }
+  }
+  av.edges_len = edges->len;
+  av.edges = (int(*)[3]) g_array_free(edges, FALSE);
+
+  return av;
 }
 
 struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex) {

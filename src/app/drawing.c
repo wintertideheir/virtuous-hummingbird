@@ -31,11 +31,11 @@ void visibleFind() {
   struct AikaterineVector center = {0, 0};
   struct AikaterineVector offset = {windowX / (2.5 * minScale), windowY / (2.5 * minScale)};
   struct AikaterineRectangle area = {center, offset};
-  int* visibleVertices = aikaterine_view(ag, area);
-  visibleLength = visibleVertices[0];
+  struct AikaterineView av = aikaterine_view(ag, area);
+  visibleLength = av.verts_len;
   visible = malloc(sizeof(struct AikaterineVector) * visibleLength);
   for (int i = 0; i < visibleLength; i++) {
-    visible[i] = aikaterine_idea(ag, visibleVertices[1+i])->pos;
+    visible[i] = aikaterine_idea(ag, av.verts[i])->pos;
   }
 }
 
