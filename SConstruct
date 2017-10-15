@@ -13,7 +13,7 @@ env.Program(target='bin/app/aikaterine_desktop',
             source=env.Depends(['bin/app/desktop.c', 'bin/app/drawing.c'],
                                '#/log/libinstall'),
             LIBS=['glfw', 'GL', 'GLEW', 'm', 'aikaterine'])
-env.Command('#/log/libinstall', [env.Install('/usr/local/lib', lib),
-                                 env.Install('/usr/local/include',
-                                             '#/src/lib/aikaterine.h')],
+env.Command('log/libinstall', [env.Install('/usr/local/lib', lib),
+                               env.Install('/usr/local/include',
+                                           'src/lib/aikaterine.h')],
             '/sbin/ldconfig > $TARGET 2>&1')
