@@ -3,6 +3,7 @@ import subprocess
 env = Environment(CPPPATH=['/usr/include/', 'src/lib/'])
 env.Append(CFLAGS='-std=c11')
 env.VariantDir('bin', 'src', duplicate=0)
+
 lib = env.SharedLibrary(target='bin/lib/aikaterine',
                         source='bin/lib/aikaterine.c',
                         LIBS=['glib-2.0'],
@@ -16,6 +17,7 @@ libi = env.Command('log/libinstall', [env.Install('/usr/local/lib', lib),
                                       env.Install('/usr/local/include',
                                                   'src/lib/aikaterine.h')],
                    '/sbin/ldconfig > $TARGET 2>&1')
+
 env.Alias('build', [lib, app])
 env.Alias('build-lib', lib)
 env.Alias('build-app', app)
