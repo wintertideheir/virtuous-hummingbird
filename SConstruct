@@ -10,7 +10,8 @@ lib = env.SharedLibrary(target='bin/lib/aikaterine',
                             ['pkg-config', '--cflags', '--libs', 'glib-2.0'])
                         .strip())
 env.Program(target='bin/app/aikaterine_desktop',
-            source=['bin/app/desktop.c', 'bin/app/drawing.c'],
+            source=env.Depends(['bin/app/desktop.c', 'bin/app/drawing.c'],
+                               '#/log/libinstall'),
             LIBS=['glfw', 'GL', 'GLEW', 'm', 'aikaterine'])
 env.Command('#/log/libinstall', [env.Install('/usr/local/lib', lib),
                                  env.Install('/usr/local/include',
