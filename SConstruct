@@ -9,10 +9,15 @@ lib = env.SharedLibrary(target='bin/lib/aikaterine',
                         CCFLAGS=subprocess.check_output(
                             ['pkg-config', '--cflags', '--libs', 'glib-2.0'])
                         .strip())
-env.Program(target='bin/app/aikaterine_desktop',
-            source=['bin/app/desktop.c', 'bin/app/drawing.c'],
-            LIBS=['glfw', 'GL', 'GLEW', 'm', lib])
-env.Command('log/libinstall', [env.Install('/usr/local/lib', lib),
-                               env.Install('/usr/local/include',
-                                           'src/lib/aikaterine.h')],
-            '/sbin/ldconfig > $TARGET 2>&1')
+app = env.Program(target='bin/app/aikaterine_desktop',
+                  source=['bin/app/desktop.c', 'bin/app/drawing.c'],
+                  LIBS=['glfw', 'GL', 'GLEW', 'm', lib])
+libi = env.Command('log/libinstall', [env.Install('/usr/local/lib', lib),
+                                      env.Install('/usr/local/include',
+                                                  'src/lib/aikaterine.h')],
+                   '/sbin/ldconfig > $TARGET 2>&1')
+env.Alias('build', [lib, app])
+env.Alias('build-lib', lib)
+env.Alias('build-app', app)
+env.Alias('install', libi)
+env.Alias('install-lib', libi)
