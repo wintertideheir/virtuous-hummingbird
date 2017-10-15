@@ -14,7 +14,7 @@ int windowY = 600;
 
 GLFWwindow* window;
 
-GLuint shaderProgram;
+GLuint vertexShaderProgram;
 
 GLint scaleUniform;
 GLint windowXUniform;
@@ -24,18 +24,18 @@ GLint offsetUniform;
 unsigned int VBO;
 unsigned int VAO;
 
-int visibleLength;
-struct AikaterineVector* visible;
+int verticesLength;
+struct AikaterineVector* vertices;
 
-void visibleFind() {
+void findView() {
   struct AikaterineVector center = {0, 0};
   struct AikaterineVector offset = {windowX / (2.5 * minScale), windowY / (2.5 * minScale)};
   struct AikaterineRectangle area = {center, offset};
   struct AikaterineView av = aikaterine_view(ag, area);
-  visibleLength = av.verts_len;
-  visible = malloc(sizeof(struct AikaterineVector) * visibleLength);
-  for (int i = 0; i < visibleLength; i++) {
-    visible[i] = aikaterine_idea(ag, av.verts[i])->pos;
+  verticesLength = av.verts_len;
+  vertices = malloc(sizeof(struct AikaterineVector) * verticesLength);
+  for (int i = 0; i < verticesLength; i++) {
+    vertices[i] = aikaterine_idea(ag, av.verts[i])->pos;
   }
 }
 
@@ -68,22 +68,22 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
   windowX = x;
   windowY = y;
-  free(visible);
-  visibleFind();
-  glProgramUniform1i(shaderProgram, windowXUniform, x);
-  glProgramUniform1i(shaderProgram, windowYUniform, y);
+  free(vertices);
+  findView();
+  glProgramUniform1i(vertexShaderProgram, windowXUniform, x);
+  glProgramUniform1i(vertexShaderProgram, windowYUniform, y);
   glViewport(0, 0, x, y);
 }
 
 void scrollCallback(GLFWwindow* w, double x, double y)
 {
   scale = fmin(fmax(scale+y, minScale), maxScale);
-  glProgramUniform1f(shaderProgram, scaleUniform, scale);
+  glProgramUniform1f(vertexShaderProgram, scaleUniform, scale);
 }
 
 void drawingBegin()
 {
-  visibleFind();
+  findView();
 
   if(!glfwInit())
   {
@@ -146,33 +146,33 @@ void drawingBegin()
   GLuint vertexShader = createShader(GL_VERTEX_SHADER, 1, &vertexShaderCode, NULL);
   GLuint fragmentShader = createShader(GL_FRAGMENT_SHADER, 1, &fragmentShaderCode, NULL);
 
-  shaderProgram = glCreateProgram();
+  vertexShaderProgram = glCreateProgram();
 
-  glAttachShader(shaderProgram, vertexShader);
-  glAttachShader(shaderProgram, fragmentShader);
-  glLinkProgram(shaderProgram);
+  glAttachShader(vertexShaderProgram, vertexShader);
+  glAttachShader(vertexShaderProgram, fragmentShader);
+  glLinkProgram(vertexShaderProgram);
 
   int success;
-  glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+  glGetProgramiv(vertexShaderProgram, GL_LINK_STATUS, &success);
   if (!success) {
     GLint size = 0;
-    glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &size);
+    glGetProgramiv(vertexShaderProgram, GL_INFO_LOG_LENGTH, &size);
     GLchar infoLog[size];
-    glGetProgramInfoLog(shaderProgram, size, NULL, infoLog);
+    glGetProgramInfoLog(vertexShaderProgram, size, NULL, infoLog);
     fprintf(stderr, "OpenGL program failed to link\n%s", infoLog);
 
     earlyExit();
   }
 
-  scaleUniform = glGetUniformLocation(shaderProgram, "scale");
-  windowXUniform = glGetUniformLocation(shaderProgram, "windowX");
-  windowYUniform = glGetUniformLocation(shaderProgram, "windowY");
-  offsetUniform = glGetUniformLocation(shaderProgram, "offset");
+  scaleUniform = glGetUniformLocation(vertexShaderProgram, "scale");
+  windowXUniform = glGetUniformLocation(vertexShaderProgram, "windowX");
+  windowYUniform = glGetUniformLocation(vertexShaderProgram, "windowY");
+  offsetUniform = glGetUniformLocation(vertexShaderProgram, "offset");
 
-  glUseProgram(shaderProgram);
-  glProgramUniform1f(shaderProgram, scaleUniform, scale);
-  glProgramUniform1i(shaderProgram, windowXUniform, windowX);
-  glProgramUniform1i(shaderProgram, windowYUniform, windowY);
+  glUseProgram(vertexShaderProgram);
+  glProgramUniform1f(vertexShaderProgram, scaleUniform, scale);
+  glProgramUniform1i(vertexShaderProgram, windowXUniform, windowX);
+  glProgramUniform1i(vertexShaderProgram, windowYUniform, windowY);
 
   int sizex, sizey;
   glfwGetFramebufferSize(window, &sizex, &sizey);
@@ -214,8 +214,8 @@ void drawingLoop()
   glClear(GL_COLOR_BUFFER_BIT);
 
   glBindVertexArray(VAO);
-  for (int i = 0; i < visibleLength; i++) {
-    glProgramUniform2f(shaderProgram, offsetUniform, visible[i].x, visible[i].y);
+  for (int i = 0; i < verticesLength; i++) {
+    glProgramUniform2f(vertexShaderProgram, offsetUniform, vertices[i].x, vertices[i].y);
     glDrawArrays(GL_TRIANGLES, 0, 6);
   }
 
@@ -229,7 +229,7 @@ int drawingShouldClose() {
 
 void drawingEnd()
 {
-  free(visible);
+  free(vertices);
 
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
