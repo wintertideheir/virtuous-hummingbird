@@ -1,12 +1,13 @@
 #include "drawing.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-GLuint createShader(GLenum type, GLsizei number,
-                    const GLchar **code, const GLint *length)
+GLuint createShader(GLenum type, GLsizei number, const GLchar **code)
 {
   GLuint shader = glCreateShader(type);
-  glShaderSource(shader, number, code, length);
+  glShaderSource(shader, number, code, NULL);
   glCompileShader(shader);
 
   GLint success = 0;
@@ -27,15 +28,28 @@ GLuint createShader(GLenum type, GLsizei number,
   return shader;
 };
 
-GLuint createProgram(const GLchar* vertexShaderCode,
-                     const GLchar* fragmentShaderCode) {
-  GLuint vertexShader = createShader(GL_VERTEX_SHADER, 1, &vertexShaderCode, NULL);
-  GLuint fragmentShader = createShader(GL_FRAGMENT_SHADER, 1, &fragmentShaderCode, NULL);
+struct ShaderRequest {
+  GLenum type;
+  int* indicies;
+  int indicies_len;
+};
+
+GLuint createProgram(const GLchar** shader_code,
+                     struct ShaderRequest* shader_req, int shader_req_len) {
+  GLuint* shaders = malloc(sizeof(GLuint) * shader_req_len);
 
   GLuint shaderProgram = glCreateProgram();
 
-  glAttachShader(shaderProgram, vertexShader);
-  glAttachShader(shaderProgram, fragmentShader);
+  for (int i = 0; i < shader_req_len; i++) {
+    const GLchar** code = malloc(sizeof(GLchar*) * shader_req[i].indicies_len);
+    for (int j = 0; j < shader_req[i].indicies_len; j++) {
+      code[j] = shader_code[shader_req[i].indicies[j]];
+    }
+    shaders[i] = createShader(shader_req[i].type, shader_req[i].indicies_len,
+                              code);
+    glAttachShader(shaderProgram, shaders[i]);
+  }
+
   glLinkProgram(shaderProgram);
 
   int success;
@@ -50,15 +64,16 @@ GLuint createProgram(const GLchar* vertexShaderCode,
     earlyExit();
   }
 
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
+  for (int i = 0; i < shader_req_len; i++) {
+    glDeleteShader(shaders[i]);
+  }
 
   return shaderProgram;
 }
 
 void generateShaders()
 {
-  const GLchar* vertexShaderCode =
+  const GLchar* nodeVertexShaderCode =
   "#version 330 core\n"
   "layout (location = 0) in vec2 pos;\n"
   "out vec2 normalizedPos;\n"
@@ -72,7 +87,7 @@ void generateShaders()
   "    normalizedPos = pos;\n"
   "}\n";
 
-  const GLchar* fragmentShaderCode =
+  const GLchar* nodeFragmentShaderCode =
   "#version 330 core\n"
   "in vec2 normalizedPos;\n"
   "out vec4 color;\n"
@@ -86,5 +101,11 @@ void generateShaders()
   "            - ((1 - innerFactor) * (1 - smoothstep(radius - delta, radius, d))));\n"
   "}\n";
 
-  vertexShaderProgram = createProgram(vertexShaderCode, fragmentShaderCode);
+  const GLchar* vertexProgramCode[] =
+    {nodeVertexShaderCode, nodeFragmentShaderCode};
+  struct ShaderRequest vertexProgramReq[] =
+    {(struct ShaderRequest){GL_VERTEX_SHADER, &(int){0}, 1},
+     (struct ShaderRequest){GL_FRAGMENT_SHADER, &(int){1}, 1}};
+  vertexShaderProgram =
+    createProgram(vertexProgramCode, vertexProgramReq, 2);
 }
