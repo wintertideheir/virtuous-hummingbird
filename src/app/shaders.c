@@ -73,7 +73,7 @@ GLuint createProgram(const GLchar** shader_code,
 
 void generateShaders()
 {
-  const GLchar* nodeVertexShaderCode =
+  const GLchar* vertexVertexShaderCode =
   "#version 330 core\n"
   "layout (location = 0) in vec2 pos;\n"
   "out vec2 normalizedPos;\n"
@@ -83,11 +83,11 @@ void generateShaders()
   "uniform int windowY;\n"
   "void main()\n"
   "{\n"
-  "    gl_Position = vec4(2.5 * scale * (pos.xy + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
+  "    gl_Position = vec4(2.5 * scale * (pos + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
   "    normalizedPos = pos;\n"
   "}\n";
 
-  const GLchar* nodeFragmentShaderCode =
+  const GLchar* vertexFragmentShaderCode =
   "#version 330 core\n"
   "in vec2 normalizedPos;\n"
   "out vec4 color;\n"
@@ -101,11 +101,47 @@ void generateShaders()
   "            - ((1 - innerFactor) * (1 - smoothstep(radius - delta, radius, d))));\n"
   "}\n";
 
+  const GLchar* edgeVertexShaderCode =
+  "#version 330 core\n"
+  "layout (location = 0) in vec2 pos;\n"
+  "uniform vec2 offset;\n"
+  "uniform float scale;\n"
+  "uniform int windowX;\n"
+  "uniform int windowY;\n"
+  "uniform float length;\n"
+  "uniform float rotation;\n"
+  "void main()\n"
+  "{\n"
+  "    mat2 rotation_matrix;"
+  "    rotation_matrix[0][0] = cos(rotation);"
+  "    rotation_matrix[0][1] = -sin(rotation);"
+  "    rotation_matrix[1][0] = sin(rotation);"
+  "    rotation_matrix[1][1] = cos(rotation);"
+  "    gl_Position = vec4(2.5 * scale * ((vec2(pos.x * length, pos.y)\n"
+  "                  * rotation_matrix) + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
+  "}\n";
+
+  const GLchar* edgeFragmentShaderCode =
+  "#version 330 core\n"
+  "out vec4 color;\n"
+  "void main()\n"
+  "{\n"
+  "    color = vec4(1.0);\n"
+  "}\n";
+
   const GLchar* vertexProgramCode[] =
-    {nodeVertexShaderCode, nodeFragmentShaderCode};
+    {vertexVertexShaderCode, vertexFragmentShaderCode};
   struct ShaderRequest vertexProgramReq[] =
     {(struct ShaderRequest){GL_VERTEX_SHADER, &(int){0}, 1},
      (struct ShaderRequest){GL_FRAGMENT_SHADER, &(int){1}, 1}};
   vertexShaderProgram =
     createProgram(vertexProgramCode, vertexProgramReq, 2);
+
+  const GLchar* edgeProgramCode[] =
+    {edgeVertexShaderCode, edgeFragmentShaderCode};
+  struct ShaderRequest edgeProgramReq[] =
+    {(struct ShaderRequest){GL_VERTEX_SHADER, &(int){0}, 1},
+     (struct ShaderRequest){GL_FRAGMENT_SHADER, &(int){1}, 1}};
+  edgeShaderProgram =
+    createProgram(edgeProgramCode, edgeProgramReq, 2);
 }

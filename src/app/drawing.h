@@ -7,13 +7,22 @@
 GLFWwindow* window;
 
 GLuint vertexShaderProgram;
+GLuint edgeShaderProgram;
 
-GLint scaleUniform;
-GLint windowXUniform;
-GLint windowYUniform;
-GLint offsetUniform;
+GLint vertex_scaleUniform;
+GLint vertex_windowXUniform;
+GLint vertex_windowYUniform;
+GLint vertex_offsetUniform;
+GLint edge_rotationUniform;
+GLint edge_lengthUniform;
+GLint edge_scaleUniform;
+GLint edge_windowXUniform;
+GLint edge_windowYUniform;
+GLint edge_offsetUniform;
 
-unsigned int VBO;
-unsigned int VAO;
+unsigned int vertex_VBO;
+unsigned int vertex_VAO;
+unsigned int edge_VBO;
+unsigned int edge_VAO;
 
 void generateShaders();
