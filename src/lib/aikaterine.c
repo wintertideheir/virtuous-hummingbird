@@ -114,22 +114,23 @@ struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRect
       if (i == av.verts[j]) {
         for (guint k = 0; k < v->edges->len; k++) {
           struct Edge* e = &g_array_index(v->edges, struct Edge, k);
-          int elem[3] = {i, e->relation, e->vertex};
+          int elem[3] = {i, e->vertex, e->relation};
           g_array_append_val(edges, elem);
         }
-        break;
+        goto end;
       }
     }
     for (guint j = 0; j < v->edges->len; j++) {
       struct Edge* e = &g_array_index(edges, struct Edge, j);
       for (int k = 0; k < av.verts_len; k++) {
         if (e->vertex == av.verts[k]) {
-          int elem[3] = {i, e->relation, e->vertex};
+          int elem[3] = {i, e->vertex, e->relation};
           g_array_append_val(edges, elem);
           continue;
         }
       }
     }
+    end: continue;
   }
   av.edges_len = edges->len;
   av.edges = (int(*)[3]) g_array_free(edges, FALSE);
