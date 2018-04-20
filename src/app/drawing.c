@@ -114,7 +114,6 @@ void drawingBegin()
   edge_rotationUniform = glGetUniformLocation(edgeShaderProgram, "rotation");
   edge_lengthUniform = glGetUniformLocation(edgeShaderProgram, "length");
 
-  glUseProgram(vertexShaderProgram);
   glProgramUniform1f(vertexShaderProgram, vertex_scaleUniform, scale);
   glProgramUniform1i(vertexShaderProgram, vertex_windowXUniform, windowX);
   glProgramUniform1i(vertexShaderProgram, vertex_windowYUniform, windowY);
