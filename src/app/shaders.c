@@ -97,8 +97,9 @@ void generateShaders()
   "float innerFactor = 15.0/255.0;\n"
   "void main()\n"
   "{\n"
-  "    color = vec4(vec3(1.0), (1 - smoothstep(radius, radius + delta, d))\n"
-  "            - ((1 - innerFactor) * (1 - smoothstep(radius - delta, radius, d))));\n"
+  "    color = vec4(vec3(1.0 - ((1.0 - innerFactor) *\n"
+  "                             (1 - smoothstep(radius - delta, radius, d)))),\n"
+  "                  (1 - smoothstep(radius, radius + delta, d)));\n"
   "}\n";
 
   const GLchar* edgeVertexShaderCode =

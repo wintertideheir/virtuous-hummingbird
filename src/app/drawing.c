@@ -137,9 +137,9 @@ void drawingBegin()
   };
 
   float edge[] = {
-     -1.0f,  -1.0f,
-     -1.0f,   1.0f,
-     1.0f,   0.0f,
+     -1.0f, -0.1f,
+     -1.0f, 0.1f,
+     1.0f,  0.0f,
   };
 
   glGenVertexArrays(1, &vertex_VAO);
@@ -175,14 +175,6 @@ void drawingLoop()
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glUseProgram(vertexShaderProgram);
-  glBindVertexArray(vertex_VAO);
-  for (int i = 0; i < verticesLength; i++) {
-    glProgramUniform2f(vertexShaderProgram, vertex_offsetUniform,
-                       vertices[i].x, vertices[i].y);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-  }
-
   glUseProgram(edgeShaderProgram);
   glBindVertexArray(edge_VAO);
   for (int i = 0; i < edgesLength; i++) {
@@ -190,7 +182,15 @@ void drawingLoop()
                        edges[i].location.x, edges[i].location.y);
     glProgramUniform1f(edgeShaderProgram, edge_rotationUniform, edges[i].rotation);
     glProgramUniform1f(edgeShaderProgram, edge_lengthUniform, edges[i].length);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+  }
+
+  glUseProgram(vertexShaderProgram);
+  glBindVertexArray(vertex_VAO);
+  for (int i = 0; i < verticesLength; i++) {
+    glProgramUniform2f(vertexShaderProgram, vertex_offsetUniform,
+                       vertices[i].x, vertices[i].y);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
   }
 
   glfwSwapBuffers(window);
