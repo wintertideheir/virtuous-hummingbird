@@ -81,9 +81,10 @@ void generateShaders()
   "uniform float scale;\n"
   "uniform int windowX;\n"
   "uniform int windowY;\n"
+  "uniform vec2 view;\n"
   "void main()\n"
   "{\n"
-  "    gl_Position = vec4(2.5 * scale * (pos + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
+  "    gl_Position = vec4(2.5 * scale * (pos + offset + view) / vec2(windowX, windowY), 0.0, 1.0);\n"
   "    normalizedPos = pos;\n"
   "}\n";
 
@@ -111,6 +112,7 @@ void generateShaders()
   "uniform int windowY;\n"
   "uniform float length;\n"
   "uniform float rotation;\n"
+  "uniform vec2 view;\n"
   "void main()\n"
   "{\n"
   "    mat2 rotation_matrix;"
@@ -119,7 +121,7 @@ void generateShaders()
   "    rotation_matrix[1][0] = sin(rotation);"
   "    rotation_matrix[1][1] = cos(rotation);"
   "    gl_Position = vec4(2.5 * scale * ((vec2(pos.x * length, pos.y)\n"
-  "                  * rotation_matrix) + offset) / vec2(windowX, windowY), 0.0, 1.0);\n"
+  "                  * rotation_matrix) + offset + view) / vec2(windowX, windowY), 0.0, 1.0);\n"
   "}\n";
 
   const GLchar* edgeFragmentShaderCode =

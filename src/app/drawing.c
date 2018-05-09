@@ -12,6 +12,10 @@ float scale = 15;
 int windowX = 800;
 int windowY = 600;
 
+const float viewf = 0.05;
+float viewX = 0;
+float viewY = 0;
+
 struct Line {
   struct AikaterineVector location;
   float rotation;
@@ -67,6 +71,14 @@ void scrollCallback(GLFWwindow* w, double x, double y)
   glProgramUniform1f(edgeShaderProgram, edge_scaleUniform, scale);
 }
 
+void cursorPosCallback(GLFWwindow* window, double x, double y)
+{
+  viewX = viewf * -x;
+  viewY = viewf * y;
+  glProgramUniform2f(vertexShaderProgram, vertex_viewUniform, viewX, viewY);
+  glProgramUniform2f(edgeShaderProgram, edge_viewUniform, viewX, viewY);
+}
+
 void drawingBegin()
 {
   findView();
@@ -107,25 +119,31 @@ void drawingBegin()
   vertex_windowXUniform = glGetUniformLocation(vertexShaderProgram, "windowX");
   vertex_windowYUniform = glGetUniformLocation(vertexShaderProgram, "windowY");
   vertex_offsetUniform = glGetUniformLocation(vertexShaderProgram, "offset");
+  vertex_viewUniform = glGetUniformLocation(vertexShaderProgram, "view");
   edge_scaleUniform = glGetUniformLocation(edgeShaderProgram, "scale");
   edge_windowXUniform = glGetUniformLocation(edgeShaderProgram, "windowX");
   edge_windowYUniform = glGetUniformLocation(edgeShaderProgram, "windowY");
   edge_offsetUniform = glGetUniformLocation(edgeShaderProgram, "offset");
   edge_rotationUniform = glGetUniformLocation(edgeShaderProgram, "rotation");
   edge_lengthUniform = glGetUniformLocation(edgeShaderProgram, "length");
+  edge_viewUniform = glGetUniformLocation(edgeShaderProgram, "view");
 
   glProgramUniform1f(vertexShaderProgram, vertex_scaleUniform, scale);
   glProgramUniform1i(vertexShaderProgram, vertex_windowXUniform, windowX);
   glProgramUniform1i(vertexShaderProgram, vertex_windowYUniform, windowY);
+  glProgramUniform2f(vertexShaderProgram, vertex_viewUniform, viewX, viewY);
   glProgramUniform1f(edgeShaderProgram, edge_scaleUniform, scale);
   glProgramUniform1i(edgeShaderProgram, edge_windowXUniform, windowX);
   glProgramUniform1i(edgeShaderProgram, edge_windowYUniform, windowY);
+  glProgramUniform2f(edgeShaderProgram, edge_viewUniform, viewX, viewY);
 
   int sizex, sizey;
   glfwGetFramebufferSize(window, &sizex, &sizey);
   glViewport(0, 0, sizex, sizey);
   glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
   glfwSetScrollCallback(window, &scrollCallback);
+  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  glfwSetCursorPosCallback(window, &cursorPosCallback);
 
   float vertex[] = {
      1.0f,  1.0f,
