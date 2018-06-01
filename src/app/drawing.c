@@ -155,12 +155,12 @@ void drawingBegin()
   };
 
   float edge[] = {
-     -1.0f, -0.125f,
-     -1.0f, 0.125f,
-     1.0f,  0.025f,
-     -1.0f, -0.1f,
-     1.0f, 0.025f,
-     1.0f,  -0.025f,
+     -1.0f, -1.0f,
+     -1.0f, 1.0f,
+     1.0f,  1.0f,
+     -1.0f, -1.0f,
+     1.0f, 1.0f,
+     1.0f,  -1.0f,
   };
 
   glGenVertexArrays(1, &vertex_VAO);

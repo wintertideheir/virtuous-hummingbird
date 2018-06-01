@@ -106,6 +106,7 @@ void generateShaders()
   const GLchar* edgeVertexShaderCode =
   "#version 330 core\n"
   "layout (location = 0) in vec2 pos;\n"
+  "out vec2 normalizedPos;\n"
   "uniform vec2 offset;\n"
   "uniform float scale;\n"
   "uniform int windowX;\n"
@@ -122,14 +123,18 @@ void generateShaders()
   "    rotation_matrix[1][1] = cos(rotation);"
   "    gl_Position = vec4(2.5 * scale * ((vec2(pos.x * length, pos.y)\n"
   "                  * rotation_matrix) + offset + view) / vec2(windowX, windowY), 0.0, 1.0);\n"
+  "    normalizedPos = pos;\n"
   "}\n";
 
   const GLchar* edgeFragmentShaderCode =
   "#version 330 core\n"
+  "in vec2 normalizedPos;\n"
   "out vec4 color;\n"
+  "float width = 0.025 + (0.1 * ((normalizedPos.x + 1) / 2));\n"
+  "float delta = fwidth(abs(normalizedPos.y));\n"
   "void main()\n"
   "{\n"
-  "    color = vec4(1.0);\n"
+  "    color = vec4(vec3(1.0), 1.0 - smoothstep(width, width + delta, abs(normalizedPos.y)));\n"
   "}\n";
 
   const GLchar* vertexProgramCode[] =
