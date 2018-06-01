@@ -130,7 +130,7 @@ void generateShaders()
   "#version 330 core\n"
   "in vec2 normalizedPos;\n"
   "out vec4 color;\n"
-  "float width = 0.025 + (0.1 * ((normalizedPos.x + 1) / 2));\n"
+  "float width = 0.075 + (0.1 * ((normalizedPos.x + 1) / 2));\n"
   "float delta = fwidth(abs(normalizedPos.y));\n"
   "void main()\n"
   "{\n"
