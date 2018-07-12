@@ -99,8 +99,8 @@ struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRect
   GArray* vertices = g_array_new(FALSE, FALSE, sizeof(int));
   for (guint i = 0; i < ag->graph->len; i++) {
     struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).wrapper.pos;
-    if (pos.x <= (area.center.x + area.offset.x) && pos.x >= (area.center.x - area.offset.x) &&
-        pos.y <= (area.center.y + area.offset.y) && pos.y >= (area.center.y - area.offset.y)) {
+    if (pos.x <= area.upper_right.x && pos.x >= area.lower_left.x &&
+        pos.y <= area.upper_right.y && pos.y >= area.lower_left.y) {
       g_array_append_val(vertices, i);
     }
   }
@@ -140,4 +140,18 @@ struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRect
 
 struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex) {
   return &g_array_index(ag->graph, struct Vertex, vertex).wrapper;
+}
+
+struct AikaterineRectangle aikaterine_boundaries(AikaterineGraph* ag) {
+  float max_x, max_y, min_x, min_y;
+  for (guint i = 0; i < ag->graph->len; i++) {
+    struct AikaterineVector pos = g_array_index(ag->graph, struct Vertex, i).wrapper.pos;
+    if (pos.x > max_x) max_x = pos.x;
+    if (pos.y > max_y) max_y = pos.y;
+    if (pos.x < min_x) min_x = pos.x;
+    if (pos.y < min_y) min_y = pos.y;
+  }
+  return (struct AikaterineRectangle)
+            {(struct AikaterineVector){min_x, min_y},
+             (struct AikaterineVector){max_x, max_y}};
 }

@@ -28,9 +28,11 @@ int edgesLength;
 struct Line* edges;
 
 void findView() {
-  struct AikaterineVector center = {0, 0};
-  struct AikaterineVector offset = {windowX / (2.5 * minScale), windowY / (2.5 * minScale)};
-  struct AikaterineRectangle area = {center, offset};
+  struct AikaterineRectangle area =
+    {(struct AikaterineVector){viewX - (windowX / (2.5 * minScale)),
+                               viewY - (windowY / (2.5 * minScale))},
+     (struct AikaterineVector){viewX + (windowX / (2.5 * minScale)),
+                               viewY + (windowY / (2.5 * minScale))}};
   struct AikaterineView av = aikaterine_view(ag, area);
   verticesLength = av.verts_len;
   vertices = malloc(sizeof(struct AikaterineVector) * verticesLength);

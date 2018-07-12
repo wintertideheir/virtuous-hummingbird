@@ -6,9 +6,8 @@ struct AikaterineVector {
 };
 
 struct AikaterineRectangle {
-  struct AikaterineVector center;
-  struct AikaterineVector offset;
-    // The offset's attributes should never be less than zero.
+  struct AikaterineVector lower_left;
+  struct AikaterineVector upper_right;
 };
 
 struct AikaterineIdea {
@@ -34,3 +33,4 @@ void aikaterine_disconnect(AikaterineGraph* ag, int from, int to, int relation);
 void aikaterine_free(AikaterineGraph* ag);
 struct AikaterineView aikaterine_view(AikaterineGraph* ag, struct AikaterineRectangle area);
 struct AikaterineIdea* aikaterine_idea(AikaterineGraph* ag, int vertex);
+struct AikaterineRectangle aikaterine_boundaries(AikaterineGraph* ag);
