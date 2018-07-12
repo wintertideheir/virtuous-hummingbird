@@ -15,6 +15,9 @@ int windowY = 600;
 const float viewf = 0.05;
 float viewX = 0;
 float viewY = 0;
+double lastX = 0;
+double lastY = 0;
+struct AikaterineRectangle viewBoundaries;
 
 struct Line {
   struct AikaterineVector location;
@@ -75,8 +78,14 @@ void scrollCallback(GLFWwindow* w, double x, double y)
 
 void cursorPosCallback(GLFWwindow* window, double x, double y)
 {
-  viewX = viewf * -x;
-  viewY = viewf * y;
+  viewX += viewf * - (x - lastX);
+  viewY += viewf * (y - lastY);
+  lastX = x;
+  lastY = y;
+  if (viewX < viewBoundaries.lower_left.x) viewX = viewBoundaries.lower_left.x;
+  if (viewY < viewBoundaries.lower_left.y) viewY = viewBoundaries.lower_left.y;
+  if (viewX > viewBoundaries.upper_right.x) viewX = viewBoundaries.upper_right.x;
+  if (viewY > viewBoundaries.upper_right.y) viewY = viewBoundaries.upper_right.y;
   glProgramUniform2f(vertexShaderProgram, vertex_viewUniform, viewX, viewY);
   glProgramUniform2f(edgeShaderProgram, edge_viewUniform, viewX, viewY);
 }
@@ -191,6 +200,8 @@ void drawingBegin()
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  viewBoundaries = aikaterine_boundaries(ag);
 }
 
 void drawingLoop()
