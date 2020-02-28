@@ -30,6 +30,7 @@ union UIElementValue
     struct UIElementScaled scaled;
     struct UIElementArray  array;
     const char             *text;
+    void                   (*callback)();
 };
 
 struct UIElement
@@ -97,10 +98,11 @@ struct UIElement *uielement_text(const char* text)
     return e;
 }
 
-struct UIElement *uielement_button()
+struct UIElement *uielement_button(void (*callback)())
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
     e->type = UIELEMENT_BUTTON;
+    e->value.callback = callback;
     return e;
 }
 
@@ -122,7 +124,7 @@ void uielement_destructor(struct UIElement *element)
             }
             free(element);
             break;
-        case UIELEMENT_TEXT:        
+        case UIELEMENT_TEXT:
         case UIELEMENT_BUTTON:
             free(element);
             break;
