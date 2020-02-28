@@ -12,7 +12,7 @@ env.VariantDir('bin', 'src', duplicate=0)
 
 app = env.Program(target='bin/aikaterine',
                   source=['bin/desktop.c', 'bin/drawing.c',
-                          'bin/shaders.c'],
+                          'bin/shaders.c', 'bin/ui.c'],
                   LIBS=['glfw', 'GL', 'GLEW', 'm'])
 
 env.Alias('build', app)
