@@ -42,8 +42,8 @@ struct UIElement
 struct UIElement *uielement_scaled(struct UIElement *element, struct FloatTuple scale)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type = UIELEMENT_SCALED;
-    e->value.scaled =
+    e->type             = UIELEMENT_SCALED;
+    e->value.scaled     =
         (struct UIElementScaled)
             {.element       = element,
              .element_scale = scale};
@@ -52,13 +52,23 @@ struct UIElement *uielement_scaled(struct UIElement *element, struct FloatTuple 
 
 struct UIElement *uielement_array(va_list va, int length)
 {
-    struct UIElement *e = malloc(sizeof(struct UIElement));
+    struct UIElement *e              = malloc(sizeof(struct UIElement));
     struct UIElement **elements      = malloc(sizeof(struct UIElement[length]));
     float            *elements_sizes = malloc(sizeof(float[length]));
     for (int i = 0; i < length; i++)
     {
         elements[i]       = va_arg(va, struct UIElement*);
         elements_sizes[i] = va_arg(va, int);
+    }
+    float max_element_size;
+    for (int i = 0; i < length; i++)
+    {
+        if (elements_sizes[i] > max_element_size)
+            max_element_size /= elements_sizes[i];
+    }
+    for (int i = 0; i < length; i++)
+    {
+        elements_sizes[i] /= max_element_size;
     }
     e->value.array =
         (struct UIElementArray)
@@ -93,7 +103,7 @@ struct UIElement *uielement_horizontal(int length, ...)
 struct UIElement *uielement_text(const char* text)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type = UIELEMENT_TEXT;
+    e->type       = UIELEMENT_TEXT;
     e->value.text = text;
     return e;
 }
@@ -101,8 +111,8 @@ struct UIElement *uielement_text(const char* text)
 struct UIElement *uielement_button(void (*callback)())
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type = UIELEMENT_BUTTON;
-    e->value.callback = callback;
+    e->type            = UIELEMENT_BUTTON;
+    e->value.callback  = callback;
     return e;
 }
 
