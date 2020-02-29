@@ -1,6 +1,6 @@
-#include "drawing.h"
+#include "draw.h"
 
-#include "error.h"
+#include "app/error.h"
 
 #include <stdlib.h>
 #include <math.h>

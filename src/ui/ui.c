@@ -6,7 +6,8 @@
 struct UIElementScaled
 {
     struct UIElement  *element;
-    struct FloatTuple element_scale;
+    float             element_x_scale;
+    float             element_y_scale;
 };
 
 struct UIElementArray
@@ -39,14 +40,13 @@ struct UIElement
     union UIElementValue value;
 };
 
-struct UIElement *uielement_scaled(struct UIElement *element, struct FloatTuple scale)
+struct UIElement *uielement_scaled(struct UIElement *element, float scale_x, float scale_y)
 {
-    struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type             = UIELEMENT_SCALED;
-    e->value.scaled     =
-        (struct UIElementScaled)
-            {.element       = element,
-             .element_scale = scale};
+    struct UIElement *e             = malloc(sizeof(struct UIElement));
+    e->type                         = UIELEMENT_SCALED;
+    e->value.scaled.element         = element;
+    e->value.scaled.element_x_scale = scale_x;
+    e->value.scaled.element_x_scale = scale_y;
     return e;
 }
 

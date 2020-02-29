@@ -11,8 +11,8 @@ env.Append(CFLAGS='-std=c11')
 env.VariantDir('bin', 'src', duplicate=0)
 
 app = env.Program(target='bin/aikaterine',
-                  source=['bin/desktop.c', 'bin/drawing.c',
-                          'bin/shaders.c', 'bin/ui.c'],
+                  source=['bin/app/app.c', 'bin/draw/draw.c',
+                          'bin/draw/shader.c', 'bin/ui/ui.c'],
                   LIBS=['glfw', 'GL', 'GLEW', 'm'])
 
 env.Alias('build', app)

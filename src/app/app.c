@@ -1,4 +1,4 @@
-#include "desktop.h"
+#include "app.h"
 
 #include "error.h"
 

@@ -8,4 +8,5 @@ struct ShaderRequest {
 };
 
 GLuint createProgram(const GLchar** shader_code,
-                     struct ShaderRequest* shader_req, int shader_req_len);
+                     struct ShaderRequest* shader_req,
+                     int shader_req_len);
