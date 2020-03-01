@@ -17,14 +17,16 @@ int main(int argc, char const *argv[])
   return EXIT_SUCCESS;
 }
 
-void earlyExit(const char* format, ...)
+void errorReport(const char* format, ...)
 {
   va_list args;
   va_start(args, format);
   vfprintf(stderr, format, args);
   va_end(args);
+}
 
+void errorExit()
+{
   drawingEnd();
-
   exit(EXIT_FAILURE);
 }

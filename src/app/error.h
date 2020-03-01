@@ -1,1 +1,2 @@
-void earlyExit(const char* format, ...);
+void errorReport(const char* format, ...);
+void errorExit();
