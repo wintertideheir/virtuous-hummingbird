@@ -19,7 +19,6 @@ struct UIElementArray
 
 enum UIElementType
 {
-    UIELEMENT_SCALED,
     UIELEMENT_VERTICAL,
     UIELEMENT_HORIZONTAL,
     UIELEMENT_TEXT,
@@ -39,16 +38,6 @@ struct UIElement
     enum UIElementType   type;
     union UIElementValue value;
 };
-
-struct UIElement *uielement_scaled(struct UIElement *element, float scale_x, float scale_y)
-{
-    struct UIElement *e             = malloc(sizeof(struct UIElement));
-    e->type                         = UIELEMENT_SCALED;
-    e->value.scaled.element         = element;
-    e->value.scaled.element_x_scale = scale_x;
-    e->value.scaled.element_x_scale = scale_y;
-    return e;
-}
 
 struct UIElement *uielement_array(va_list va, int length)
 {
@@ -120,10 +109,6 @@ void uielement_destructor(struct UIElement *element)
 {
     switch (element->type)
     {
-        case UIELEMENT_SCALED:
-            uielement_destructor(element->value.scaled.element);
-            free(element);
-            break;
         case UIELEMENT_VERTICAL:
         case UIELEMENT_HORIZONTAL:
             for (int i = 0; i < element->value.array.elements_length; i++)
