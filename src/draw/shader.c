@@ -4,10 +4,10 @@
 
 #include <stdlib.h>
 
-GLuint createShader(GLenum type, GLsizei number, const GLchar **code)
+GLuint createShader(struct ShaderRequest shader_request)
 {
-  GLuint shader = glCreateShader(type);
-  glShaderSource(shader, number, code, NULL);
+  GLuint shader = glCreateShader(shader_request.type);
+  glShaderSource(shader, shader_request.count, shader_request.code, NULL);
   glCompileShader(shader);
 
   GLint success = 0;
@@ -17,30 +17,22 @@ GLuint createShader(GLenum type, GLsizei number, const GLchar **code)
   {
     GLint size = 0;
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &size);
-    GLchar info[size];
-    glGetShaderInfoLog(shader, size, NULL, info);
+    GLchar log[size];
+    glGetShaderInfoLog(shader, size, NULL, log);
 
-	  glDeleteShader(shader);
-    errorReport("OpenGL shader failed to compile\n%s", info);
+    errorReport("OpenGL shader failed to compile\n%s", log);
     errorExit();
   }
 
   return shader;
 };
 
-GLuint createProgram(const GLchar** shader_code,
-                     struct ShaderRequest* shader_req, int shader_req_len) {
-  GLuint* shaders = malloc(sizeof(GLuint) * shader_req_len);
-
+GLuint createProgram(int shader_req_len, struct ShaderRequest* shader_req) {
+  GLuint shaders[shader_req_len];
   GLuint shaderProgram = glCreateProgram();
 
   for (int i = 0; i < shader_req_len; i++) {
-    const GLchar** code = malloc(sizeof(GLchar*) * shader_req[i].indicies_len);
-    for (int j = 0; j < shader_req[i].indicies_len; j++) {
-      code[j] = shader_code[shader_req[i].indicies[j]];
-    }
-    shaders[i] = createShader(shader_req[i].type, shader_req[i].indicies_len,
-                              code);
+    shaders[i] = createShader(shader_req[i]);
     glAttachShader(shaderProgram, shaders[i]);
   }
 
@@ -51,10 +43,10 @@ GLuint createProgram(const GLchar** shader_code,
   if (!success) {
     GLint size = 0;
     glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &size);
-    GLchar infoLog[size];
-    glGetProgramInfoLog(shaderProgram, size, NULL, infoLog);
+    GLchar log[size];
+    glGetProgramInfoLog(shaderProgram, size, NULL, log);
 
-    errorReport("OpenGL program failed to link\n%s", infoLog);
+    errorReport("OpenGL program failed to link\n%s", log);
     errorExit();
   }
 

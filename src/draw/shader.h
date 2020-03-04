@@ -3,10 +3,8 @@
 
 struct ShaderRequest {
   GLenum type;
-  int* indicies;
-  int indicies_len;
+  GLsizei count;
+  const GLchar** code;
 };
 
-GLuint createProgram(const GLchar** shader_code,
-                     struct ShaderRequest* shader_req,
-                     int shader_req_len);
+GLuint createProgram(int shader_req_len, struct ShaderRequest* shader_req);
