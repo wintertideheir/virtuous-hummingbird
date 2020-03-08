@@ -1,5 +1,7 @@
 #include "draw.h"
 
+#include "shapes.h"
+
 #include "app/error.h"
 
 #include <stdlib.h>
@@ -56,6 +58,8 @@ void drawingBegin()
   }
 
   glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
+
+  shapesBegin();
 }
 
 void drawingLoop()
