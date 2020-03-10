@@ -126,11 +126,13 @@ void uielement_generate_partial(struct UIElement *element,
             break;
         case UIELEMENT_HORIZONTAL:
             ; // "A label can only be part of a statement and a declaration is not a statement"
+            total_size = 0;
             for (int i = 0; i < element->value.array.elements_length; i++)
             {
                 total_size += element->value.array.elements_sizes[i];
             }
             specific_bound = (upper_x - lower_x)/total_size;
+            current_bound = 0;
             for (int i = 0; i < element->value.array.elements_length; i++)
             {
                 uielement_generate_partial(element->value.array.elements[i],
