@@ -9,7 +9,7 @@ struct UIElementArray
 {
     int              elements_length;
     struct UIElement **elements;
-    float            *elements_sizes;
+    int              *elements_sizes;
 };
 
 struct UIElementButton
@@ -45,11 +45,11 @@ struct UIElement *uielement_array(va_list va, int length)
 {
     struct UIElement *e              = malloc(sizeof(struct UIElement));
     struct UIElement **elements      = malloc(sizeof(struct UIElement[length]));
-    float            *elements_sizes = malloc(sizeof(float[length]));
+    int              *elements_sizes = malloc(sizeof(int[length]));
     for (int i = 0; i < length; i++)
     {
         elements[i]       = va_arg(va, struct UIElement*);
-        elements_sizes[i] = (float) va_arg(va, double);
+        elements_sizes[i] = va_arg(va, int);
     }
     e->value.array =
         (struct UIElementArray)
