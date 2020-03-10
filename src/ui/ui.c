@@ -1,20 +1,23 @@
 #include "ui.h"
 
+#include "draw/shapes.h"
+
 #include <stdlib.h>
 #include <stdarg.h>
-
-struct UIElementScaled
-{
-    struct UIElement  *element;
-    float             element_x_scale;
-    float             element_y_scale;
-};
 
 struct UIElementArray
 {
     int              elements_length;
     struct UIElement **elements;
     float            *elements_sizes;
+};
+
+struct UIElementButton
+{
+    void         (*callback)();
+    unsigned int VAO;
+    unsigned int VBO;
+    float R, G, B, A;
 };
 
 enum UIElementType
@@ -27,10 +30,9 @@ enum UIElementType
 
 union UIElementValue
 {
-    struct UIElementScaled scaled;
     struct UIElementArray  array;
     const char             *text;
-    void                   (*callback)();
+    struct UIElementButton button;
 };
 
 struct UIElement
@@ -47,17 +49,7 @@ struct UIElement *uielement_array(va_list va, int length)
     for (int i = 0; i < length; i++)
     {
         elements[i]       = va_arg(va, struct UIElement*);
-        elements_sizes[i] = va_arg(va, int);
-    }
-    float max_element_size;
-    for (int i = 0; i < length; i++)
-    {
-        if (elements_sizes[i] > max_element_size)
-            max_element_size /= elements_sizes[i];
-    }
-    for (int i = 0; i < length; i++)
-    {
-        elements_sizes[i] /= max_element_size;
+        elements_sizes[i] = (float) va_arg(va, double);
     }
     e->value.array =
         (struct UIElementArray)
@@ -97,12 +89,91 @@ struct UIElement *uielement_text(const char* text)
     return e;
 }
 
-struct UIElement *uielement_button(void (*callback)())
+struct UIElement *uielement_button(void (*callback)(), float R, float G, float B, float A)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
     e->type            = UIELEMENT_BUTTON;
-    e->value.callback  = callback;
+    e->value.button.callback = callback;
+    e->value.button.R = R;
+    e->value.button.G = G;
+    e->value.button.B = B;
+    e->value.button.A = A;
     return e;
+}
+
+void uielement_generate_partial(struct UIElement *element,
+                                float upper_x, float lower_x,
+                                float upper_y, float lower_y,
+                                int layer)
+{
+    switch (element->type)
+    {
+        case UIELEMENT_VERTICAL:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            float total_size = 0;
+            for (int i = 0; i < element->value.array.elements_length; i++)
+            {
+                total_size += element->value.array.elements_sizes[i];
+            }
+            float specific_bound = (upper_y - lower_y)/total_size;
+            float current_bound = 0;
+            for (int i = 0; i < element->value.array.elements_length; i++)
+            {
+                uielement_generate_partial(element->value.array.elements[i],
+                                           upper_x, lower_x,
+                                           lower_y + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
+                                           lower_y + current_bound,
+                                           layer + 1);
+                current_bound += specific_bound * element->value.array.elements_sizes[i];
+            }
+            break;
+        case UIELEMENT_HORIZONTAL:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            for (int i = 0; i < element->value.array.elements_length; i++)
+            {
+                total_size += element->value.array.elements_sizes[i];
+            }
+            specific_bound = (upper_x - lower_x)/total_size;
+            for (int i = 0; i < element->value.array.elements_length; i++)
+            {
+                uielement_generate_partial(element->value.array.elements[i],
+                                           lower_x + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
+                                           lower_x + current_bound,
+                                           upper_y, lower_y, layer + 1);
+                current_bound += specific_bound * element->value.array.elements_sizes[i];
+            }
+            break;
+        case UIELEMENT_TEXT:
+            break;
+        case UIELEMENT_BUTTON:
+            shapesGenerateBox(upper_x, lower_x, upper_y, lower_y, layer,
+                              element->value.button.R, element->value.button.G,
+                              element->value.button.B, element->value.button.A,
+                              &element->value.button.VAO, &element->value.button.VBO);
+            break;
+    }
+}
+
+void uielement_generate(struct UIElement *element)
+{
+    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0);
+}
+
+void uielement_draw(struct UIElement *element)
+{
+    switch (element->type)
+    {
+        case UIELEMENT_VERTICAL:
+        case UIELEMENT_HORIZONTAL:
+            for(int i = 0; i < element->value.array.elements_length; i++)
+                uielement_draw(element->value.array.elements[i]);
+            break;
+        case UIELEMENT_BUTTON:
+            shapesDrawBox(&element->value.button.VAO);
+            break;
+        case UIELEMENT_TEXT:
+            break;
+    }
 }
 
 void uielement_destructor(struct UIElement *element)
