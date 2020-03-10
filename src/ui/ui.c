@@ -17,7 +17,7 @@ struct UIElementButton
     void         (*callback)();
     unsigned int VAO;
     unsigned int VBO;
-    float R, G, B, A;
+    struct RGBA  color;
 };
 
 enum UIElementType
@@ -89,15 +89,12 @@ struct UIElement *uielement_text(const char* text)
     return e;
 }
 
-struct UIElement *uielement_button(void (*callback)(), float R, float G, float B, float A)
+struct UIElement *uielement_button(void (*callback)(), struct RGBA color)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
     e->type            = UIELEMENT_BUTTON;
     e->value.button.callback = callback;
-    e->value.button.R = R;
-    e->value.button.G = G;
-    e->value.button.B = B;
-    e->value.button.A = A;
+    e->value.button.color = color;
     return e;
 }
 
@@ -146,9 +143,8 @@ void uielement_generate_partial(struct UIElement *element,
         case UIELEMENT_TEXT:
             break;
         case UIELEMENT_BUTTON:
-            shapesGenerateBox(upper_x, lower_x, upper_y, lower_y, layer,
-                              element->value.button.R, element->value.button.G,
-                              element->value.button.B, element->value.button.A,
+            shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
+                              layer, element->value.button.color,
                               &element->value.button.VAO, &element->value.button.VBO);
             break;
     }

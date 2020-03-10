@@ -1,3 +1,5 @@
+#include "shapes.h"
+
 #include "shader.h"
 
 GLuint boxProgram;
@@ -33,15 +35,15 @@ void shapesBegin()
 }
 
 void shapesGenerateBox(float lower_x, float upper_x, float lower_y, float upper_y,
-                       int layer, float R, float G, float B, float A,
+                       int layer, struct RGBA color,
                        unsigned int *VAO, unsigned int *VBO)
 {
     float vertices[] =
     {
-        upper_x, upper_y, layer, R, G, B, A,
-        upper_x, lower_y, layer, R, G, B, A,
-        lower_x, lower_y, layer, R, G, B, A,
-        lower_x, upper_y, layer, R, G, B, A,
+        upper_x, upper_y, layer, color.red, color.green, color.blue, color.alpha,
+        upper_x, lower_y, layer, color.red, color.green, color.blue, color.alpha,
+        lower_x, lower_y, layer, color.red, color.green, color.blue, color.alpha,
+        lower_x, upper_y, layer, color.red, color.green, color.blue, color.alpha,
     };
 
     glGenVertexArrays(1, VAO);

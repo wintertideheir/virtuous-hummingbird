@@ -1,5 +1,7 @@
+#include "color.h"
+
 void shapesBegin();
 void shapesGenerateBox(float upper_x, float lower_x, float upper_y, float lower_y,
-                       int layer, float B, float G, float R, float A,
+                       int layer, struct RGBA color,
                        unsigned int *VAO, unsigned int *VBO);
 void shapesDrawBox(unsigned int *VAO);
