@@ -3,6 +3,7 @@
 #include "shapes.h"
 
 #include "app/error.h"
+#include "ui/ui.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -10,6 +11,8 @@
 
 int windowX = 800;
 int windowY = 600;
+
+struct UIElement *rootUIElement;
 
 void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
@@ -60,12 +63,19 @@ void drawingBegin()
   glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
 
   shapesBegin();
+
+  rootUIElement = uielement_vertical(3, uielement_button(NULL, (struct RGBA){0.0, 1.0, 0.0, 1.0}), 1,
+                                        uielement_button(NULL, (struct RGBA){0.0, 0.0, 1.0, 1.0}), 1,
+                                        uielement_button(NULL, (struct RGBA){1.0, 0.0, 0.0, 1.0}), 1);
+  uielement_generate(rootUIElement);
 }
 
 void drawingLoop()
 {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
+
+  uielement_draw(rootUIElement);
 
   glfwSwapBuffers(window);
   glfwPollEvents();
