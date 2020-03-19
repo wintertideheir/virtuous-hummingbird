@@ -1,6 +1,7 @@
 #include "draw.h"
 
 #include "shapes.h"
+#include "window.h"
 
 #include "app/error.h"
 #include "ui/ui.h"
@@ -8,9 +9,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
-int windowX = 800;
-int windowY = 600;
 
 struct UIElement *rootUIElement;
 
@@ -29,6 +27,9 @@ void errorCallbackGLFW(int error_code, const char* description)
 
 void drawingBegin()
 {
+  windowX = 800;
+  windowY = 600;
+
   glfwSetErrorCallback(*errorCallbackGLFW);
 
   if(!glfwInit())
@@ -64,9 +65,9 @@ void drawingBegin()
 
   shapesBegin();
 
-  rootUIElement = uielement_vertical(3, uielement_button(NULL, (struct RGBA){0.0, 1.0, 0.0, 1.0}), 1,
-                                        uielement_button(NULL, (struct RGBA){0.0, 0.0, 1.0, 1.0}), 1,
-                                        uielement_button(NULL, (struct RGBA){1.0, 0.0, 0.0, 1.0}), 1);
+  rootUIElement = uielement_fixed(uielement_vertical(3, uielement_border(uielement_button(NULL, (struct RGBA){0.0, 1.0, 0.0, 1.0}), 5, 5), 1,
+                                                        uielement_border(uielement_button(NULL, (struct RGBA){0.0, 0.0, 1.0, 1.0}), 5, 5), 1,
+                                                        uielement_border(uielement_button(NULL, (struct RGBA){1.0, 0.0, 0.0, 1.0}), 5, 5), 1), 100, 300);
   uielement_generate(rootUIElement);
 }
 

@@ -1,0 +1,2 @@
+int windowX;
+int windowY;

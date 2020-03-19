@@ -1,9 +1,17 @@
 #include "ui.h"
 
+#include "draw/window.h"
 #include "draw/shapes.h"
 
 #include <stdlib.h>
 #include <stdarg.h>
+
+struct UIElementFixed
+{
+    struct UIElement *element;
+    int x;
+    int y;
+};
 
 struct UIElementArray
 {
@@ -22,6 +30,8 @@ struct UIElementButton
 
 enum UIElementType
 {
+    UIELEMENT_BORDER,
+    UIELEMENT_FIXED,
     UIELEMENT_VERTICAL,
     UIELEMENT_HORIZONTAL,
     UIELEMENT_TEXT,
@@ -33,6 +43,7 @@ union UIElementValue
     struct UIElementArray  array;
     const char             *text;
     struct UIElementButton button;
+    struct UIElementFixed  fixed;
 };
 
 struct UIElement
@@ -40,6 +51,26 @@ struct UIElement
     enum UIElementType   type;
     union UIElementValue value;
 };
+
+struct UIElement *uielement_border(struct UIElement* element, int x, int y)
+{
+    struct UIElement *e = malloc(sizeof(struct UIElement));
+    e->type = UIELEMENT_BORDER;
+    e->value.fixed.element = element;
+    e->value.fixed.x = x;
+    e->value.fixed.y = y;
+    return e;
+}
+
+struct UIElement *uielement_fixed(struct UIElement* element, int x, int y)
+{
+    struct UIElement *e = malloc(sizeof(struct UIElement));
+    e->type = UIELEMENT_FIXED;
+    e->value.fixed.element = element;
+    e->value.fixed.x = x;
+    e->value.fixed.y = y;
+    return e;
+}
 
 struct UIElement *uielement_array(va_list va, int length)
 {
@@ -105,6 +136,26 @@ void uielement_generate_partial(struct UIElement *element,
 {
     switch (element->type)
     {
+        case UIELEMENT_BORDER:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            float fixed_x = (float) element->value.fixed.x / (float) windowX;
+            float fixed_y = (float) element->value.fixed.y / (float) windowY;
+            uielement_generate_partial(element->value.fixed.element,
+                                       upper_x - fixed_x, lower_x + fixed_x,
+                                       upper_y - fixed_y, lower_y + fixed_y,
+                                       layer + 1);
+            break;
+        case UIELEMENT_FIXED:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            float center_x = (upper_x + lower_x) / 2;
+            float center_y = (upper_y + lower_y) / 2 ;
+            fixed_x = (float) element->value.fixed.x / (float) windowX;
+            fixed_y = (float) element->value.fixed.y / (float) windowY;
+            uielement_generate_partial(element->value.fixed.element,
+                                       center_x + fixed_x, center_x - fixed_x,
+                                       center_y + fixed_y, center_y - fixed_y,
+                                       layer + 1);
+            break;
         case UIELEMENT_VERTICAL:
             ; // "A label can only be part of a statement and a declaration is not a statement"
             float total_size = 0;
@@ -161,6 +212,10 @@ void uielement_draw(struct UIElement *element)
 {
     switch (element->type)
     {
+        case UIELEMENT_BORDER:
+        case UIELEMENT_FIXED:
+            uielement_draw(element->value.fixed.element);
+            break;
         case UIELEMENT_VERTICAL:
         case UIELEMENT_HORIZONTAL:
             for(int i = 0; i < element->value.array.elements_length; i++)
@@ -178,6 +233,11 @@ void uielement_destructor(struct UIElement *element)
 {
     switch (element->type)
     {
+        case UIELEMENT_BORDER:
+        case UIELEMENT_FIXED:
+            uielement_destructor(element->value.fixed.element);
+            free(element);
+            break;
         case UIELEMENT_VERTICAL:
         case UIELEMENT_HORIZONTAL:
             for (int i = 0; i < element->value.array.elements_length; i++)
