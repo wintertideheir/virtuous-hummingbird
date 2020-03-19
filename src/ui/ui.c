@@ -129,10 +129,40 @@ struct UIElement *uielement_button(void (*callback)(), struct RGBA color)
     return e;
 }
 
+int uielement_max_layer_partial(struct UIElement *element, int layer)
+{
+    switch(element->type)
+    {
+        case UIELEMENT_BORDER:
+        case UIELEMENT_FIXED:
+            return uielement_max_layer_partial(element->value.fixed.element, layer+1);
+            break;
+        case UIELEMENT_VERTICAL:
+        case UIELEMENT_HORIZONTAL:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            int max_layer = layer;
+            for(int i = 0; i < element->value.array.elements_length; i++)
+            {
+                int max_layer_i = uielement_max_layer_partial(element->value.array.elements[i], layer+1);
+                if (max_layer_i > max_layer) max_layer = max_layer_i;
+            }
+            return max_layer;
+            break;
+        case UIELEMENT_TEXT:
+        case UIELEMENT_BUTTON:
+            return layer;
+    }
+}
+
+int uielement_max_layer(struct UIElement *element)
+{
+    return uielement_max_layer_partial(element, 0);
+}
+
 void uielement_generate_partial(struct UIElement *element,
                                 float upper_x, float lower_x,
                                 float upper_y, float lower_y,
-                                int layer)
+                                int layer, int max_layer)
 {
     switch (element->type)
     {
@@ -143,7 +173,7 @@ void uielement_generate_partial(struct UIElement *element,
             uielement_generate_partial(element->value.fixed.element,
                                        upper_x - fixed_x, lower_x + fixed_x,
                                        upper_y - fixed_y, lower_y + fixed_y,
-                                       layer + 1);
+                                       layer + 1, max_layer);
             break;
         case UIELEMENT_FIXED:
             ; // "A label can only be part of a statement and a declaration is not a statement"
@@ -154,7 +184,7 @@ void uielement_generate_partial(struct UIElement *element,
             uielement_generate_partial(element->value.fixed.element,
                                        center_x + fixed_x, center_x - fixed_x,
                                        center_y + fixed_y, center_y - fixed_y,
-                                       layer + 1);
+                                       layer + 1, max_layer);
             break;
         case UIELEMENT_VERTICAL:
             ; // "A label can only be part of a statement and a declaration is not a statement"
@@ -171,7 +201,7 @@ void uielement_generate_partial(struct UIElement *element,
                                            upper_x, lower_x,
                                            lower_y + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
                                            lower_y + current_bound,
-                                           layer + 1);
+                                           layer + 1, max_layer);
                 current_bound += specific_bound * element->value.array.elements_sizes[i];
             }
             break;
@@ -189,7 +219,7 @@ void uielement_generate_partial(struct UIElement *element,
                 uielement_generate_partial(element->value.array.elements[i],
                                            lower_x + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
                                            lower_x + current_bound,
-                                           upper_y, lower_y, layer + 1);
+                                           upper_y, lower_y, layer + 1, max_layer);
                 current_bound += specific_bound * element->value.array.elements_sizes[i];
             }
             break;
@@ -197,7 +227,7 @@ void uielement_generate_partial(struct UIElement *element,
             break;
         case UIELEMENT_BUTTON:
             shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
-                              layer, element->value.button.color,
+                              (float) layer / (float) max_layer, element->value.button.color,
                               &element->value.button.VAO, &element->value.button.VBO);
             break;
     }
@@ -205,7 +235,7 @@ void uielement_generate_partial(struct UIElement *element,
 
 void uielement_generate(struct UIElement *element)
 {
-    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0);
+    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0, uielement_max_layer(element));
 }
 
 void uielement_draw(struct UIElement *element)

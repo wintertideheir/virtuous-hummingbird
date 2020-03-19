@@ -35,7 +35,7 @@ void shapesBegin()
 }
 
 void shapesGenerateBox(float lower_x, float upper_x, float lower_y, float upper_y,
-                       int layer, struct RGBA color,
+                       float layer, struct RGBA color,
                        unsigned int *VAO, unsigned int *VBO)
 {
     float vertices[] =
