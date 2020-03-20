@@ -20,9 +20,8 @@ struct UIElementArray
     int              *elements_sizes;
 };
 
-struct UIElementButton
+struct UIElementBox
 {
-    void         (*callback)();
     unsigned int VAO;
     unsigned int VBO;
     struct RGBA  color;
@@ -35,15 +34,15 @@ enum UIElementType
     UIELEMENT_VERTICAL,
     UIELEMENT_HORIZONTAL,
     UIELEMENT_TEXT,
-    UIELEMENT_BUTTON
+    UIELEMENT_BOX
 };
 
 union UIElementValue
 {
-    struct UIElementArray  array;
-    const char             *text;
-    struct UIElementButton button;
-    struct UIElementFixed  fixed;
+    struct UIElementArray array;
+    const char            *text;
+    struct UIElementBox   box;
+    struct UIElementFixed fixed;
 };
 
 struct UIElement
@@ -120,12 +119,11 @@ struct UIElement *uielement_text(const char* text)
     return e;
 }
 
-struct UIElement *uielement_button(void (*callback)(), struct RGBA color)
+struct UIElement *uielement_box(struct RGBA color)
 {
     struct UIElement *e      = malloc(sizeof(struct UIElement));
-    e->type                  = UIELEMENT_BUTTON;
-    e->value.button.callback = callback;
-    e->value.button.color    = color;
+    e->type                  = UIELEMENT_BOX;
+    e->value.box.color       = color;
     return e;
 }
 
@@ -149,7 +147,7 @@ int uielement_max_layer_partial(struct UIElement *element, int layer)
             return max_layer;
             break;
         case UIELEMENT_TEXT:
-        case UIELEMENT_BUTTON:
+        case UIELEMENT_BOX:
             return layer;
     }
 }
@@ -224,10 +222,10 @@ void uielement_generate_partial(struct UIElement *element,
             break;
         case UIELEMENT_TEXT:
             break;
-        case UIELEMENT_BUTTON:
+        case UIELEMENT_BOX:
             shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
-                              (float) layer / (float) max_layer, element->value.button.color,
-                              &element->value.button.VAO, &element->value.button.VBO);
+                              (float) layer / (float) max_layer, element->value.box.color,
+                              &element->value.box.VAO, &element->value.box.VBO);
             break;
     }
 }
@@ -250,8 +248,8 @@ void uielement_draw(struct UIElement *element)
             for(int i = 0; i < element->value.array.elements_length; i++)
                 uielement_draw(element->value.array.elements[i]);
             break;
-        case UIELEMENT_BUTTON:
-            shapesDrawBox(&element->value.button.VAO);
+        case UIELEMENT_BOX:
+            shapesDrawBox(&element->value.box.VAO);
             break;
     }
 }
