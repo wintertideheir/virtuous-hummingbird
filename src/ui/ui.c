@@ -9,8 +9,8 @@
 struct UIElementFixed
 {
     struct UIElement *element;
-    int x;
-    int y;
+    int              x;
+    int              y;
 };
 
 struct UIElementArray
@@ -54,21 +54,21 @@ struct UIElement
 
 struct UIElement *uielement_border(struct UIElement* element, int x, int y)
 {
-    struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type = UIELEMENT_BORDER;
+    struct UIElement *e    = malloc(sizeof(struct UIElement));
+    e->type                = UIELEMENT_BORDER;
     e->value.fixed.element = element;
-    e->value.fixed.x = x;
-    e->value.fixed.y = y;
+    e->value.fixed.x       = x;
+    e->value.fixed.y       = y;
     return e;
 }
 
 struct UIElement *uielement_fixed(struct UIElement* element, int x, int y)
 {
-    struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type = UIELEMENT_FIXED;
+    struct UIElement *e    = malloc(sizeof(struct UIElement));
+    e->type                = UIELEMENT_FIXED;
     e->value.fixed.element = element;
-    e->value.fixed.x = x;
-    e->value.fixed.y = y;
+    e->value.fixed.x       = x;
+    e->value.fixed.y       = y;
     return e;
 }
 
@@ -115,17 +115,17 @@ struct UIElement *uielement_horizontal(int length, ...)
 struct UIElement *uielement_text(const char* text)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type       = UIELEMENT_TEXT;
-    e->value.text = text;
+    e->type             = UIELEMENT_TEXT;
+    e->value.text       = text;
     return e;
 }
 
 struct UIElement *uielement_button(void (*callback)(), struct RGBA color)
 {
-    struct UIElement *e = malloc(sizeof(struct UIElement));
-    e->type            = UIELEMENT_BUTTON;
+    struct UIElement *e      = malloc(sizeof(struct UIElement));
+    e->type                  = UIELEMENT_BUTTON;
     e->value.button.callback = callback;
-    e->value.button.color = color;
+    e->value.button.color    = color;
     return e;
 }
 
@@ -160,8 +160,7 @@ int uielement_max_layer(struct UIElement *element)
 }
 
 void uielement_generate_partial(struct UIElement *element,
-                                float upper_x, float lower_x,
-                                float upper_y, float lower_y,
+                                float upper_x, float lower_x, float upper_y, float lower_y,
                                 int layer, int max_layer)
 {
     switch (element->type)
@@ -254,8 +253,6 @@ void uielement_draw(struct UIElement *element)
         case UIELEMENT_BUTTON:
             shapesDrawBox(&element->value.button.VAO);
             break;
-        case UIELEMENT_TEXT:
-            break;
     }
 }
 
@@ -266,7 +263,6 @@ void uielement_destructor(struct UIElement *element)
         case UIELEMENT_BORDER:
         case UIELEMENT_FIXED:
             uielement_destructor(element->value.fixed.element);
-            free(element);
             break;
         case UIELEMENT_VERTICAL:
         case UIELEMENT_HORIZONTAL:
@@ -276,13 +272,7 @@ void uielement_destructor(struct UIElement *element)
                 free(element->value.array.elements);
                 free(element->value.array.elements_sizes);
             }
-            free(element);
-            break;
-        case UIELEMENT_TEXT:
-        case UIELEMENT_BUTTON:
-            free(element);
-            break;
-        default:
             break;
     }
+    free(element);
 }
