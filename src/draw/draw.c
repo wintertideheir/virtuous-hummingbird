@@ -16,7 +16,10 @@ void framebufferSizeCallback(GLFWwindow *w, int x, int y)
 {
   windowX = x;
   windowY = y;
+
   glViewport(0, 0, x, y);
+
+  uielement_update(rootUIElement);
 }
 
 void errorCallbackGLFW(int error_code, const char* description)

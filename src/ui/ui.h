@@ -10,6 +10,7 @@ struct UIElement *uielement_text(const char* text);
 struct UIElement *uielement_box(struct RGBA color, struct UIElement *element);
 
 void uielement_generate(struct UIElement *element);
+void uielement_update(struct UIElement *element);
 void uielement_draw(struct UIElement* element);
 
 void uielement_destructor(struct UIElement *element);

@@ -59,6 +59,20 @@ void shapesGenerateBox(float upper_x, float lower_x, float upper_y, float lower_
     glEnableVertexAttribArray(1);
 }
 
+void shapesUpdateBox(float upper_x, float lower_x, float upper_y, float lower_y,
+                     float layer, struct RGBA color, unsigned int *VBO)
+{
+    float vertices[] =
+    {
+        upper_x, upper_y, layer, color.red, color.green, color.blue, color.alpha,
+        upper_x, lower_y, layer, color.red, color.green, color.blue, color.alpha,
+        lower_x, lower_y, layer, color.red, color.green, color.blue, color.alpha,
+        lower_x, upper_y, layer, color.red, color.green, color.blue, color.alpha,
+    };
+
+    glNamedBufferSubData(*VBO, 0, sizeof(vertices), vertices);
+}
+
 void shapesDrawBox(unsigned int *VAO)
 {
     glUseProgram(boxProgram);

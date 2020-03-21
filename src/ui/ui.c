@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 struct UIElementFixed
 {
@@ -165,7 +166,7 @@ int uielement_max_layer(struct UIElement *element)
 
 void uielement_generate_partial(struct UIElement *element,
                                 float upper_x, float lower_x, float upper_y, float lower_y,
-                                int layer, int max_layer)
+                                int layer, int max_layer, bool update)
 {
     if (element == NULL) return;
     switch (element->type)
@@ -177,7 +178,7 @@ void uielement_generate_partial(struct UIElement *element,
             uielement_generate_partial(element->value.fixed.element,
                                        upper_x - fixed_x, lower_x + fixed_x,
                                        upper_y - fixed_y, lower_y + fixed_y,
-                                       layer + 1, max_layer);
+                                       layer + 1, max_layer, update);
             break;
         case UIELEMENT_FIXED:
             ; // "A label can only be part of a statement and a declaration is not a statement"
@@ -188,7 +189,7 @@ void uielement_generate_partial(struct UIElement *element,
             uielement_generate_partial(element->value.fixed.element,
                                        center_x + fixed_x, center_x - fixed_x,
                                        center_y + fixed_y, center_y - fixed_y,
-                                       layer + 1, max_layer);
+                                       layer + 1, max_layer, update);
             break;
         case UIELEMENT_VERTICAL:
             ; // "A label can only be part of a statement and a declaration is not a statement"
@@ -205,7 +206,7 @@ void uielement_generate_partial(struct UIElement *element,
                                            upper_x, lower_x,
                                            lower_y + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
                                            lower_y + current_bound,
-                                           layer + 1, max_layer);
+                                           layer + 1, max_layer, update);
                 current_bound += specific_bound * element->value.array.elements_sizes[i];
             }
             break;
@@ -223,26 +224,34 @@ void uielement_generate_partial(struct UIElement *element,
                 uielement_generate_partial(element->value.array.elements[i],
                                            lower_x + current_bound + (specific_bound * element->value.array.elements_sizes[i]),
                                            lower_x + current_bound,
-                                           upper_y, lower_y, layer + 1, max_layer);
+                                           upper_y, lower_y, layer + 1, max_layer, update);
                 current_bound += specific_bound * element->value.array.elements_sizes[i];
             }
             break;
         case UIELEMENT_TEXT:
             break;
         case UIELEMENT_BOX:
-            shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
-                              (float) layer / (float) max_layer, element->value.box.color,
-                              &element->value.box.VAO, &element->value.box.VBO);
+            if (update) shapesUpdateBox(upper_x, lower_x, upper_y, lower_y,
+                                        (float) layer / (float) max_layer, element->value.box.color,
+                                        &element->value.box.VBO);
+            else shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
+                                   (float) layer / (float) max_layer, element->value.box.color,
+                                   &element->value.box.VAO, &element->value.box.VBO);
             uielement_generate_partial(element->value.box.element,
                                        upper_x, lower_x, upper_y, lower_y,
-                                       layer, max_layer);
+                                       layer, max_layer, update);
             break;
     }
 }
 
 void uielement_generate(struct UIElement *element)
 {
-    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0, uielement_max_layer(element));
+    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0, uielement_max_layer(element), false);
+}
+
+void uielement_update(struct UIElement *element)
+{
+    uielement_generate_partial(element, 1.0, -1.0, 1.0, -1.0, 0, uielement_max_layer(element), true);
 }
 
 void uielement_draw(struct UIElement *element)
