@@ -22,9 +22,10 @@ struct UIElementArray
 
 struct UIElementBox
 {
-    unsigned int VAO;
-    unsigned int VBO;
-    struct RGBA  color;
+    unsigned int     VAO;
+    unsigned int     VBO;
+    struct RGBA      color;
+    struct UIElement *element;
 };
 
 enum UIElementType
@@ -119,16 +120,18 @@ struct UIElement *uielement_text(const char* text)
     return e;
 }
 
-struct UIElement *uielement_box(struct RGBA color)
+struct UIElement *uielement_box(struct RGBA color, struct UIElement* element)
 {
-    struct UIElement *e      = malloc(sizeof(struct UIElement));
-    e->type                  = UIELEMENT_BOX;
-    e->value.box.color       = color;
+    struct UIElement *e  = malloc(sizeof(struct UIElement));
+    e->type              = UIELEMENT_BOX;
+    e->value.box.color   = color;
+    e->value.box.element = element;
     return e;
 }
 
 int uielement_max_layer_partial(struct UIElement *element, int layer)
 {
+    if (element == NULL) return layer;
     switch(element->type)
     {
         case UIELEMENT_BORDER:
@@ -147,8 +150,11 @@ int uielement_max_layer_partial(struct UIElement *element, int layer)
             return max_layer;
             break;
         case UIELEMENT_TEXT:
-        case UIELEMENT_BOX:
             return layer;
+            break;
+        case UIELEMENT_BOX:
+            return uielement_max_layer_partial(element->value.box.element, layer+1);
+            break;
     }
 }
 
@@ -161,6 +167,7 @@ void uielement_generate_partial(struct UIElement *element,
                                 float upper_x, float lower_x, float upper_y, float lower_y,
                                 int layer, int max_layer)
 {
+    if (element == NULL) return;
     switch (element->type)
     {
         case UIELEMENT_BORDER:
@@ -226,6 +233,9 @@ void uielement_generate_partial(struct UIElement *element,
             shapesGenerateBox(upper_x, lower_x, upper_y, lower_y,
                               (float) layer / (float) max_layer, element->value.box.color,
                               &element->value.box.VAO, &element->value.box.VBO);
+            uielement_generate_partial(element->value.box.element,
+                                       upper_x, lower_x, upper_y, lower_y,
+                                       layer, max_layer);
             break;
     }
 }
@@ -237,6 +247,7 @@ void uielement_generate(struct UIElement *element)
 
 void uielement_draw(struct UIElement *element)
 {
+    if (element == NULL) return;
     switch (element->type)
     {
         case UIELEMENT_BORDER:
@@ -250,12 +261,14 @@ void uielement_draw(struct UIElement *element)
             break;
         case UIELEMENT_BOX:
             shapesDrawBox(&element->value.box.VAO);
+            uielement_draw(element->value.box.element);
             break;
     }
 }
 
 void uielement_destructor(struct UIElement *element)
 {
+    if (element == NULL) return;
     switch (element->type)
     {
         case UIELEMENT_BORDER:
@@ -270,6 +283,9 @@ void uielement_destructor(struct UIElement *element)
                 free(element->value.array.elements);
                 free(element->value.array.elements_sizes);
             }
+            break;
+        case UIELEMENT_BOX:
+            uielement_destructor(element->value.box.element);
             break;
     }
     free(element);
