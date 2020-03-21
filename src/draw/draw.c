@@ -65,9 +65,12 @@ void drawingBegin()
 
   shapesBegin();
 
-  rootUIElement = uielement_fixed(uielement_vertical(3, uielement_border(uielement_box((struct RGBA){0.0, 1.0, 0.0, 1.0}, NULL), 5, 5), 1,
-                                                        uielement_border(uielement_box((struct RGBA){0.0, 0.0, 1.0, 1.0}, NULL), 5, 5), 1,
-                                                        uielement_border(uielement_box((struct RGBA){1.0, 0.0, 0.0, 1.0}, NULL), 5, 5), 1), 100, 300);
+  rootUIElement = uielement_box((struct RGBA){0.75, 1.0, 0.75, 1.0},
+                                uielement_fixed(uielement_box((struct RGBA){0.5, 1.0, 0.5, 1.0},
+                                                uielement_vertical(3, uielement_border(uielement_box((struct RGBA){0.25, 1.0, 0.25, 1.0}, NULL), 15, 15), 1,
+                                                                      uielement_border(uielement_box((struct RGBA){0.25, 1.0, 0.25, 1.0}, NULL), 15,  5), 1,
+                                                                      uielement_border(uielement_box((struct RGBA){0.25, 1.0, 0.25, 1.0}, NULL), 15, 15), 1)),
+                                                500, 300));
   uielement_generate(rootUIElement);
 }
 
