@@ -3,3 +3,4 @@ bin/*
 log/*
 !log/README.md
 .sconsign.dblite
+.vscode
