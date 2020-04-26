@@ -2,6 +2,7 @@
 
 #include "draw/window.h"
 #include "draw/shapes.h"
+#include "draw/text.h"
 
 #include <stdlib.h>
 #include <stdarg.h>
@@ -29,6 +30,14 @@ struct UIElementBox
     struct UIElement *element;
 };
 
+struct UIElementText
+{
+    unsigned int VAO;
+    unsigned int VBO;
+    unsigned int TID;
+    const char   *text;
+};
+
 enum UIElementType
 {
     UIELEMENT_BORDER,
@@ -42,7 +51,7 @@ enum UIElementType
 union UIElementValue
 {
     struct UIElementArray array;
-    const char            *text;
+    struct UIElementText  text;
     struct UIElementBox   box;
     struct UIElementFixed fixed;
 };
@@ -117,7 +126,7 @@ struct UIElement *uielement_text(const char* text)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
     e->type             = UIELEMENT_TEXT;
-    e->value.text       = text;
+    e->value.text.text  = text;
     return e;
 }
 
@@ -229,6 +238,25 @@ void uielement_generate_partial(struct UIElement *element,
             }
             break;
         case UIELEMENT_TEXT:
+            ; // "A label can only be part of a statement and a declaration is not a statement"
+            char *texture;
+            int texture_width;
+            int texture_height;
+            textRender(element->value.text.text, &texture, &texture_width, &texture_height);
+            center_x = (upper_x  + lower_x) / 2;
+            center_y = (upper_y + lower_y) / 2;
+            float offset_x = (float) texture_width / (float) windowX;
+            float offset_y = (float) texture_height / (float) windowY;
+            if (update) shapesUpdateText(center_x + offset_x, center_x - offset_x,
+                                         center_y + offset_y, center_y - offset_y,
+                                         (float) layer / (float) max_layer, &element->value.text.VBO);
+            else shapesGenerateText(center_x + offset_x, center_x - offset_x,
+                                    center_y + offset_y, center_y - offset_y,
+                                    (float) layer / (float) max_layer,
+                                    texture, texture_width, texture_height,
+                                    &element->value.text.TID,
+                                    &element->value.text.VAO,
+                                    &element->value.text.VBO);
             break;
         case UIELEMENT_BOX:
             if (update) shapesUpdateBox(upper_x, lower_x, upper_y, lower_y,
@@ -267,6 +295,9 @@ void uielement_draw(struct UIElement *element)
         case UIELEMENT_HORIZONTAL:
             for(int i = 0; i < element->value.array.elements_length; i++)
                 uielement_draw(element->value.array.elements[i]);
+            break;
+        case UIELEMENT_TEXT:
+            shapesDrawText(&element->value.text.TID, &element->value.text.VAO);
             break;
         case UIELEMENT_BOX:
             shapesDrawBox(&element->value.box.VAO);

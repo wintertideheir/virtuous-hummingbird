@@ -2,6 +2,7 @@
 
 #include "shapes.h"
 #include "window.h"
+#include "text.h"
 
 #include "app/error.h"
 #include "ui/ui.h"
@@ -66,15 +67,19 @@ void drawingBegin()
 
   glfwSetFramebufferSizeCallback(window, &framebufferSizeCallback);
 
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+
   shapesBegin();
+  textBegin();
 
   struct RGBA colorDarkBlue = {0.1, 0.15, 0.1, 1.0};
   struct RGBA colorWhite =    {1.0, 1.0,  1.0, 1.0};
 
   rootUIElement = uielement_box(colorDarkBlue, uielement_fixed(uielement_vertical(3,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, NULL), 5, 5)), 15, 15), 1,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, NULL), 5, 5)), 15, 15), 1,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, NULL), 5, 5)), 15, 15), 1),
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Organize")),    5, 5)), 15, 15), 1,
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Progression")), 5, 5)), 15, 15), 1,
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Continue")),    5, 5)), 15, 15), 1),
                     500, 300));
   uielement_generate(rootUIElement);
 }
@@ -96,5 +101,7 @@ int drawingShouldClose() {
 
 void drawingEnd()
 {
+  textEnd();
+
   glfwTerminate();
 }
