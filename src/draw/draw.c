@@ -77,9 +77,9 @@ void drawingBegin()
   struct RGBA colorWhite =    {1.0, 1.0,  1.0, 1.0};
 
   rootUIElement = uielement_box(colorDarkBlue, uielement_fixed(uielement_vertical(3,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Organize")),    5, 5)), 15, 15), 1,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Progression")), 5, 5)), 15, 15), 1,
-                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text("Continue")),    5, 5)), 15, 15), 1),
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text(colorWhite, "Organize")),    5, 5)), 15, 15), 1,
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text(colorWhite, "Progression")), 5, 5)), 15, 15), 1,
+                      uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text(colorWhite, "Continue")),    5, 5)), 15, 15), 1),
                     500, 300));
   uielement_generate(rootUIElement);
 }

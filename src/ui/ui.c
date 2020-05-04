@@ -35,6 +35,7 @@ struct UIElementText
     unsigned int VAO;
     unsigned int VBO;
     unsigned int TID;
+    struct RGBA  color;
     const char   *text;
 };
 
@@ -122,10 +123,11 @@ struct UIElement *uielement_horizontal(int length, ...)
     return e;
 }
 
-struct UIElement *uielement_text(const char* text)
+struct UIElement *uielement_text(struct RGBA color, const char* text)
 {
     struct UIElement *e = malloc(sizeof(struct UIElement));
     e->type             = UIELEMENT_TEXT;
+    e->value.text.color = color;
     e->value.text.text  = text;
     return e;
 }
@@ -249,10 +251,13 @@ void uielement_generate_partial(struct UIElement *element,
             float offset_y = (float) texture_height / (float) windowY;
             if (update) shapesUpdateText(center_x + offset_x, center_x - offset_x,
                                          center_y + offset_y, center_y - offset_y,
-                                         (float) layer / (float) max_layer, &element->value.text.VBO);
+                                         (float) layer / (float) max_layer,
+                                         element->value.text.color,
+                                         &element->value.text.VBO);
             else shapesGenerateText(center_x + offset_x, center_x - offset_x,
                                     center_y + offset_y, center_y - offset_y,
                                     (float) layer / (float) max_layer,
+                                    element->value.text.color,
                                     texture, texture_width, texture_height,
                                     &element->value.text.TID,
                                     &element->value.text.VAO,
