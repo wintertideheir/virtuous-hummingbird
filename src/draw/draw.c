@@ -81,7 +81,7 @@ void drawingBegin()
                       uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text(colorWhite, "Progression")), 5, 5)), 15, 15), 1,
                       uielement_border(uielement_box(colorWhite, uielement_border(uielement_box(colorDarkBlue, uielement_text(colorWhite, "Continue")),    5, 5)), 15, 15), 1),
                     500, 300));
-  uielement_generate(rootUIElement);
+  uielement_update(rootUIElement);
 }
 
 void drawingLoop()
