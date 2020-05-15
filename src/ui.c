@@ -1,8 +1,8 @@
 #include "ui.h"
 
-#include "draw/window.h"
-#include "draw/shapes.h"
-#include "draw/text.h"
+#include "window.h"
+#include "shapes.h"
+#include "text.h"
 
 #include <stdlib.h>
 #include <stdarg.h>

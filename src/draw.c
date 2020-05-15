@@ -3,9 +3,8 @@
 #include "shapes.h"
 #include "window.h"
 #include "text.h"
-
-#include "app/error.h"
-#include "ui/ui.h"
+#include "error.h"
+#include "ui.h"
 
 #include <stdlib.h>
 #include <math.h>

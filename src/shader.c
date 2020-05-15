@@ -1,6 +1,6 @@
 #include "shader.h"
 
-#include "app/error.h"
+#include "error.h"
 
 #include <stdlib.h>
 

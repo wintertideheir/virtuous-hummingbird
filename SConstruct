@@ -17,9 +17,9 @@ env.Append(CFLAGS=['-std=c11', freetype2_flags])
 env.VariantDir('bin', 'src', duplicate=0)
 
 app = env.Program(target='bin/aikaterine',
-                  source=['bin/app/app.c', 'bin/draw/draw.c',
-                          'bin/draw/shader.c', 'bin/ui/ui.c',
-                          'bin/draw/shapes.c', 'bin/draw/text.c'],
+                  source=['bin/app.c',    'bin/draw.c',
+                          'bin/shader.c', 'bin/ui.c',
+                          'bin/shapes.c', 'bin/text.c'],
                   LIBS=['glfw', 'GL', 'GLEW', 'm', 'freetype'])
 
 env.Alias('build', app)

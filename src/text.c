@@ -1,6 +1,6 @@
 #include "text.h"
 
-#include "app/error.h"
+#include "error.h"
 
 #include <stdlib.h>
 #include <string.h>
