@@ -1,2 +1,0 @@
-int windowX;
-int windowY;

@@ -1,6 +1,0 @@
-bin/*
-!bin/README.md
-log/*
-!log/README.md
-.sconsign.dblite
-.vscode
