@@ -1,4 +1,6 @@
-package net.wintertideheir.aikaterine
+package net.wintertideheir.aikaterine.internal
+
+import net.wintertideheir.aikaterine.internal.Skill
 
 /** An abstract quality, virtue, or talent of an individual.
  *

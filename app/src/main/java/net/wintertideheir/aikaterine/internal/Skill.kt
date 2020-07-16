@@ -1,4 +1,4 @@
-package net.wintertideheir.aikaterine
+package net.wintertideheir.aikaterine.internal
 
 /** A definite, measurable skill.
  *
