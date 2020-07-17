@@ -8,8 +8,25 @@ package net.wintertideheir.aikaterine.internal
  *                         If a skill, a paragraph of instructions.
  *  @param measure If a quality, set to null.
  *                 If a skill, a function with behaviour yet unspecified.
+ *  @param leafTrait A [MutableList] of component [PersonalTrait],
+ *                   A skill may never have a quality as a parent.
  */
 class PersonalTrait(var shortDescription: String,
                     var longDescription:  String,
-                    var measure:          (() -> Unit)?) {
+                    var measure:          (() -> Unit)? = null,
+                    var leafTraits:       MutableList<PersonalTrait> = mutableListOf<PersonalTrait>()) {
+
+    fun isQuality(): Boolean {
+        return measure == null;
+    }
+
+    fun isChild(shortDescription: String): Boolean {
+        return (this.shortDescription == shortDescription) ||
+                leafTraits.map {
+                    it.isChild(shortDescription)
+                }.reduce {
+                        a, b -> a || b
+                };
+    }
+
 }
