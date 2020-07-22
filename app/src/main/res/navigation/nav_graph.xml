@@ -9,20 +9,15 @@
         android:id="@+id/FirstFragment"
         android:name="net.wintertideheir.aikaterine.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_first"/>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="net.wintertideheir.aikaterine.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_second"/><action android:id="@+id/action_global_SecondFragment" app:destination="@id/SecondFragment"/><action android:id="@+id/action_global_FirstFragment" app:destination="@id/FirstFragment"/>
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="net.wintertideheir.aikaterine.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" /><action android:id="@+id/action_global_ThirdFragment" app:destination="@id/ThirdFragment"/>
 </navigation>

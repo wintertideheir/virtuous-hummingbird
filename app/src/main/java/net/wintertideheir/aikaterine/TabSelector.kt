@@ -12,8 +12,9 @@ class TabSelector(val navController: NavController) : TabLayout.OnTabSelectedLis
 
     override fun onTabSelected(p0: Tab) {
         when (p0.contentDescription.toString()) {
-            "tab1" -> navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
-            "tab2" -> navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
+            "tab1" -> navController.navigate(R.id.action_global_FirstFragment)
+            "tab2" -> navController.navigate(R.id.action_global_SecondFragment)
+            "tab3" -> navController.navigate(R.id.action_global_ThirdFragment)
         }
     }
 
