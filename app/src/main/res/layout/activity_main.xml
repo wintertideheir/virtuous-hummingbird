@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="@string/tab_name1"
+    android:contentDescription="@string/label_analysis"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -27,20 +27,20 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/tab_name1"
-                android:text="@string/first_fragment_label" />
+                android:contentDescription="@string/label_editor"
+                android:text="@string/label_editor" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/tab_name2"
-                android:text="@string/second_fragment_label" />
+                android:contentDescription="@string/label_tracker"
+                android:text="@string/label_tracker" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/tab_name3"
-                android:text="@string/third_fragment_label" />
+                android:contentDescription="@string/label_analysis"
+                android:text="@string/label_analysis" />
 
         </com.google.android.material.tabs.TabLayout>
 
