@@ -1,4 +1,4 @@
-package net.wintertideheir.aikaterine.internal
+package net.wintertideheir.aikaterine
 
 import java.io.Serializable
 

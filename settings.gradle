@@ -1,2 +1,3 @@
+include ':AikaterineLibrary'
 include ':app'
 rootProject.name = "Aikaterine"
