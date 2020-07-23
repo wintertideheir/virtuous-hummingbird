@@ -1,6 +1,9 @@
 package net.wintertideheir.aikaterine
 
-interface TraitChange {
-    fun apply(traitTree: net.wintertideheir.aikaterine.TraitTree) {
-    }
+import java.io.Serializable
+
+interface TraitChange : Serializable {
+
+    fun apply(traitTree: net.wintertideheir.aikaterine.TraitTree)
+
 }
