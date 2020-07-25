@@ -11,6 +11,7 @@ class TraitTree : Serializable{
     init {
         tree.addVertex(
             net.wintertideheir.aikaterine.Trait(
+                0,
                 "Eudaemonia",
                 "Root for all non-orphaned nodes."
             )
