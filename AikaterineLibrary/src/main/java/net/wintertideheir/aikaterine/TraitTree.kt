@@ -18,4 +18,14 @@ class TraitTree : Serializable{
         );
     }
 
+    fun requestId() : Int? {
+        val idList = tree.map { it.id }
+        for (x in 1 .. Int.MAX_VALUE) {
+            if (x !in idList) {
+                return x
+            }
+        }
+        return null
+    }
+
 }
