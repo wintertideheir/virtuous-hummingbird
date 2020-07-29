@@ -2,16 +2,22 @@ package net.wintertideheir.aikaterine
 
 import java.io.Serializable
 
-class Trait(val id: Int,
-            var shortDescription: String,
-            var longDescription:  String) : Serializable {
+data class Trait(var shortDescription: String,
+                 var longDescription:  String,
+                 var parent: Trait?,
+                 var children: MutableList<Trait>) : Serializable {
 
-    override fun equals(other: Any?): Boolean {
-        return id.equals(other)
-    }
-
-    override fun hashCode(): Int {
-        return id
+    fun cyclic(visited: MutableList<Trait> = arrayListOf()): Boolean {
+        if (this in visited) {
+            return true
+        }
+        visited.add(this)
+        for (child in children) {
+            if (child.cyclic(visited)) {
+                return true
+            }
+        }
+        return false
     }
 
 }
