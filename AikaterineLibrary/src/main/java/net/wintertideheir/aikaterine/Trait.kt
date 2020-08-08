@@ -20,6 +20,16 @@ class Trait(var shortDescription: String,
         return (true in children.map { it.cyclic(visited) })
     }
 
+    fun link(parent: Trait) {
+        this.parent = parent
+        parent.children.add(this)
+    }
+
+    fun delink() {
+        parent?.children?.remove(this)
+        parent = null
+    }
+
     fun render(angle: Float = 0f,
                sector: Float = 2 * PI.toFloat(),
                radius: Float = 0f) {
