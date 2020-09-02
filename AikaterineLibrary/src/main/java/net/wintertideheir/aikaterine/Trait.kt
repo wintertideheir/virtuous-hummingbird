@@ -30,6 +30,10 @@ class Trait(var shortDescription: String,
         parent = null
     }
 
+    fun root() : Trait {
+        return parent?.root() ?: this;
+    }
+
     fun render(angle: Float = 0f,
                sector: Float = 2 * PI.toFloat(),
                radius: Float = 0f) {
