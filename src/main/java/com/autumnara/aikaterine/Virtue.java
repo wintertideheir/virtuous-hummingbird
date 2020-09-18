@@ -98,7 +98,7 @@ public class Virtue {
     {
         if (visited.contains(this))
         {
-            throw new IllegalCycleException();
+            throw new IllegalCycleException(visited);
         } else {
             if (this.higher == null)
             {
