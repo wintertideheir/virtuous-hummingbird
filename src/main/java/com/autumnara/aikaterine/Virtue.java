@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine;
 
+import com.autumnara.aikaterine.IllegalCycleException;
+
 import java.util.ArrayList;
 
 /** A virtue. A trait or quality deemed morally good or desirable.
@@ -65,6 +67,47 @@ public class Virtue {
     {
         return new Virtue("εὐδαιμονία",
                           "Flourishing, prosperity, or blessedness");
+    }
+
+    /** Get the highest virtue in the virtue tree.
+        @return The highest virtue in the virtue tree.
+        @exception IllegalCycleException Throws an exceptino if
+                                         searching for the highest
+                                         virtue leads to a cycle. */
+    public Virtue getHighest()
+    throws IllegalCycleException
+    {
+        return getHighest(new ArrayList<Virtue>());
+    }
+
+    /** Get the highest virtue in the virtue tree given a list of
+        visited nodes beneath it. Internal function wrapped by
+        the {@link #getHighest() getHighest} method.
+        @param visited A list of checked virtues lower than this
+                       virtue. The first element of this list ought to
+                       be the object that
+                       {@link #getHighest() getHighest} was called on,
+                       although this is not checked and is
+                       nonessential.
+        @return The highest virtue in the virtue tree.
+        @exception IllegalCycleException Throws an exceptino if
+                                         searching for the highest
+                                         virtue leads to a cycle. */
+    private Virtue getHighest(ArrayList<Virtue> visited)
+    throws IllegalCycleException
+    {
+        if (visited.contains(this))
+        {
+            throw new IllegalCycleException();
+        } else {
+            if (this.higher == null)
+            {
+                return this;
+            } else {
+                visited.add(this);
+                return this.higher.getHighest(visited);
+            }
+        }
     }
 
 }
