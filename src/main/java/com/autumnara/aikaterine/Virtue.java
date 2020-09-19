@@ -2,6 +2,7 @@ package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.IllegalCycleException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** A virtue. A trait or quality deemed morally good or desirable.
@@ -10,7 +11,7 @@ import java.util.ArrayList;
     between nodes indicate which virtue is pursued for the sake of the
     other. This relationship can be viewed as relating parts to the
     whole. */
-public class Virtue {
+public class Virtue implements Serializable {
 
     /** The name of the virtue. Ought to be a few words for higher
         virtues. */
