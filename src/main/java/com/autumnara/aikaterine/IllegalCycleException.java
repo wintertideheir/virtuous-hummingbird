@@ -10,7 +10,8 @@ public class IllegalCycleException extends Exception {
                      with the same element. */
     public <S> IllegalCycleException(ArrayList<S> cycle)
     {
-        super(String.join(" -> ", cycle.stream()
+        super("Illegal cycle in acyclic graph, " +
+              String.join(" -> ", cycle.stream()
                                        .map(o -> o.toString())
                                        .toArray(String[]::new)));
     }
