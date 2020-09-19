@@ -110,4 +110,15 @@ public class Virtue {
         }
     }
 
+    /** Fix links in the virtue tree by recursively ensuring each lower
+        virtue has a correctly set higher virtue member. */
+    public void fixLinks()
+    {
+        for (Virtue l : lower)
+        {
+            l.higher = this;
+            l.fixLinks();
+        }
+    }
+
 }
