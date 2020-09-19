@@ -1,6 +1,7 @@
 package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.IllegalCycleException;
+import com.autumnara.aikaterine.DuplicateElementException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -119,6 +120,39 @@ public class Virtue implements Serializable {
         {
             l.higher = this;
             l.fixLinks();
+        }
+    }
+
+    /** Check for duplicate references in the virtue tree.
+        @exception DuplicateElementException Throws an exception if a
+                                             duplicate element is
+                                             found. */
+
+    public void checkDuplicates()
+    throws DuplicateElementException
+    {
+        ArrayList<Virtue> visited = new ArrayList<Virtue>();
+        checkDuplicates(visited);
+    }
+
+    /** Check for duplicate references in the virtue tree given the a
+        list of visited nodes.
+        @param visited A list of visited nodes.
+        @exception DuplicateElementException Throws an exception if a
+                                             duplicate element is
+                                             found. */
+    private void checkDuplicates(ArrayList<Virtue> visited)
+    throws DuplicateElementException
+    {
+        if (visited.contains(this))
+        {
+            throw new DuplicateElementException(this);
+        } else {
+            visited.add(this);
+            for (Virtue l : this.lower)
+            {
+                l.checkDuplicates(visited);
+            }
         }
     }
 
