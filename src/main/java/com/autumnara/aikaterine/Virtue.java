@@ -5,6 +5,7 @@ import com.autumnara.aikaterine.DuplicateElementException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /** A virtue. A trait or quality deemed morally good or desirable.
     Anything belonging with a possessive. Virtues are implicitly part
@@ -50,16 +51,32 @@ public class Virtue implements Serializable {
         this.lower       = new ArrayList<Virtue>();
     }
 
-    /** Complete constructor for a quality. */
-    public Virtue(String            name,
-                  String            description,
-                  Virtue            higher,
-                  ArrayList<Virtue> lower)
+    /** Complete constructor for a quality, given a iteration of
+        virtues. */
+    public Virtue(String           name,
+                  String           description,
+                  Virtue           higher,
+                  Iterable<Virtue> lower)
     {
         this.name        = name;
         this.description = description;
         this.higher      = higher;
-        this.lower       = lower;
+        this.lower       = new ArrayList<Virtue>();
+
+        lower.forEach(this.lower::add);
+    }
+
+    /** Complete constructor for a quality, given an array of
+        virtues. */
+    public Virtue(String   name,
+                  String   description,
+                  Virtue   higher,
+                  Virtue[] lower)
+    {
+        this.name        = name;
+        this.description = description;
+        this.higher      = higher;
+        this.lower       = new ArrayList<Virtue>(Arrays.asList(lower));
     }
 
     /** Constructor for the highest virtue from Aristotlean virtue
