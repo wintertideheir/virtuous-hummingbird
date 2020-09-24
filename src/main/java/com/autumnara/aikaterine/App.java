@@ -1,18 +1,26 @@
 package com.autumnara.aikaterine;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Accordion;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class App extends Application{
 
     @Override
-    public void start(Stage stage) {
-        Label l = new Label("Aikaterine");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
+    public void start(Stage stage)
+    throws IOException {
+        URL fxml = getClass().getResource("/aikaterine.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+        Accordion root = (Accordion) fxmlLoader.load();
+        Scene scene = new Scene(root);
+
         stage.setScene(scene);
+        stage.setTitle("Aikaterine");
         stage.show();
     }
 
