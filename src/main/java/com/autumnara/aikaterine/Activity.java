@@ -16,7 +16,6 @@ class Activity implements Serializable {
         reduced. */
     public String instructions;
 
-    /** Constructor for an activity. */
     public Activity(String name,
                     String description,
                     String instructions)

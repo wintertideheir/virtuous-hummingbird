@@ -13,7 +13,6 @@ public class Virtue implements Serializable {
         virtues. */
     protected String description;
 
-    /** Constructor for a virtue given a name and description. */
     public Virtue(String name,
                   String description)
     {

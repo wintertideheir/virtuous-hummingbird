@@ -5,8 +5,6 @@ import com.autumnara.aikaterine.Virtue;
 /** A mutable {@link com.autumnara.aikaterine.Virtue}. */
 public class MutableVirtue extends Virtue {
 
-    /** Constructor for a mutable virtue given a name and
-        description. */
     public MutableVirtue(String name,
                          String description)
     {
