@@ -30,4 +30,33 @@ public class Virtue implements Serializable {
         return this.description;
     }
 
+    /** Override of the equality method that only compared the name of
+        the virtue, which ought to be unique in a single virtue tree.
+        */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (null == obj)
+        {
+            return false;
+        }
+        if (obj instanceof Virtue)
+        {
+            return ((Virtue) obj).name == this.name;
+        }
+        return false;
+    }
+
+    /** Override of hash method to reflect the overrided equality
+        method. */
+    @Override
+    public int hashCode()
+    {
+        return this.name.hashCode();
+    }
+
 }
