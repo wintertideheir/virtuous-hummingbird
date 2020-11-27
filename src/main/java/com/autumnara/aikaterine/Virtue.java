@@ -13,12 +13,12 @@ public class Virtue implements Serializable {
         virtues. */
     protected String description;
 
-    /** The distance of of the virtue to the root virtue, when drawn.
-        */
-    public transient float distance = 0;
-    /** The angle of the virtue relative to an arbitrary ray from the
-        root virtue. */
-    public transient float angle = 0;
+    /** The x coordinate of the virtue in 2-dimensional Cartesian
+        coordinates. */
+    public transient float x = 0;
+    /** The y coordinate of the virtue in 2-dimensional Cartesian
+        coordinates. */
+    public transient float y = 0;
 
     public Virtue(String name,
                   String description)

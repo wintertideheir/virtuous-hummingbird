@@ -45,10 +45,10 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
                         float  max_angle,
                         float  distance)
     {
-        float delta_angle = max_angle - min_angle;
+        virtue.x = (float) Math.cos(0.5f * (min_angle + max_angle)) * distance;
+        virtue.y = (float) Math.sin(0.5f * (min_angle + max_angle)) * distance;
 
-        virtue.angle    = min_angle + (0.5f * delta_angle);
-        virtue.distance = distance;
+        float delta_angle = max_angle - min_angle;
 
         Virtue[] descendants = this.getDescendants(this.root).toArray(Virtue[]::new);
         for (int i = 0; i < descendants.length; i++)
@@ -56,8 +56,7 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
             this.render(descendants[i],
                         min_angle + (delta_angle * i       / descendants.length),
                         min_angle + (delta_angle * (i + 1) / descendants.length),
-                        Math.max(distance + 1,
-                                 MIN_ARC_LEN / delta_angle));
+                        Math.max(distance + 1, MIN_ARC_LEN / delta_angle));
         }
     }
 
