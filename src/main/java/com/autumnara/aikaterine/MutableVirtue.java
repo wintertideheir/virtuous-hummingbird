@@ -11,6 +11,13 @@ public class MutableVirtue extends Virtue {
         super(name, description);
     }
 
+    public MutableVirtue(String  name,
+                         String  description,
+                         boolean primary)
+    {
+        super(name, description, primary);
+    }
+
     public void setName(String name)
     {
         this.name = name;
@@ -19,6 +26,11 @@ public class MutableVirtue extends Virtue {
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public void setPrimary(boolean primary)
+    {
+        this.primary = primary;
     }
 
 }

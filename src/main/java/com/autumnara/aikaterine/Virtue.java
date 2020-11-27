@@ -13,6 +13,12 @@ public class Virtue implements Serializable {
         virtues. */
     protected String description;
 
+    /** Determines whether the or not the virtue is primary. If a
+        virtue is not primary, it must be secondary. Primary virtues
+        are presented to the user while viewing, whereas secondary
+        virtues are only visible duing editing. */
+    protected boolean primary = false;
+
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
     public transient float x = 0;
@@ -27,6 +33,14 @@ public class Virtue implements Serializable {
         this.description = description;
     }
 
+    public Virtue(String  name,
+                  String  description,
+                  boolean primary)
+    {
+        this(name, description);
+        this.primary = true;
+    }
+
     public String getName()
     {
         return this.name;
@@ -35,6 +49,11 @@ public class Virtue implements Serializable {
     public String getDescription()
     {
         return this.description;
+    }
+
+    public boolean getPrimary()
+    {
+        return this.primary;
     }
 
     /** Override of the equality method that only compared the name of
