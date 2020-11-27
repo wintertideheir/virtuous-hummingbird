@@ -21,8 +21,8 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
         virtue is horizontal and above the root node. */
     private Virtue focus;
 
-    /** The minimum arc length that a virtue must space itself from sibling virtues. */
-    private static final float MIN_ARC_LEN = 1;
+    /** The minimum distance between virtues. */
+    private static final float MIN_DISTANCE = 1;
 
     /** Constructor for a virtue graph. The graph is initially
         populated with the root virtue. */
@@ -54,15 +54,15 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
         virtue.x = (float) Math.cos(0.5f * (min_angle + max_angle)) * distance;
         virtue.y = (float) Math.sin(0.5f * (min_angle + max_angle)) * distance;
 
-        float delta_angle = max_angle - min_angle;
-
         Virtue[] descendants = this.getDescendants(this.root).toArray(Virtue[]::new);
+        float delta_angle = (max_angle - min_angle) / descendants.length;
         for (int i = 0; i < descendants.length; i++)
         {
             this.render(descendants[i],
-                        min_angle + (delta_angle * i       / descendants.length),
-                        min_angle + (delta_angle * (i + 1) / descendants.length),
-                        Math.max(distance + 1, MIN_ARC_LEN / delta_angle));
+                        min_angle + (delta_angle * i),
+                        min_angle + (delta_angle * (i + 1)),
+                        Math.max(distance + MIN_DISTANCE,
+                                 MIN_DISTANCE * 2 * (float) Math.sin(delta_angle)));
         }
     }
 
