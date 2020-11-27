@@ -34,6 +34,12 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
         this.focus = this.root;
     }
 
+    /** Render the virtue graph as a variable-radius radial tree. */
+    public void render()
+    {
+        this.render(this.root, 0, 2 * (float) Math.PI, 0);
+    }
+
     /** Render a virtue and it's descendants with a variable-radius radial tree.
         @param virtue    a virtue that is part of this virtue graph
         @param min_angle the minimum angle the virtue can be at from it's ancestor
