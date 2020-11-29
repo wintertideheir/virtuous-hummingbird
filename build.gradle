@@ -37,3 +37,7 @@ dependencies {
 application {
     mainClassName = 'com.autumnara.aikaterine.App'
 }
+
+task myJavadocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+}

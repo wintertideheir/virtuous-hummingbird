@@ -2,55 +2,59 @@ package com.autumnara.aikaterine;
 
 import java.io.Serializable;
 
-/** A virtue. A trait or quality deemed morally good or desirable.
-    Anything belonging with a possessive. */
+/** <h1> An immutable representation of a virtue. </h1>
+    
+    <p> A virtue is a trait or quality of a person deemed morally good
+    or desirable. Virtues may be assessed by how virtuous acts and
+    feelings are, and may be improved through deliberate practice.
+
+    <p> <i>Note:</i> See
+    <a href="https://plato.stanford.edu/entries/ethics-virtue/#EudaVirtEthi">
+    Eudaimonist virtue ethics</a> for further information.
+    */
 public class Virtue implements Serializable {
 
-    /** The name of the virtue. Ought to be a few words for higher
-        virtues. */
+    /** The name of the virtue. */
     protected String name;
-    /** A description of the virtue. Ought to be a sentence for higher
-        virtues. */
+
+    /** A short description of the virtue. */
     protected String description;
 
-    /** Determines whether the or not the virtue is primary. If a
-        virtue is not primary, it must be secondary. Primary virtues
-        are presented to the user while viewing, whereas secondary
-        virtues are only visible duing editing. */
-    protected boolean primary = false;
+    /** Whether the virtue is primary or secondary. Secondary virtues
+        are only shown while editing. */
+    protected boolean primary;
 
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
     public transient float x = 0;
+
     /** The y coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
     public transient float y = 0;
 
-    public Virtue(String name,
-                  String description)
-    {
-        this.name        = name;
-        this.description = description;
-    }
-
+    /** Constructor for an immutable virtue. */
     public Virtue(String  name,
                   String  description,
                   boolean primary)
     {
-        this(name, description);
-        this.primary = true;
+        this.name        = name;
+        this.description = description;
+        this.primary     = primary;
     }
 
+    /** Get the {@link Virtue#name} of the virtue. */
     public String getName()
     {
         return this.name;
     }
 
+    /** Get the {@link Virtue#description} of the virtue. */
     public String getDescription()
     {
         return this.description;
     }
 
+    /** Get the {@link Virtue#} */
     public boolean getPrimary()
     {
         return this.primary;

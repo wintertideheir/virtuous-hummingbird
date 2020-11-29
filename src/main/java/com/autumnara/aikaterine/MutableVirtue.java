@@ -5,12 +5,6 @@ import com.autumnara.aikaterine.Virtue;
 /** A mutable {@link com.autumnara.aikaterine.Virtue}. */
 public class MutableVirtue extends Virtue {
 
-    public MutableVirtue(String name,
-                         String description)
-    {
-        super(name, description);
-    }
-
     public MutableVirtue(String  name,
                          String  description,
                          boolean primary)
