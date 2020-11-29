@@ -54,7 +54,7 @@ public class Virtue implements Serializable {
         return this.description;
     }
 
-    /** Get the {@link Virtue#} */
+    /** Get whether the virtue is {@link Virtue#primary}. */
     public boolean getPrimary()
     {
         return this.primary;
