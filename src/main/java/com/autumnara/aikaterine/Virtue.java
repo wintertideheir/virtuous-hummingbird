@@ -32,6 +32,15 @@ public class Virtue implements Serializable {
         coordinates. */
     public transient float y = 0;
 
+    /** The red component of the color of the virtue when drawn. */
+    public transient float r = 0;
+
+    /** The green component of the color of the virtue when drawn. */
+    public transient float g = 0;
+
+    /** The blue component of the color of the virtue when drawn. */
+    public transient float b = 0;
+
     /** Constructor for an immutable virtue. */
     public Virtue(String  name,
                   String  description,

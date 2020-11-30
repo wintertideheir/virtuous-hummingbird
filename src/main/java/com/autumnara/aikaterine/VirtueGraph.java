@@ -6,6 +6,7 @@ import org.jgrapht.graph.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.lang.Math;
+import java.util.function.Function;
 
 /** A {@link org.jgrapht.graph.DirectedAcyclicGraph} of 
     {@link com.autumnara.aikaterine.Virtue} with relevant auxiliary
@@ -51,9 +52,61 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
                         float  max_angle,
                         float  distance)
     {
-        virtue.x = (float) Math.cos(0.5f * (min_angle + max_angle)) * distance;
-        virtue.y = (float) Math.sin(0.5f * (min_angle + max_angle)) * distance;
+        /* Calculate the x and y coordinates of the virtue by the
+         * bisecting angle and distance.
+         */
+        float angle = 0.5f * (min_angle + max_angle);
 
+        virtue.x = (float) Math.cos(angle) * distance;
+        virtue.y = (float) Math.sin(angle) * distance;
+
+        /* Calculate the RGB colors from a hue-chroma-lightness
+         * interpretation of the angle and distance.
+         */
+        final float CHROMA_DISTANCE_RATIO = 0.5f;
+
+        float hue = angle;
+        float chroma = 1 - (1 / ((CHROMA_DISTANCE_RATIO * distance) + 1));
+
+        float a = hue * 3 / (float) Math.PI;
+        float b = chroma * (1 - Math.abs((a % 2) - 1));
+
+        switch ((int) a)
+        {
+            case 0:
+                virtue.r = chroma;
+                virtue.g = b;
+                virtue.b = 0;
+                break;
+            case 1:
+                virtue.r = b;
+                virtue.g = chroma;
+                virtue.b = 0;
+                break;
+            case 2:
+                virtue.r = 0;
+                virtue.g = chroma;
+                virtue.b = b;
+                break;
+            case 3:
+                virtue.r = 0;
+                virtue.g = b;
+                virtue.b = chroma;
+                break;
+            case 4:
+                virtue.r = b;
+                virtue.g = 0;
+                virtue.b = chroma;
+                break;
+            case 5:
+            case 6:
+                virtue.r = chroma;
+                virtue.g = 0;
+                virtue.b = b;
+                break;
+        }
+
+        //Recurse on descendants
         Virtue[] descendants = this.getDescendants(this.root).toArray(Virtue[]::new);
         float delta_angle = (max_angle - min_angle) / descendants.length;
         for (int i = 0; i < descendants.length; i++)
