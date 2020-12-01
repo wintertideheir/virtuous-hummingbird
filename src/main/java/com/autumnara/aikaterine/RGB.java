@@ -2,12 +2,22 @@ package com.autumnara.aikaterine;
 
 import java.lang.IllegalArgumentException;
 
+/** A color in red-green-blue format. */
 public class RGB
 {
+    /** The normalized red component of this color. */
     public final float red;
+
+    /** The normalized blue component of this color. */
     public final float blue;
+
+    /** The normalized green component of this color. */
     public final float green;
 
+    /** Constructor for an RGB color from it's components.
+        @param red   the normalized red component
+        @param blue  the normalized blue component
+        @param green the normalized green component */
     public RGB(float red,
                float blue,
                float green)
@@ -17,6 +27,10 @@ public class RGB
         this.green = green;
     }
 
+    /** Constructor for an RGB color from an HCL color.
+        The conversion is approximate, given the limits of floating
+        point types.
+        @param color a color in HCL format */
     public RGB(HCL color)
     {
         float a = color.hue * 6;
