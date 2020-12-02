@@ -5,6 +5,7 @@ import java.lang.IllegalArgumentException;
 /** A color in red-green-blue format. */
 public final class ColorRGB
 {
+
     /** The normalized red component of this color. */
     public final float red;
 
@@ -74,4 +75,5 @@ public final class ColorRGB
                 throw new IllegalArgumentException("HCL to RBG conversion failed because the hue was not normalized.");
         }
     }
+
 }

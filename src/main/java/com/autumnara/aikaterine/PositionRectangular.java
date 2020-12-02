@@ -26,4 +26,5 @@ public final class PositionRectangular
         this.x = (float) cos(pos.angle) * pos.radius;
         this.y = (float) sin(pos.angle) * pos.radius;
     }
+
 }
