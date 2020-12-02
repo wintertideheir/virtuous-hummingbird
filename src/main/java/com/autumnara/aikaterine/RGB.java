@@ -3,7 +3,7 @@ package com.autumnara.aikaterine;
 import java.lang.IllegalArgumentException;
 
 /** A color in red-green-blue format. */
-public class RGB
+public final class RGB
 {
     /** The normalized red component of this color. */
     public final float red;
