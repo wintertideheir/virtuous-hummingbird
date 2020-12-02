@@ -1,7 +1,7 @@
 package com.autumnara.aikaterine;
 
 /** A color in hue-saturation-lightness format. */
-public final class HCL
+public final class ColorHCL
 {
     /** The normalized hue of this color. */
     public final float hue;
@@ -16,9 +16,9 @@ public final class HCL
         @param hue       the normalized hue
         @param chroma    the normalized chroma
         @param lightness the normalized lightness */
-    public HCL(float hue,
-               float chroma,
-               float lightness)
+    public ColorHCL(float hue,
+                    float chroma,
+                    float lightness)
     {
         this.hue       = hue;
         this.chroma    = chroma;

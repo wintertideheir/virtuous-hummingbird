@@ -1,6 +1,6 @@
 package com.autumnara.aikaterine;
 
-import com.autumnara.aikaterine.RGB;
+import com.autumnara.aikaterine.ColorRGB;
 
 import java.io.Serializable;
 
@@ -31,7 +31,7 @@ public class Virtue implements Serializable {
     public transient float y = 0;
 
     /** The red component of the color of the virtue when drawn. */
-    public transient RGB color = new RGB(0, 0, 0);
+    public transient ColorRGB color = new ColorRGB(0, 0, 0);
 
     /** Constructor for an immutable virtue. */
     public Virtue(String name,

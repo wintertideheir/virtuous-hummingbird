@@ -3,7 +3,7 @@ package com.autumnara.aikaterine;
 import java.lang.IllegalArgumentException;
 
 /** A color in red-green-blue format. */
-public final class RGB
+public final class ColorRGB
 {
     /** The normalized red component of this color. */
     public final float red;
@@ -18,9 +18,9 @@ public final class RGB
         @param red   the normalized red component
         @param blue  the normalized blue component
         @param green the normalized green component */
-    public RGB(float red,
-               float blue,
-               float green)
+    public ColorRGB(float red,
+                    float blue,
+                    float green)
     {
         this.red   = red;
         this.blue  = blue;
@@ -31,7 +31,7 @@ public final class RGB
         The conversion is approximate, given the limits of floating
         point types.
         @param color a color in HCL format */
-    public RGB(HCL color)
+    public ColorRGB(ColorHCL color)
     {
         float a = color.hue * 6;
         float b = color.chroma * (1 - Math.abs((a % 2) - 1));
