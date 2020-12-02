@@ -20,10 +20,6 @@ public class Virtue implements Serializable {
     /** A short description of the virtue. */
     protected String description;
 
-    /** Whether the virtue is primary or secondary. Secondary virtues
-        are only shown while editing. */
-    protected boolean primary;
-
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
     public transient float x = 0;
@@ -42,13 +38,11 @@ public class Virtue implements Serializable {
     public transient float b = 0;
 
     /** Constructor for an immutable virtue. */
-    public Virtue(String  name,
-                  String  description,
-                  boolean primary)
+    public Virtue(String name,
+                  String description)
     {
         this.name        = name;
         this.description = description;
-        this.primary     = primary;
     }
 
     /** Get the {@link Virtue#name} of the virtue. */
@@ -61,12 +55,6 @@ public class Virtue implements Serializable {
     public String getDescription()
     {
         return this.description;
-    }
-
-    /** Get whether the virtue is {@link Virtue#primary}. */
-    public boolean getPrimary()
-    {
-        return this.primary;
     }
 
 }

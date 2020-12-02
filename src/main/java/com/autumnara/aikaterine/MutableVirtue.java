@@ -5,11 +5,10 @@ import com.autumnara.aikaterine.Virtue;
 /** A mutable {@link com.autumnara.aikaterine.Virtue}. */
 public class MutableVirtue extends Virtue {
 
-    public MutableVirtue(String  name,
-                         String  description,
-                         boolean primary)
+    public MutableVirtue(String name,
+                         String description)
     {
-        super(name, description, primary);
+        super(name, description);
     }
 
     public void setName(String name)
@@ -20,11 +19,6 @@ public class MutableVirtue extends Virtue {
     public void setDescription(String description)
     {
         this.description = description;
-    }
-
-    public void setPrimary(boolean primary)
-    {
-        this.primary = primary;
     }
 
 }

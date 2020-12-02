@@ -30,7 +30,7 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
     public VirtueGraph()
     {
         super(DefaultEdge.class);
-        this.root = new Virtue("εὐδαιμονία", "Flourishing, prosperity, or blessedness", true);
+        this.root = new Virtue("εὐδαιμονία", "Flourishing, prosperity, or blessedness");
         this.addVertex(this.root);
         this.focus = this.root;
     }
