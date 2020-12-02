@@ -1,6 +1,8 @@
 package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.Virtue;
+import com.autumnara.aikaterine.RGB;
+import com.autumnara.aikaterine.HCL;
 
 import org.jgrapht.graph.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -65,46 +67,11 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
          */
         final float CHROMA_DISTANCE_RATIO = 0.5f;
 
-        float hue = angle;
+        float hue = angle / (2 * (float) Math.PI);
         float chroma = 1 - (1 / ((CHROMA_DISTANCE_RATIO * distance) + 1));
+        float lightness = 0.5f;
 
-        float a = hue * 3 / (float) Math.PI;
-        float b = chroma * (1 - Math.abs((a % 2) - 1));
-
-        switch ((int) a)
-        {
-            case 0:
-                virtue.r = chroma;
-                virtue.g = b;
-                virtue.b = 0;
-                break;
-            case 1:
-                virtue.r = b;
-                virtue.g = chroma;
-                virtue.b = 0;
-                break;
-            case 2:
-                virtue.r = 0;
-                virtue.g = chroma;
-                virtue.b = b;
-                break;
-            case 3:
-                virtue.r = 0;
-                virtue.g = b;
-                virtue.b = chroma;
-                break;
-            case 4:
-                virtue.r = b;
-                virtue.g = 0;
-                virtue.b = chroma;
-                break;
-            case 5:
-            case 6:
-                virtue.r = chroma;
-                virtue.g = 0;
-                virtue.b = b;
-                break;
-        }
+        virtue.color = new RGB(new HCL(hue, chroma, lightness));
 
         //Recurse on descendants
         Virtue[] descendants = this.getDescendants(this.root).toArray(Virtue[]::new);
