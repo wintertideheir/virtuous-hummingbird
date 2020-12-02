@@ -1,6 +1,6 @@
 package com.autumnara.aikaterine;
 
-import java.lang.Math;
+import static java.lang.Math.*;
 
 /** A position expressed in rectangular Cartesian coordinates. */
 public final class PositionRectangular
@@ -23,7 +23,7 @@ public final class PositionRectangular
     /** Constructor for a postion from polar coordinates. */
     public PositionRectangular(PositionPolar pos)
     {
-        this.x = (float) Math.cos(pos.angle) * pos.radius;
-        this.y = (float) Math.sin(pos.angle) * pos.radius;
+        this.x = (float) cos(pos.angle) * pos.radius;
+        this.y = (float) sin(pos.angle) * pos.radius;
     }
 }

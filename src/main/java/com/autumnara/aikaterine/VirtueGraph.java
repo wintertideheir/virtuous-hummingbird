@@ -7,8 +7,8 @@ import com.autumnara.aikaterine.HCL;
 import org.jgrapht.graph.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import java.lang.Math;
 import java.util.function.Function;
+import static java.lang.Math.*;
 
 /** A {@link org.jgrapht.graph.DirectedAcyclicGraph} of 
     {@link com.autumnara.aikaterine.Virtue} with relevant auxiliary
@@ -40,7 +40,7 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
     /** Render the virtue graph as a variable-radius radial tree. */
     public void render()
     {
-        this.render(this.root, 0, 2 * (float) Math.PI, 0);
+        this.render(this.root, 0, 2 * (float) PI, 0);
     }
 
     /** Render a virtue and it's descendants with a variable-radius radial tree.
@@ -59,15 +59,15 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
          */
         float angle = 0.5f * (min_angle + max_angle);
 
-        virtue.x = (float) Math.cos(angle) * distance;
-        virtue.y = (float) Math.sin(angle) * distance;
+        virtue.x = (float) cos(angle) * distance;
+        virtue.y = (float) sin(angle) * distance;
 
         /* Calculate the RGB colors from a hue-chroma-lightness
          * interpretation of the angle and distance.
          */
         final float CHROMA_DISTANCE_RATIO = 0.5f;
 
-        float hue = angle / (2 * (float) Math.PI);
+        float hue = angle / (2 * (float) PI);
         float chroma = 1 - (1 / ((CHROMA_DISTANCE_RATIO * distance) + 1));
         float lightness = 0.5f;
 
@@ -81,8 +81,8 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
             this.render(descendants[i],
                         min_angle + (delta_angle * i),
                         min_angle + (delta_angle * (i + 1)),
-                        Math.max(distance + MIN_DISTANCE,
-                                 MIN_DISTANCE * 2 * (float) Math.sin(delta_angle)));
+                        max(distance + MIN_DISTANCE,
+                            MIN_DISTANCE * 2 * (float) sin(delta_angle)));
         }
     }
 
