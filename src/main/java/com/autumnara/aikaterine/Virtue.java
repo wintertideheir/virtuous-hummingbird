@@ -1,6 +1,7 @@
 package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.ColorRGB;
+import com.autumnara.aikaterine.PositionRectangular;
 
 import java.io.Serializable;
 
@@ -24,11 +25,7 @@ public class Virtue implements Serializable {
 
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
-    public transient float x = 0;
-
-    /** The y coordinate of the virtue in 2-dimensional Cartesian
-        coordinates. */
-    public transient float y = 0;
+    public transient PositionRectangular pos = new PositionRectangular(0, 0);
 
     /** The red component of the color of the virtue when drawn. */
     public transient ColorRGB color = new ColorRGB(0, 0, 0);
