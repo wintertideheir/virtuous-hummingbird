@@ -62,8 +62,6 @@ public final class App {
             -1f, -1f,
             -1f,  1f,
         };
-        FloatBuffer rectangle_buffer = FloatBuffer.wrap(RECTANGLE);
-
         int rectangleVBO = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, rectangleVBO);
         glBufferData(rectangleVBO, RECTANGLE, GL_STATIC_DRAW);
@@ -96,12 +94,11 @@ public final class App {
         glAttachShader(rectangleShaderProgram, rectangleVertexShader);
         glAttachShader(rectangleShaderProgram, rectangleFragmentShader);
         glLinkProgram(rectangleShaderProgram);
-
         glDeleteShader(rectangleVertexShader);
         glDeleteShader(rectangleFragmentShader);
-
         glUseProgram(rectangleShaderProgram);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 3 * 4, rectangle_buffer);
+
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 3 * 4, NULL);
         glEnableVertexAttribArray(0);  
 
         // Loop!
