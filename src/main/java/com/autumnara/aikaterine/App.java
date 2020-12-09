@@ -39,6 +39,8 @@ public final class App {
 
         long window = glfwCreateWindow(MINIMUM_WITDH, MINIMUM_WITDH,
                                        WINDOW_TITLE, NULL, NULL);
+        glfwSetWindowSizeLimits(window, MINIMUM_WITDH, MINIMUM_HEIGHT,
+                                GLFW_DONT_CARE, GLFW_DONT_CARE);
         glfwMaximizeWindow(window);
         glfwMakeContextCurrent(window);
 
