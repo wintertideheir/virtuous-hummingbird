@@ -1,9 +1,11 @@
 package com.autumnara.aikaterine;
 
-import org.lwjgl.opengl.GL;
+import java.nio.FloatBuffer;
+import java.nio.CharBuffer;
 
+import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public final class App {
@@ -49,6 +51,58 @@ public final class App {
             glViewport(0, 0, width, height);
         });
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+        // Setup rendering data
+
+        final float[] RECTANGLE = {
+             1f,  1f,
+             1f, -1f,
+            -1f,  1f, 
+             1f, -1f,
+            -1f, -1f,
+            -1f,  1f,
+        };
+        FloatBuffer rectangle_buffer = FloatBuffer.wrap(RECTANGLE);
+
+        int rectangleVBO = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, rectangleVBO);
+        glBufferData(rectangleVBO, RECTANGLE, GL_STATIC_DRAW);
+
+        final String RECTANGLE_VERT_SHADER_SRC =
+              "#version 330 core"
+            + "layout (location = 0) in vec3 pos;"
+
+            + "void main()"
+            + "{"
+            + "    gl_Position = vec4(pos.x, pos.y, 0.0, 1.0);"
+            + "}";
+        int rectangleVertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(rectangleVertexShader, RECTANGLE_VERT_SHADER_SRC);
+        glCompileShader(rectangleVertexShader);
+
+        final String RECTANGLE_FRAG_SHADER_SRC =
+              "#version 330 core"
+            + "out vec4 FragColor;"
+
+            + "void main()"
+            + "{"
+            + "    FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);"
+            + "}";
+        int rectangleFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(rectangleFragmentShader, RECTANGLE_FRAG_SHADER_SRC);
+        glCompileShader(rectangleFragmentShader);
+
+        int rectangleShaderProgram = glCreateProgram();
+        glAttachShader(rectangleShaderProgram, rectangleVertexShader);
+        glAttachShader(rectangleShaderProgram, rectangleFragmentShader);
+        glLinkProgram(rectangleShaderProgram);
+
+        glDeleteShader(rectangleVertexShader);
+        glDeleteShader(rectangleFragmentShader);
+
+        glUseProgram(rectangleShaderProgram);
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 3 * 4, rectangle_buffer);
+        glEnableVertexAttribArray(0);  
 
         // Loop!
 
