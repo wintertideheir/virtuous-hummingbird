@@ -1,12 +1,12 @@
 package com.autumnara.aikaterine;
 
-import java.nio.FloatBuffer;
-import java.nio.CharBuffer;
+import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.BufferUtils.*;
 
 public final class App {
 
@@ -17,10 +17,10 @@ public final class App {
     public final static int VERSION_MINOR = 3;
 
     /** The default width of the window. */
-    public final static int DEFAULT_WITDH = 600;
+    public final static int MINIMUM_WITDH = 600;
 
     /** The default height of the window. */
-    public final static int DEFAULT_HEIGHT = 400;
+    public final static int MINIMUM_HEIGHT = 400;
 
     /** The title of the window. */
     public final static String WINDOW_TITLE = "Aikaterine";
@@ -37,15 +37,20 @@ public final class App {
 
         // Create window
 
-        long window = glfwCreateWindow(DEFAULT_WITDH, DEFAULT_HEIGHT,
+        long window = glfwCreateWindow(MINIMUM_WITDH, MINIMUM_WITDH,
                                        WINDOW_TITLE, NULL, NULL);
+        glfwMaximizeWindow(window);
         glfwMakeContextCurrent(window);
 
         // Setup OpenGL
 
         GL.createCapabilities();
 
-        glViewport(0, 0, DEFAULT_WITDH, DEFAULT_HEIGHT);
+        IntBuffer pixels_width = createIntBuffer(1);
+        IntBuffer pixels_height = createIntBuffer(1);
+        glfwGetFramebufferSize​(window, pixels_width, pixels_height);
+
+        glViewport(0, 0, pixels_width.get(0), pixels_height.get(0));
         glfwSetFramebufferSizeCallback(window, (window_param, width, height) ->
         {
             glViewport(0, 0, width, height);
