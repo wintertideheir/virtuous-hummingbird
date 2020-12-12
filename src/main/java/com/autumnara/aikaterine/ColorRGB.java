@@ -23,6 +23,19 @@ public final class ColorRGB
                     float blue,
                     float green)
     {
+        if (red < 0 || red > 1)
+        {
+            throw IllegalArgumentException("Red passed to HCL color constuctor wasn't normalized.");
+        }
+        if (blue < 0 || blue > 1)
+        {
+            throw IllegalArgumentException("Blue passed to HCL color constuctor wasn't normalized.");
+        }
+        if (green < 0 || green > 1)
+        {
+            throw IllegalArgumentException("Green passed to HCL color constuctor wasn't normalized.");
+        }
+
         this.red   = red;
         this.blue  = blue;
         this.green = green;

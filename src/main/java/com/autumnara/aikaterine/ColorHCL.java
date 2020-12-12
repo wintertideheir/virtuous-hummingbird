@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine;
 
+import java.lang.IllegalArgumentException;
+
 /** A color in hue-saturation-lightness format. */
 public final class ColorHCL
 {
@@ -21,6 +23,19 @@ public final class ColorHCL
                     float chroma,
                     float lightness)
     {
+        if (hue < 0 || hue > 1)
+        {
+            throw IllegalArgumentException("Hue passed to HCL color constuctor wasn't normalized.");
+        }
+        if (chroma < 0 || chroma > 1)
+        {
+            throw IllegalArgumentException("Chroma passed to HCL color constuctor wasn't normalized.");
+        }
+        if (lightness < 0 || lightness > 1)
+        {
+            throw IllegalArgumentException("Lightness passed to HCL color constuctor wasn't normalized.");
+        }
+
         this.hue       = hue;
         this.chroma    = chroma;
         this.lightness = lightness;
