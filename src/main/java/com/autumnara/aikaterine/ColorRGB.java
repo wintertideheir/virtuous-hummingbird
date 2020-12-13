@@ -25,15 +25,15 @@ public final class ColorRGB
     {
         if (red < 0 || red > 1)
         {
-            throw IllegalArgumentException("Red passed to HCL color constuctor wasn't normalized.");
+            throw new IllegalArgumentException("Red passed to HCL color constuctor wasn't normalized.");
         }
         if (blue < 0 || blue > 1)
         {
-            throw IllegalArgumentException("Blue passed to HCL color constuctor wasn't normalized.");
+            throw new IllegalArgumentException("Blue passed to HCL color constuctor wasn't normalized.");
         }
         if (green < 0 || green > 1)
         {
-            throw IllegalArgumentException("Green passed to HCL color constuctor wasn't normalized.");
+            throw new IllegalArgumentException("Green passed to HCL color constuctor wasn't normalized.");
         }
 
         this.red   = red;
