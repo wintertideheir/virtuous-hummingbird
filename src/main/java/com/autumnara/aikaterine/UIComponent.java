@@ -14,19 +14,19 @@ public class UIComponent
 
     /** The lower bound of this component in OpenGL clip space.
         Must be between -1f and 1f, and less than {@link #xMax}. */
-    private float xMin;
+    protected float xMin;
 
     /** The upper bound of this component in OpenGL clip space.
         Must be between -1f and 1f, and greater than {@link #xMin}. */
-    private float xMax;
+    protected float xMax;
 
     /** The lower bound of this component in OpenGL clip space.
         Must be between -1f and 1f, and less than {@link #yMax}. */
-    private float yMin;
+    protected float yMin;
 
     /** The upper bound of this component in OpenGL clip space.
         Must be between -1f and 1f, and greater than {@link #yMin}. */
-    private float yMax;
+    protected float yMax;
 
     /** Make this component drawable.
         This method performs basic error checking and then calls
