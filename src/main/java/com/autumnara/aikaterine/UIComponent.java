@@ -1,12 +1,16 @@
 package com.autumnara.aikaterine;
 
 import java.lang.IllegalArgumentException;
+import java.lang.IllegalStateException;
 
 import static java.lang.Math.*;
 
 /** A component that can be drawn at specific positions. */
 public class UIComponent
 {
+
+    /** Whether this component is drawable or not. */
+    private boolean drawable = false;
 
     /** The lower bound of this component in OpenGL clip space.
         Must be between -1f and 1f, and less than {@link #xMax}. */
@@ -25,15 +29,41 @@ public class UIComponent
     private float yMax;
 
     /** Make this component drawable.
-        This method must be called before any other method. By default
-        this method does nothing and can be overrided by subclasses. */
-    public void initialize() {}
+        This method performs basic error checking and then calls
+        {@link #onInitialize}. This method must be called before any
+        other method. */
+    public final void initialize()
+    {
+        if (this.drawable)
+        {
+            throw new IllegalStateException("Component to be initialized is already initialized.");
+        }
+        this.onInitialize();
+        this.drawable = true;
+    }
+
+    /** Make this component drawable.
+        By default this method does nothing and can be overrided by
+        subclasses. */
+    protected void onInitialize() {}
+
+    /** Draw this component with it's present configuration.
+        This method checks that this component is drawable and then
+        calls {@link #onDraw}. */
+    public final void draw()
+    {
+        if (!this.drawable)
+        {
+            throw new IllegalStateException("Component needs to be initialized before being drawn.");
+        }
+        this.onDraw();
+    }
 
     /** Draw this component with it's present configuration.
         By default this method does nothing and can be overrided by
         subclasses. Drawing should occur in the boundaries set by
         {@link #setDrawingArea}. */
-    public void draw() {}
+    protected void onDraw() {}
 
     /** Set the allocated drawing space by OpenGL window coordinates.
         This method will call {@link #onSetDrawingArea} after setting
@@ -53,6 +83,11 @@ public class UIComponent
     public final void setDrawingArea(float xMin, float yMin,
                                      float xMax, float yMax)
     {
+        if (!this.drawable)
+        {
+            throw new IllegalStateException("Component needs to be initialized before the drawing area can be set.");
+        }
+
         if (xMin > xMax)
         {
             throw new IllegalArgumentException("Drawing area has a greater x-minimum than x-maximum.");
@@ -84,8 +119,22 @@ public class UIComponent
     protected void onSetDrawingArea() {}
 
     /** Make this component undrawable and free all of it's resources.
-        By default this method does nothing and can be overrided by
+        This method calls {@link #onTerminate} and marks this component
+            as undrawable. */
+    public final void terminate()
+    {
+        if (!this.drawable)
+        {
+            throw new IllegalStateException("Component being terminated is not drawable.");
+        }
+
+        this.onTerminate();
+        this.drawable = false;
+    }
+
+    /** Make this component undrawable and free all of it's resources.
+        By default this method does snothing and can be overrided by
         subclasses. */
-    public void terminate() {}
+    protected void onTerminate() {}
 
 }
