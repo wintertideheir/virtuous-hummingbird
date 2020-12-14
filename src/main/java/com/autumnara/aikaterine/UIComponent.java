@@ -5,7 +5,9 @@ import java.lang.IllegalStateException;
 
 import static java.lang.Math.*;
 
-/** A component that can be drawn at specific positions. */
+/** A component that can be drawn at specific positions. By default
+    this component does nothing and must be extended for any
+    functionality. */
 public class UIComponent
 {
 
