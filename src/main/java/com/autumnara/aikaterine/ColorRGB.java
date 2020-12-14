@@ -1,7 +1,5 @@
 package com.autumnara.aikaterine;
 
-import java.lang.IllegalArgumentException;
-
 /** A color in red-green-blue format. */
 public final class ColorRGB
 {

@@ -1,8 +1,5 @@
 package com.autumnara.aikaterine;
 
-import java.lang.IllegalArgumentException;
-import java.lang.IllegalStateException;
-
 import static java.lang.Math.*;
 
 /** A component that can be drawn at specific positions. By default

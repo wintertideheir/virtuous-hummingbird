@@ -1,7 +1,5 @@
 package com.autumnara.aikaterine;
 
-import java.lang.IllegalArgumentException;
-
 /** A color in hue-saturation-lightness format. */
 public final class ColorHCL
 {
