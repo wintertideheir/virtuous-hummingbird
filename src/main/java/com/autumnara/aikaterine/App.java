@@ -67,8 +67,9 @@ public final class App {
         });
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-        // Initialize UI
+        // Initialize UI and call setDrawingArea to begin drawing area allocations.
         root.initialize();
+        root.setDrawingArea(-1, -1, 1, 1);
 
         // Loop!
         while (!glfwWindowShouldClose(window))
