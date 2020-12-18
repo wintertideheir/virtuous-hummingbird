@@ -1,22 +1,31 @@
 package com.autumnara.aikaterine;
 
-/** A color in hue-saturation-lightness format. */
+/** A color in hue-saturation-lightness representation.
+    This class is naive to singularities in HCL color space, so
+    {@link #equals} will only compare the {@link #hue}, {#link chroma},
+    and {#link lightness} against itself. */
 public final class ColorHCL
 {
 
-    /** The normalized hue of this color. */
+    /** The normalized hue.
+        Must be between 0f and 1f. */
     public final float hue;
 
-    /** The normalized chroma of this color. */
+    /** The normalized chroma of this color.
+        Must be between 0f and 1f. */
     public final float chroma;
 
-    /** The normalized lightness of this color. */
+    /** The normalized lightness of this color.
+        Must be between 0f and 1f. */
     public final float lightness;
 
     /** Constructor for an HCL color from it's components.
-        @param hue       the normalized hue
+        @param hue       the normalized hue.
+                         Must be between 0f and 1f.
         @param chroma    the normalized chroma
-        @param lightness the normalized lightness */
+                         Must be between 0f and 1f.
+        @param lightness the normalized lightness
+                         Must be between 0f and 1f. */
     public ColorHCL(float hue,
                     float chroma,
                     float lightness)

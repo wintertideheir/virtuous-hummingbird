@@ -1,22 +1,28 @@
 package com.autumnara.aikaterine;
 
-/** A color in red-green-blue format. */
+/** A color in red-green-blue representation. */
 public final class ColorRGB
 {
 
-    /** The normalized red component of this color. */
+    /** The normalized red component.
+        Must be between 0f and 1f. */
     public final float red;
 
-    /** The normalized blue component of this color. */
+    /** The normalized blue component.
+        Must be between 0f and 1f. */
     public final float blue;
 
-    /** The normalized green component of this color. */
+    /** The normalized green component.
+        Must be between 0f and 1f. */
     public final float green;
 
     /** Constructor for an RGB color from it's components.
-        @param red   the normalized red component
-        @param blue  the normalized blue component
-        @param green the normalized green component */
+        @param red   the normalized red component.
+                     Must be between 0f and 1f.
+        @param blue  the normalized blue component.
+                     Must be between 0f and 1f.
+        @param green the normalized green component.
+                     Must be between 0f and 1f. */
     public ColorRGB(float red,
                     float blue,
                     float green)
@@ -39,9 +45,8 @@ public final class ColorRGB
         this.green = green;
     }
 
-    /** Constructor for an RGB color from an HCL color.
-        The conversion is approximate, given the limits of floating
-        point types.
+    /** Constructor for a color in RGB representation from a color in
+        HCL representation.
         @param color a color in HCL format */
     public ColorRGB(ColorHCL color)
     {
