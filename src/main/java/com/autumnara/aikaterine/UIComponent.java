@@ -30,7 +30,7 @@ public class UIComponent
     /** Make this component drawable.
         This method performs basic error checking and then calls
         {@link #onInitialize}. This method must be called before any
-        other method. Without calling {@link @setDrawingArea} after,
+        other method. Without calling {@link #setDrawingArea} after,
         drawing this component will draw to the default boundaries (the
         entire window). */
     public final void initialize()
