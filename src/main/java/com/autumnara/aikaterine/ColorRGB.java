@@ -46,49 +46,51 @@ public final class ColorRGB
     }
 
     /** Constructor for a color in RGB representation from a color in
-        HCL representation.
-        @param color a color in HCL format */
-    public ColorRGB(ColorHCL color)
+        HSV representation.
+        @param color a color in HSV format */
+    public ColorRGB(ColorHSV color)
     {
+        float chroma = color.saturation * color.value;
+
         float a = color.hue * 6;
-        float b = color.chroma * (1 - Math.abs((a % 2) - 1));
-        float c = color.lightness - (color.chroma / 2);
+        float b = chroma * (1 - Math.abs((a % 2) - 1));
+        float c = color.value - chroma;
 
         switch ((int) a)
         {
             case 0:
-                this.red = c + color.chroma;
-                this.green = c + b;
-                this.blue = c;
+                this.red = chroma;
+                this.green = b;
+                this.blue = 0;
                 break;
             case 1:
-                this.red = c + b;
-                this.green = c + color.chroma;
-                this.blue = c;
+                this.red = b;
+                this.green = chroma;
+                this.blue = 0;
                 break;
             case 2:
-                this.red = c;
-                this.green = c + color.chroma;
-                this.blue = c + b;
+                this.red = 0;
+                this.green = chroma;
+                this.blue = b;
                 break;
             case 3:
-                this.red = c;
-                this.green = c + b;
-                this.blue = c + color.chroma;
+                this.red = 0;
+                this.green = b;
+                this.blue = chroma;
                 break;
             case 4:
-                this.red = c + b;
-                this.green = c;
-                this.blue = c + color.chroma;
+                this.red = b;
+                this.green = 0;
+                this.blue = chroma;
                 break;
             case 5:
             case 6:
-                this.red = c + color.chroma;
-                this.green = c;
-                this.blue = c + b;
+                this.red = chroma;
+                this.green = 0;
+                this.blue = b;
                 break;
             default:
-                throw new IllegalArgumentException("HCL to RBG conversion failed because the hue was not normalized.");
+                throw new IllegalStateException("Color conversion from HSV to RGB failed for unknown reasons.");
         }
     }
 

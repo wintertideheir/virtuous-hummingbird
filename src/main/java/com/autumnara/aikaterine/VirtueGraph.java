@@ -2,7 +2,7 @@ package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.Virtue;
 import com.autumnara.aikaterine.ColorRGB;
-import com.autumnara.aikaterine.ColorHCL;
+import com.autumnara.aikaterine.ColorHSV;
 import com.autumnara.aikaterine.PositionPolar;
 import com.autumnara.aikaterine.PositionRectangular;
 
@@ -69,13 +69,13 @@ public class VirtueGraph extends DirectedAcyclicGraph<Virtue, DefaultEdge> {
         /* Calculate the RGB colors from a hue-chroma-lightness
          * interpretation of the angle and distance.
          */
-        final float CHROMA_DISTANCE_RATIO = 0.5f;
+        final float SATURATION_DISTANCE_RATIO = 0.5f;
 
         float hue = angle / PositionPolar.REVOLUTION_ANGLE;
-        float chroma = 1 - (1 / ((CHROMA_DISTANCE_RATIO * distance) + 1));
-        float lightness = 0.5f;
+        float saturation = 1 - (1 / ((SATURATION_DISTANCE_RATIO * distance) + 1));
+        float value = 1f;
 
-        virtue.color = new ColorRGB(new ColorHCL(hue, chroma, lightness));
+        virtue.color = new ColorRGB(new ColorHSV(hue, saturation, value));
 
         //Recurse on descendants
         Virtue[] descendants = this.getDescendants(this.root).toArray(Virtue[]::new);
