@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.BufferUtils.*;
 
+/** A window that helps a {@link UIComponent} compute and display a program. */
 public final class Window
 {
 
@@ -32,6 +33,8 @@ public final class Window
     /** The GLFW window ID. */
     private long windowId;
 
+    /** Constructor for a window.
+        Does not create, initialize, or display this window. */
     public Window(int minimumWidth,
                   int minimumHeight,
                   String title,
@@ -43,6 +46,11 @@ public final class Window
         this.root          = root;
     }
 
+    /** Create and initialize the window.
+        Create a window with GLFW and OpenGL. Enable window resizing,
+        set the minimum width and height, maximize the window, link the
+        OpenGL context to the GLFW, and initialize the root component.
+        */
     public void create()
     {
         // Initialize GLFW
@@ -84,6 +92,8 @@ public final class Window
         root.setDrawingArea(-1, -1, 1, 1);
     }
 
+
+    /** Run the application until a window close is requested. */
     public void loop()
     {
         while (!glfwWindowShouldClose(this.windowId))
@@ -95,6 +105,7 @@ public final class Window
 		}
     }
 
+    /** Destroy the window and free it's resources. */
     public void destroy()
     {
         root.terminate();
