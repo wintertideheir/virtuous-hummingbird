@@ -11,25 +11,20 @@ import static org.lwjgl.BufferUtils.*;
 public final class Window
 {
 
-    /** The minimum major OpenGL version. OpenGL 3 was selected because
-        it brings important features and a programming paradigm shift
-        over OpenGL 2 while providing widespread compatibility over
-        OpenGL 4. */
-    public final static int VERSION_MAJOR = 3;
+    /** The minimum major OpenGL version. */
+    public final static int OPENGL_VERSION_MAJOR = 3;
 
     /** The minimum minor OpenGL version. */
-    public final static int VERSION_MINOR = 3;
+    public final static int OPENGL_VERSION_MINOR = 3;
 
-    /** The default width of the window in screen coordinates (assumed
-        to be equivalent to pixels). */
-    public final static int MINIMUM_WITDH = 600;
+    /** The minimum width of the window in screen coordinates. */
+    public final int minimumWidth;
 
-    /** The default height of the window in screen coordinates (assumed
-        to be equivalent to pixels). */
-    public final static int MINIMUM_HEIGHT = 400;
+    /** The minimum height of the window in screen coordinates. */
+    public final int minimumHeight;
 
-    /** The title of the window. */
-    public final static String WINDOW_TITLE = "Aikaterine";
+    /** The window title. */
+    public final String title;
 
     /** The root component being drawn. */
     private UIComponent root;
@@ -37,25 +32,35 @@ public final class Window
     /** The GLFW window ID. */
     private long windowId;
 
-    public Window(UIComponent root)
+    public Window(int minimumWidth,
+                  int minimumHeight,
+                  String title,
+                  UIComponent root)
     {
-        this.root = root;
+        this.minimumWidth  = minimumWidth;
+        this.minimumHeight = minimumHeight;
+        this.title         = title;
+        this.root          = root;
     }
 
     public void create()
     {
         // Initialize GLFW
         glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, VERSION_MAJOR);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, VERSION_MINOR);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
         // Create and configure this window
-        this.windowId = glfwCreateWindow(MINIMUM_WITDH, MINIMUM_WITDH,
-                                         WINDOW_TITLE, NULL, NULL);
-        glfwSetWindowSizeLimits(this.windowId, MINIMUM_WITDH, MINIMUM_HEIGHT,
-                                GLFW_DONT_CARE, GLFW_DONT_CARE);
+        this.windowId = glfwCreateWindow(this.minimumWidth,
+                                         this.minimumHeight,
+                                         this.title, NULL, NULL);
+        glfwSetWindowSizeLimits(this.windowId,
+                                this.minimumWidth,
+                                this.minimumHeight,
+                                GLFW_DONT_CARE,
+                                GLFW_DONT_CARE);
         glfwMaximizeWindow(this.windowId);
         glfwMakeContextCurrent(this.windowId);
 
