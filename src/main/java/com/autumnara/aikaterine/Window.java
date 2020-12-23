@@ -34,7 +34,13 @@ public final class Window
     private long windowId;
 
     /** Constructor for a window.
-        Does not create, initialize, or display this window. */
+        Does not create, initialize, or display this window.
+        @param minimumWidth the minimum width of the window in screen
+                            coordinates. Must be positive.
+        @param minimumHeight the minimum height of the window in screen
+                             coordinates. Must be positive.
+        @param title the window title.
+        @param root the root component to be drawn. */
     public Window(int minimumWidth,
                   int minimumHeight,
                   String title,
