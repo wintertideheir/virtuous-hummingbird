@@ -7,9 +7,9 @@ public final class App {
         UIComponent root = new UIComponent();
         Window window = new Window(600, 400, "Aikaterine", root);
 
-        window.create();
+        window.initialize();
         window.loop();
-        window.destroy();
+        window.terminate();
     }
 
 }

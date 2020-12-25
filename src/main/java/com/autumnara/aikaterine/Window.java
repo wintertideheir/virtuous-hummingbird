@@ -9,7 +9,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.BufferUtils.*;
 
 /** A window that helps a {@link UIComponent} compute and display a program. */
-public final class Window
+public final class Window extends SubLifecycle
 {
 
     /** The minimum major OpenGL version. */
@@ -52,12 +52,9 @@ public final class Window
         this.root          = root;
     }
 
-    /** Create and initialize the window.
-        Create a window with GLFW and OpenGL. Enable window resizing,
-        set the minimum width and height, maximize the window, link the
-        OpenGL context to the GLFW, and initialize the root component.
-        */
-    public void create()
+    /** Create and initialize the window with GLFW and OpenGL. */
+    @Override
+    protected void initializeInternal()
     {
         // Initialize GLFW
         glfwInit();
@@ -102,6 +99,7 @@ public final class Window
     /** Run the application until a window close is requested. */
     public void loop()
     {
+        this.assertInitialized();
         while (!glfwWindowShouldClose(this.windowId))
         {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -112,7 +110,8 @@ public final class Window
     }
 
     /** Destroy the window and free it's resources. */
-    public void destroy()
+    @Override
+    protected void terminateInternal()
     {
         root.terminate();
 		glfwTerminate();
