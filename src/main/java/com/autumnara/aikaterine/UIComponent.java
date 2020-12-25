@@ -12,13 +12,7 @@ public class UIComponent
     private boolean drawable = false;
 
     /** The boundaries of this component. */
-    private WindowBoundary boundary;
-
-    /** Get the boundary of this component. */
-    public final WindowBoundary getBoundary()
-    {
-        return this.boundary;
-    }
+    public WindowBoundary boundary;
 
     /** Make this component drawable.
         This method performs basic error checking and then calls
