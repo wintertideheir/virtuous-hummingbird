@@ -34,6 +34,15 @@ public abstract class SubLifecycle
     /** Initialize the internals of this object. */
     protected abstract void initializeInternal();
 
+    /** Assert that this object has been initialized. */
+    public final void assertInitialized()
+    {
+        if (!this.initialized)
+        {
+            throw new IllegalStateException(this.getClass().getName() + " has not been initialized.");
+        }
+    }
+
     /** Terminate this component.
         This method calls {@link #terminateInternal} and marks this
         component as not initialized. */
