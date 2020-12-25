@@ -89,13 +89,13 @@ public final class Window
         glfwSetFramebufferSizeCallback(this.windowId, (window, width, height) ->
         {
             glViewport(0, 0, width, height);
-            root.setDrawingArea(-1, -1, 1, 1);
+            root.setDrawingArea(new WindowBoundary(-1, -1, 1, 1));
         });
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         // Initialize the root component
         root.initialize();
-        root.setDrawingArea(-1, -1, 1, 1);
+        root.setDrawingArea(new WindowBoundary(-1, -1, 1, 1));
     }
 
 

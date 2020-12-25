@@ -11,21 +11,14 @@ public class UIComponent
     /** Whether this component is drawable or not. */
     private boolean drawable = false;
 
-    /** The lower bound of this component in OpenGL clip space.
-        Must be between -1f and 1f, and less than {@link #xMax}. */
-    protected float xMin;
+    /** The boundaries of this component. */
+    private WindowBoundary boundary;
 
-    /** The upper bound of this component in OpenGL clip space.
-        Must be between -1f and 1f, and greater than {@link #xMin}. */
-    protected float xMax;
-
-    /** The lower bound of this component in OpenGL clip space.
-        Must be between -1f and 1f, and less than {@link #yMax}. */
-    protected float yMin;
-
-    /** The upper bound of this component in OpenGL clip space.
-        Must be between -1f and 1f, and greater than {@link #yMin}. */
-    protected float yMax;
+    /** Get the boundary of this component. */
+    public final WindowBoundary getBoundary()
+    {
+        return this.boundary;
+    }
 
     /** Make this component drawable.
         This method performs basic error checking and then calls
@@ -69,48 +62,10 @@ public class UIComponent
     /** Set the allocated drawing space by OpenGL window coordinates.
         This method will call {@link #onSetDrawingArea} after setting
         the drawing area.
-        @param xMin The lower bound of this component in OpenGL clip
-                    space. Must be between -1f and 1f, and less than
-                    xMax.
-        @param xMax The upper bound of this component in OpenGL clip
-                    space. Must be between -1f and 1f, and greater than
-                    xMin.
-        @param yMin The lower bound of this component in OpenGL clip
-                    space. Must be between -1f and 1f, and less than
-                    yMax.
-        @param yMax The upper bound of this component in OpenGL clip
-                    space. Must be between -1f and 1f, and greater than
-                    yMin. */
-    public final void setDrawingArea(float xMin, float yMin,
-                                     float xMax, float yMax)
+        @param boundary the new boundary of this object */
+    public final void setDrawingArea(WindowBoundary boundary)
     {
-        if (!this.drawable)
-        {
-            throw new IllegalStateException("Component needs to be initialized before the drawing area can be set.");
-        }
-
-        if (xMin > xMax)
-        {
-            throw new IllegalArgumentException("Drawing area has a greater x-minimum than x-maximum.");
-        }
-        if (yMin > yMax)
-        {
-            throw new IllegalArgumentException("Drawing area has a greater y-minimum than y-maximum.");
-        }
-
-        if ((abs(xMin) > 1f) ||
-            (abs(xMax) > 1f) ||
-            (abs(yMin) > 1f) ||
-            (abs(yMax) > 1f))
-        {
-            throw new IllegalArgumentException("Drawing area components are not normalized.");
-        }
-
-        this.xMin = xMin;
-        this.xMax = xMax;
-        this.yMin = yMin;
-        this.yMax = yMax;
-
+        this.boundary = boundary;
         this.onSetDrawingArea();
     }
 
