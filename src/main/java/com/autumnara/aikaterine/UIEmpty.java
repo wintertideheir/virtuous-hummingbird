@@ -12,7 +12,7 @@ public final class UIEmpty extends UIComponent
     protected void onDraw() {}
 
     @Override
-    protected void onSetDrawingArea() {}
+    protected void onBounded() {}
 
     @Override
     protected void _terminate() {}
