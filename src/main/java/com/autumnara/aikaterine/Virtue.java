@@ -25,10 +25,10 @@ public class Virtue implements Serializable {
 
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
-    public transient PositionRectangular pos = new PositionRectangular(0, 0);
+    public transient PositionRectangular pos;
 
     /** The red component of the color of the virtue when drawn. */
-    public transient ColorRGB color = new ColorRGB(0, 0, 0);
+    public transient ColorRGB color;
 
     /** Constructor for an immutable virtue. */
     public Virtue(String name,
