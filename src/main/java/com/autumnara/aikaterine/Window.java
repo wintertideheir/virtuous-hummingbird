@@ -54,7 +54,7 @@ public final class Window extends Bounded
 
     /** Create and initialize the window with GLFW and OpenGL. */
     @Override
-    protected void _initialize()
+    protected void onInitialize()
     {
         // Initialize GLFW
         glfwInit();
@@ -111,7 +111,7 @@ public final class Window extends Bounded
 
     /** Destroy the window and free it's resources. */
     @Override
-    protected void _terminate()
+    protected void onTerminate()
     {
         root.terminate();
 		glfwTerminate();

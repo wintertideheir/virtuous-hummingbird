@@ -6,7 +6,7 @@ public final class UIEmpty extends UIComponent
 {
 
     @Override
-    protected void _initialize() {}
+    protected void onInitialize() {}
 
     @Override
     protected void onDraw() {}
@@ -15,6 +15,6 @@ public final class UIEmpty extends UIComponent
     protected void onBounded() {}
 
     @Override
-    protected void _terminate() {}
+    protected void onTerminate() {}
 
 }

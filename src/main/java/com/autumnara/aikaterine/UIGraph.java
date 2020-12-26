@@ -65,7 +65,7 @@ public class UIGraph extends UIComponent
     }
 
     @Override
-    protected void _initialize()
+    protected void onInitialize()
     {
         // Create a rectangular model for both nodes and links.
         float[] rectangle =
@@ -150,6 +150,6 @@ public class UIGraph extends UIComponent
     protected void onBounded() {}
 
     @Override
-    protected void _terminate() {}
+    protected void onTerminate() {}
 
 }

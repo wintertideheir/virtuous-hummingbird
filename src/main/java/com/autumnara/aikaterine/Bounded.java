@@ -23,19 +23,19 @@ public abstract class Bounded
 
     /** Initialize this object.
         This method checks that this object hasn't already been
-        initialized and then calls {@link #_initialize}. */
+        initialized and then calls {@link #onInitialize}. */
     public final void initialize()
     {
         if (this.initialized)
         {
             throw new IllegalStateException(this.getClass().getName() + " being initialized has already been initialized.");
         }
-        this._initialize();
+        this.onInitialize();
         this.initialized = true;
     }
 
     /** Initialize the internals of this object. */
-    protected abstract void _initialize();
+    protected abstract void onInitialize();
 
     /** Assert that this object has been initialized. */
     public final void assertInitialized()
@@ -47,7 +47,7 @@ public abstract class Bounded
     }
 
     /** Terminate this component.
-        This method calls {@link #_terminate} and marks this
+        This method calls {@link #onTerminate} and marks this
         component as not initialized. */
     public final void terminate()
     {
@@ -55,12 +55,12 @@ public abstract class Bounded
         {
             throw new IllegalStateException(this.getClass().getName() + " being terminated has already been terminated.");
         }
-        this._terminate();
+        this.onTerminate();
         this.initialized = false;
     }
 
     /** Terminate this object.
         Objects should free their resources here. */
-    protected void _terminate() {}
+    protected void onTerminate() {}
 
 }
