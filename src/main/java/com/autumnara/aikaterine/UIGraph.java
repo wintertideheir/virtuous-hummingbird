@@ -65,7 +65,7 @@ public class UIGraph extends UIComponent
     }
 
     @Override
-    protected void onInitialize()
+    protected void initializeInternal()
     {
         // Create a rectangular model for both nodes and links.
         float[] rectangle =
@@ -142,5 +142,14 @@ public class UIGraph extends UIComponent
         glDeleteShader(this.linkShaderProgram);
         glDeleteShader(this.linkShaderProgram);
     }
+
+    @Override
+    protected void onDraw() {}
+
+    @Override
+    protected void onSetDrawingArea() {}
+
+    @Override
+    protected void terminateInternal() {}
 
 }
