@@ -9,7 +9,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.BufferUtils.*;
 
 /** A window that helps a {@link UIComponent} compute and display a program. */
-public final class Window extends SubLifecycle
+public final class Window extends Bounded
 {
 
     /** The minimum major OpenGL version. */
@@ -54,7 +54,7 @@ public final class Window extends SubLifecycle
 
     /** Create and initialize the window with GLFW and OpenGL. */
     @Override
-    protected void initializeInternal()
+    protected void _initialize()
     {
         // Initialize GLFW
         glfwInit();
@@ -111,7 +111,7 @@ public final class Window extends SubLifecycle
 
     /** Destroy the window and free it's resources. */
     @Override
-    protected void terminateInternal()
+    protected void _terminate()
     {
         root.terminate();
 		glfwTerminate();

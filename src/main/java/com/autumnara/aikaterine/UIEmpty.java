@@ -6,7 +6,7 @@ public final class UIEmpty extends UIComponent
 {
 
     @Override
-    protected void initializeInternal() {}
+    protected void _initialize() {}
 
     @Override
     protected void onDraw() {}
@@ -15,6 +15,6 @@ public final class UIEmpty extends UIComponent
     protected void onSetDrawingArea() {}
 
     @Override
-    protected void terminateInternal() {}
+    protected void _terminate() {}
 
 }

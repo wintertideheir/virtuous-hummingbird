@@ -1,18 +1,21 @@
 package com.autumnara.aikaterine;
 
-import static java.lang.Math.*;
-
 /** An object with a lifecycle inside the normal lifecycle.
+    This class is called a "bounded class" because it's bounded in time
+    by explicit intialization and termination.
+    <br>
     The normal Java lifecyle begins with object construction and ends
     when the object becomes unreachable. This object has another
     lifecycle that begins at {@link #initialize initialization} and
     ends with {@link #terminate termination}. The object can require
     and enforce that certain methods only be called during this
-    sublifecycle. Because Java requires that we construct an object
-    before calling methods on it, this object can serve as a base for a
-    lazy or delayed constructor. This class also provides a less
-    restrictive alternative to {@link java.lang.AutoCloseable}. */
-public abstract class SubLifecycle
+    sublifecycle.
+    <br>
+    Because Java requires that we construct an object before calling
+    methods on it, this object can serve as a base for a lazy or
+    delayed constructor. This class also provides a less restrictive
+    alternative to {@link java.lang.AutoCloseable}. */
+public abstract class Bounded
 {
 
     /** Whether this component has been initialized or not. */
@@ -20,19 +23,19 @@ public abstract class SubLifecycle
 
     /** Initialize this object.
         This method checks that this object hasn't already been
-        initialized and then calls {@link #initializeInternal}. */
+        initialized and then calls {@link #_initialize}. */
     public final void initialize()
     {
         if (this.initialized)
         {
             throw new IllegalStateException(this.getClass().getName() + " being initialized has already been initialized.");
         }
-        this.initializeInternal();
+        this._initialize();
         this.initialized = true;
     }
 
     /** Initialize the internals of this object. */
-    protected abstract void initializeInternal();
+    protected abstract void _initialize();
 
     /** Assert that this object has been initialized. */
     public final void assertInitialized()
@@ -44,7 +47,7 @@ public abstract class SubLifecycle
     }
 
     /** Terminate this component.
-        This method calls {@link #terminateInternal} and marks this
+        This method calls {@link #_terminate} and marks this
         component as not initialized. */
     public final void terminate()
     {
@@ -52,12 +55,12 @@ public abstract class SubLifecycle
         {
             throw new IllegalStateException(this.getClass().getName() + " being terminated has already been terminated.");
         }
-        this.terminateInternal();
+        this._terminate();
         this.initialized = false;
     }
 
     /** Terminate this object.
         Objects should free their resources here. */
-    protected void terminateInternal() {}
+    protected void _terminate() {}
 
 }
