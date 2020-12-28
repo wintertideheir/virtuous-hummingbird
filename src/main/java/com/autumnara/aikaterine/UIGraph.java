@@ -147,7 +147,7 @@ public class UIGraph extends UIComponent
     protected void onDraw() {}
 
     @Override
-    protected void onBounded() {}
+    protected void onSetBoundaries() {}
 
     @Override
     protected void onSetWindowSize() {}

@@ -21,28 +21,30 @@ public abstract class UIComponent extends ResourceObject
         This method will ensure the object has been initialized, then
         call {@link #onBounded} after setting the drawing area.
         @param boundary the new boundary. */
-    public final void bound(WindowBoundary boundary)
+    public final void setBoundaries(WindowBoundary boundary)
     {
         this.assertInitialized();
         this.boundary = boundary;
         this.onBounded();
     }
 
-    /** Update this object after spatial boundaries have been set.
-        By default this method does nothing and can be overrided by
-        subclasses. */
-    protected abstract void onBounded();
+    /** Update this object after spatial boundaries have been set. */
+    protected abstract void onSetBoundaries();
 
     /** Update the window dimensions this component is being drawn in.
+        This method will ensure the object has been initialized, then
+        call {@link #onSetWindowSize} after setting the window dimensions.
         @param windowX the new width of the window
         @param windowY the new length of the window */
     public final void setWindowSize(int windowX, int windowY)
     {
+        this.assertInitialized();
         this.windowX = windowX;
         this.windowY = windowY;
         this.onSetWindowSize();
     }
 
+    /** Update this object after the new window size has been set. */
     protected abstract void onSetWindowSize();
 
     /** Draw this component with it's present configuration.
