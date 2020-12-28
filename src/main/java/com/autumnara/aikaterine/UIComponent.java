@@ -3,7 +3,7 @@ package com.autumnara.aikaterine;
 /** A component that can be drawn.
     By default this component does nothing and must be extended for any
     functionality. */
-public abstract class UIComponent extends Bounded
+public abstract class UIComponent extends ResourceObject
 {
 
     /** The boundaries of this component. */

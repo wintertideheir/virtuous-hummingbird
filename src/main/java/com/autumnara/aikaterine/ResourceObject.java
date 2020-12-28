@@ -1,21 +1,10 @@
 package com.autumnara.aikaterine;
 
-/** An object with a lifecycle inside the normal lifecycle.
-    This class is called a "bounded class" because it's bounded in time
-    by explicit intialization and termination.
-    <br>
-    The normal Java lifecyle begins with object construction and ends
-    when the object becomes unreachable. This object has another
-    lifecycle that begins at {@link #initialize initialization} and
-    ends with {@link #terminate termination}. The object can require
-    and enforce that certain methods only be called during this
-    sublifecycle.
-    <br>
-    Because Java requires that we construct an object before calling
-    methods on it, this object can serve as a base for a lazy or
-    delayed constructor. This class also provides a less restrictive
-    alternative to {@link java.lang.AutoCloseable}. */
-public abstract class Bounded
+/** An object that needs to be initialized and terminated.
+    This class has an internal state that must be intialized to be
+    accessed and terminated to properly release it's resources. This
+    class is similar to data resources (e.g. files and data streams). */
+public abstract class ResourceObject
 {
 
     /** Whether this component has been initialized or not. */
