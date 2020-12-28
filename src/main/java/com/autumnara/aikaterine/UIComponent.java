@@ -9,6 +9,7 @@ public abstract class UIComponent extends ResourceObject
     /** The boundaries of this component. */
     protected WindowBoundary boundary;
 
+    /** A safe reference on window information. */
     protected WindowReference reference;
 
     /** Set spatial boundaries.
