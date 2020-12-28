@@ -15,7 +15,7 @@ public final class UIEmpty extends UIComponent
     protected void onSetBoundaries() {}
 
     @Override
-    protected void onSetWindowSize() {}
+    protected void onSetReference() {}
 
     @Override
     protected void onTerminate() {}
