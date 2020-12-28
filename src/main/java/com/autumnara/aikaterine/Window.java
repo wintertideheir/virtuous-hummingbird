@@ -86,13 +86,14 @@ public final class Window extends Bounded
         glfwSetFramebufferSizeCallback(this.windowId, (window, width, height) ->
         {
             glViewport(0, 0, width, height);
-            root.bound(new WindowBoundary(-1, -1, 1, 1));
+            root.setWindowSize(width, height);
         });
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         // Initialize the root component
         root.initialize();
         root.bound(new WindowBoundary(-1, -1, 1, 1));
+        root.setWindowSize(pixels_width.get(0), pixels_height.get(0));
     }
 
 

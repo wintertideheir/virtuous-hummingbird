@@ -150,6 +150,9 @@ public class UIGraph extends UIComponent
     protected void onBounded() {}
 
     @Override
+    protected void onSetWindowSize() {}
+
+    @Override
     protected void onTerminate() {}
 
 }
