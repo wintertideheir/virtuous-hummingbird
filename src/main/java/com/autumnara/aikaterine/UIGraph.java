@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL33.*;
 
 import static java.lang.Math.*;
 
+/** A UI component for drawing and handling
+    {@link com.autumnara.aikaterine.VirtueGraph virtue graphs.} */
 public class UIGraph extends UIComponent
 {
 
@@ -16,13 +18,7 @@ public class UIGraph extends UIComponent
 
     /** How many nodes can be drawn across the shortest window dimension.
         Each node is drawn with a square mesh. */
-    private float scale;
-
-    /** The minimum value for {@link #scale} */
-    private final float scaleMin;
-
-    /** The maximum value for {@link #scale} */
-    private final float scaleMax;
+    private BoundedFloat scale;
 
     /** The vertex array object (VAO) for the rectangle mesh used to
         draw both nodes and links. */
@@ -38,30 +34,17 @@ public class UIGraph extends UIComponent
         @param graph the graph being drawn
         @param scale the initial scale of this component. The scale
                      determines how many nodes can be drawn across the
-                     shortest window dimension.
-        @param scaleMin the minimum value of the scale
-        @param scaleMax the maximum value of the scale */
+                     shortest window dimension. */
     public UIGraph(VirtueGraph graph,
-                   float scale,
-                   float scaleMin,
-                   float scaleMax)
+                   BoundedFloat scale)
     {
         this.graph = graph;
         this.center = new PositionRectangular(0, 0);
-        if (scaleMin > scaleMax)
+        if (scale.minimum <= 0)
         {
-            throw new IllegalArgumentException("Minimum scale larger than maximum scale for UIGraph.");
+            throw new IllegalArgumentException("UIGraph scale minimum must always be positive.");
         }
-        this.scaleMin = scaleMax;
-        this.scaleMax = scaleMin;
-        this.setScale(scale);
-    }
-
-    /** Setter for the graph scale. Will ensure the scale lies between
-        it's minimum and maximum. */
-    private void setScale(float scale)
-    {
-        this.scale = min(this.scaleMax, max(this. scaleMin, scale));
+        this.scale = scale;
     }
 
     @Override
