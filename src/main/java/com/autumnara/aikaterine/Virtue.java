@@ -3,8 +3,6 @@ package com.autumnara.aikaterine;
 import com.autumnara.aikaterine.ColorRGB;
 import com.autumnara.aikaterine.PositionRectangular;
 
-import java.io.Serializable;
-
 /** <h1> An immutable representation of a virtue. </h1>
     
     <p> A virtue is a trait or quality of a person deemed morally good
@@ -15,7 +13,7 @@ import java.io.Serializable;
     <a href="https://plato.stanford.edu/entries/ethics-virtue/#EudaVirtEthi">
     Eudaimonist virtue ethics</a> for further information.
     */
-public class Virtue implements Serializable {
+public class Virtue {
 
     /** The name of the virtue. */
     protected String name;
@@ -25,10 +23,10 @@ public class Virtue implements Serializable {
 
     /** The x coordinate of the virtue in 2-dimensional Cartesian
         coordinates. */
-    public transient PositionRectangular pos;
+    public PositionRectangular pos;
 
     /** The red component of the color of the virtue when drawn. */
-    public transient ColorRGB color;
+    public ColorRGB color;
 
     /** Constructor for an immutable virtue. */
     public Virtue(String name,
