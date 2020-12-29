@@ -14,7 +14,7 @@ public abstract class UIComponent extends ResourceObject
 
     /** Set spatial boundaries.
         This method will ensure the object has been initialized, then
-        call {@link #onBounded} after setting the drawing area.
+        call {@link #onSetBoundaries} after setting the drawing area.
         @param boundary the new boundary. */
     public final void setBoundaries(WindowBoundary boundary)
     {
