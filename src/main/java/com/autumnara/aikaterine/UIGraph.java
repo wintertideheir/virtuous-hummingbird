@@ -51,9 +51,9 @@ public class UIGraph extends UIComponent
         this.scale = scale;
     }
 
-    private static String getResourceAsString(String filename)
+    private String getResourceAsString(String filename)
     {
-        return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/" + filename)))
+        return new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/" + filename)))
             .lines()
             .collect(Collectors.joining("\n"));
     }
@@ -87,10 +87,10 @@ public class UIGraph extends UIComponent
         int linkVertexShader   = glCreateShader(GL_VERTEX_SHADER);
         int linkFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        glShaderSource(nodeVertexShader,   UIGraph.getResourceAsString("NodeVertex.glsl"));
-        glShaderSource(nodeFragmentShader, UIGraph.getResourceAsString("NodeFragment.glsl"));
-        glShaderSource(linkVertexShader,   UIGraph.getResourceAsString("LinkVertex.glsl"));
-        glShaderSource(linkFragmentShader, UIGraph.getResourceAsString("LinkFragment.glsl"));
+        glShaderSource(nodeVertexShader,   this.getResourceAsString("NodeVertex.glsl"));
+        glShaderSource(nodeFragmentShader, this.getResourceAsString("NodeFragment.glsl"));
+        glShaderSource(linkVertexShader,   this.getResourceAsString("LinkVertex.glsl"));
+        glShaderSource(linkFragmentShader, this.getResourceAsString("LinkFragment.glsl"));
 
         glCompileShader(nodeVertexShader);
         glCompileShader(nodeFragmentShader);
