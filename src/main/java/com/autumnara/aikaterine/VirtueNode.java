@@ -9,10 +9,10 @@ public final class VirtueNode extends Virtue
 {
 
     /** Constructor for a virtue represented as a node. */
-    public VirtueNode(String              name,
-                      String              description,
-                      PositionRectangular position,
-                      ColorRGB            color)
+    public VirtueNode(String   name,
+                      String   description,
+                      Position position,
+                      ColorRGB color)
     {
         super(name, description);
         this.position    = position;
@@ -20,7 +20,7 @@ public final class VirtueNode extends Virtue
     }
 
     /** The position of the node in space. */
-    public PositionRectangular position;
+    public Position position;
 
     /** The color of the virtue. */
     public ColorRGB color;
