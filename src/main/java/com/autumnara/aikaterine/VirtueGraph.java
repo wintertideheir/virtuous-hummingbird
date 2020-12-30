@@ -6,7 +6,7 @@ import org.jgrapht.graph.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 /** A graph of virtues with node representations. */
-public class VirtueGraph extends DirectedAcyclicGraph<VirtueNode, DefaultEdge>
+public final class VirtueGraph extends DirectedAcyclicGraph<VirtueNode, DefaultEdge>
 {
 
     /** Constructor for a virtue graph. */

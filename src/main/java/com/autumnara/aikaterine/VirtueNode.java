@@ -5,7 +5,7 @@ package com.autumnara.aikaterine;
     A virtue with a node representation in two-dimensional space. The
     representation is a circle with a defined position and color.
     Virtues that have similar colors ought to be similar. */
-public class VirtueNode extends Virtue
+public final class VirtueNode extends Virtue
 {
 
     /** Constructor for a virtue represented as a node. */
