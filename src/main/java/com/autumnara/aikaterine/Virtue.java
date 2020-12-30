@@ -1,9 +1,6 @@
 package com.autumnara.aikaterine;
 
-import com.autumnara.aikaterine.ColorRGB;
-import com.autumnara.aikaterine.PositionRectangular;
-
-/** <h1> An immutable representation of a virtue. </h1>
+/** A virtue.
     
     <p> A virtue is a trait or quality of a person deemed morally good
     or desirable. Virtues may be assessed by how virtuous acts and
@@ -13,22 +10,16 @@ import com.autumnara.aikaterine.PositionRectangular;
     <a href="https://plato.stanford.edu/entries/ethics-virtue/#EudaVirtEthi">
     Eudaimonist virtue ethics</a> for further information.
     */
-public class Virtue {
+public class Virtue
+{
 
-    /** The name of the virtue. */
-    protected String name;
+    /** The unique name of the virtue. */
+    public String name;
 
     /** A short description of the virtue. */
-    protected String description;
+    public String description;
 
-    /** The x coordinate of the virtue in 2-dimensional Cartesian
-        coordinates. */
-    public PositionRectangular pos;
-
-    /** The red component of the color of the virtue when drawn. */
-    public ColorRGB color;
-
-    /** Constructor for an immutable virtue. */
+    /** Constructor for a virtue. */
     public Virtue(String name,
                   String description)
     {
@@ -36,16 +27,29 @@ public class Virtue {
         this.description = description;
     }
 
-    /** Get the {@link Virtue#name} of the virtue. */
-    public String getName()
+    /** {@inheritDoc}
+
+        Only compares the {@link #name names} of the operands, if both
+        are virtues. */
+    @Override
+    public boolean equals(Object obj)
     {
-        return this.name;
+        if (obj == null)
+        {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        return this.name == (Virtue)obj.name;
     }
 
-    /** Get the {@link Virtue#description} of the virtue. */
-    public String getDescription()
+    @Override
+    public int hashCode()
     {
-        return this.description;
+        return this.name.hashCode();
     }
 
 }
