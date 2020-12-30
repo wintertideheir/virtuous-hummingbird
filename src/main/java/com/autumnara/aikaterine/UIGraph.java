@@ -3,6 +3,10 @@ package com.autumnara.aikaterine;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+
 import static java.lang.Math.*;
 
 /** A UI component for drawing and handling
@@ -47,6 +51,13 @@ public class UIGraph extends UIComponent
         this.scale = scale;
     }
 
+    private static String getResourceAsString(String filename)
+    {
+        return new BufferedReader(new InputStreamReader(new Object().getClass().getResourceAsStream("/" + filename)))
+            .lines()
+            .collect(Collectors.joining("\n"));
+    }
+
     @Override
     protected void onInitialize()
     {
@@ -76,34 +87,10 @@ public class UIGraph extends UIComponent
         int linkVertexShader   = glCreateShader(GL_VERTEX_SHADER);
         int linkFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        glShaderSource(nodeVertexShader,
-                       "#version 330 core"
-                     + "layout (location = 0) in vec2 pos;"
-                     + "void main()"
-                     + "{"
-                     + "    gl_Position = vec4(pos.x, pos.y, 0.0, 1.0);"
-                     + "}");
-        glShaderSource(nodeFragmentShader,
-                       "#version 330 core"
-                     + "out vec4 color;"
-                     + "void main()"
-                     + "{"
-                     + "    color = vec4(1.0f, 1.0f, 1.0f, 1.0f);"
-                     + "}");
-        glShaderSource(linkVertexShader,
-                       "#version 330 core"
-                     + "layout (location = 0) in vec2 pos;"
-                     + "void main()"
-                     + "{"
-                     + "    gl_Position = vec4(pos.x, pos.y, 0.0, 1.0);"
-                     + "}");
-        glShaderSource(linkFragmentShader,
-                       "#version 330 core"
-                     + "out vec4 color;"
-                     + "void main()"
-                     + "{"
-                     + "    color = vec4(1.0f, 1.0f, 1.0f, 1.0f);"
-                     + "}");
+        glShaderSource(nodeVertexShader,   UIGraph.getResourceAsString("NodeVertex.glsl"));
+        glShaderSource(nodeFragmentShader, UIGraph.getResourceAsString("NodeFragment.glsl"));
+        glShaderSource(linkVertexShader,   UIGraph.getResourceAsString("LinkVertex.glsl"));
+        glShaderSource(linkFragmentShader, UIGraph.getResourceAsString("LinkFragment.glsl"));
 
         glCompileShader(nodeVertexShader);
         glCompileShader(nodeFragmentShader);
