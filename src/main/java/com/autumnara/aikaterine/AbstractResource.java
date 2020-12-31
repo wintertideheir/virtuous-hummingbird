@@ -1,16 +1,18 @@
 package com.autumnara.aikaterine;
 
 /** An object that needs to be initialized and terminated.
+
     This class has an internal state that must be intialized to be
     accessed and terminated to properly release it's resources. This
     class is similar to data resources (e.g. files and data streams). */
-public abstract class ResourceObject
+public abstract class AbstractResource
 {
 
     /** Whether this component has been initialized or not. */
     private boolean initialized = false;
 
     /** Initialize this object.
+
         This method checks that this object hasn't already been
         initialized and then calls {@link #onInitialize}. */
     public final void initialize()
@@ -36,6 +38,7 @@ public abstract class ResourceObject
     }
 
     /** Terminate this component.
+
         This method calls {@link #onTerminate} and marks this
         component as not initialized. */
     public final void terminate()
@@ -49,6 +52,7 @@ public abstract class ResourceObject
     }
 
     /** Terminate this object.
+
         Objects should free their resources here. */
     protected void onTerminate() {}
 

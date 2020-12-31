@@ -9,7 +9,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.BufferUtils.*;
 
 /** A window that helps a {@link UIComponent} compute and display a program. */
-public final class Window extends ResourceObject
+public final class Window extends AbstractResource
 {
 
     /** The minimum major OpenGL version. */
