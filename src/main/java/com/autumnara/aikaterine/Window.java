@@ -8,39 +8,50 @@ import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.BufferUtils.*;
 
-/** A window that helps a {@link UIComponent} compute and display a program. */
+/** A window that helps a {@link UIComponent} compute and display a program.
+  */
 public final class Window extends AbstractResource
 {
 
-    /** The minimum major OpenGL version. */
+    /** The minimum major OpenGL version.
+      */
     public final static int OPENGL_VERSION_MAJOR = 3;
 
-    /** The minimum minor OpenGL version. */
+    /** The minimum minor OpenGL version.
+      */
     public final static int OPENGL_VERSION_MINOR = 3;
 
-    /** The minimum width of the window in screen coordinates. */
+    /** The minimum width of the window in screen coordinates.
+      */
     public final int minimumWidth;
 
-    /** The minimum height of the window in screen coordinates. */
+    /** The minimum height of the window in screen coordinates.
+      */
     public final int minimumHeight;
 
-    /** The window title. */
+    /** The window title.
+      */
     public final String title;
 
-    /** The root component being drawn. */
+    /** The root component being drawn.
+      */
     private UIComponent root;
 
-    /** The GLFW window ID. */
+    /** The GLFW window ID.
+      */
     private long windowId;
 
     /** Constructor for a window.
-        Does not create, initialize, or display this window.
-        @param minimumWidth the minimum width of the window in screen
-                            coordinates. Must be positive.
-        @param minimumHeight the minimum height of the window in screen
-                             coordinates. Must be positive.
-        @param title the window title.
-        @param root the root component to be drawn. */
+      *
+      * Does not create, initialize, or display this window.
+      *
+      * @param minimumWidth the minimum width of the window in screen
+      *                     coordinates. Must be positive.
+      * @param minimumHeight the minimum height of the window in screen
+      *                      coordinates. Must be positive.
+      * @param title the window title.
+      * @param root the root component to be drawn.
+      */
     public Window(int minimumWidth,
                   int minimumHeight,
                   String title,
@@ -52,7 +63,8 @@ public final class Window extends AbstractResource
         this.root          = root;
     }
 
-    /** Create and initialize the window with GLFW and OpenGL. */
+    /** Create and initialize the window with GLFW and OpenGL.
+      */
     @Override
     protected void onInitialize()
     {
@@ -97,7 +109,8 @@ public final class Window extends AbstractResource
     }
 
 
-    /** Run the application until a window close is requested. */
+    /** Run the application until a window close is requested.
+     */
     public void loop()
     {
         this.assertInitialized();
@@ -110,7 +123,8 @@ public final class Window extends AbstractResource
 		}
     }
 
-    /** Destroy the window and free it's resources. */
+    /** Destroy the window and free it's resources.
+     */
     @Override
     protected void onTerminate()
     {

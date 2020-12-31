@@ -1,28 +1,37 @@
 package com.autumnara.aikaterine;
 
-/** A color in red-green-blue representation. */
+/** A color in red-green-blue representation.
+  */
 public final class Color
 {
 
     /** The normalized red component.
-        Must be between 0f and 1f. */
+      *
+      * Must be between 0f and 1f.
+      */
     public final float red;
 
     /** The normalized blue component.
-        Must be between 0f and 1f. */
+      *
+      * Must be between 0f and 1f.
+      */
     public final float blue;
 
     /** The normalized green component.
-        Must be between 0f and 1f. */
+      *
+      * Must be between 0f and 1f.
+      */
     public final float green;
 
     /** Constructor for a color from RGB components.
-        @param red   the normalized red component.
-                     Must be between 0f and 1f.
-        @param blue  the normalized blue component.
-                     Must be between 0f and 1f.
-        @param green the normalized green component.
-                     Must be between 0f and 1f. */
+      *
+      * @param red   the normalized red component.
+      *              Must be between 0f and 1f.
+      * @param blue  the normalized blue component.
+      *              Must be between 0f and 1f.
+      * @param green the normalized green component.
+      *              Must be between 0f and 1f.
+      */
     public Color(float red,
                  float blue,
                  float green)
@@ -46,12 +55,14 @@ public final class Color
     }
 
     /** Create a RGB color from hue, saturation, and value.
-        @param hue        the normalized hue.
-                          Must be between {@code 0f} and {@code 1f}.
-        @param saturation the normalized saturation. 
-                          Must be between {@code 0f} and {@code 1f}.
-        @param value      the normalized value.
-                          Must be between {@code 0f} and {@code 1f}. */
+      *
+      * @param hue        the normalized hue.
+      *                   Must be between {@code 0f} and {@code 1f}.
+      * @param saturation the normalized saturation. 
+      *                   Must be between {@code 0f} and {@code 1f}.
+      * @param value      the normalized value.
+      *                   Must be between {@code 0f} and {@code 1f}.
+      */
     public static Color fromHSV(float hue,
                                 float saturation,
                                 float value)

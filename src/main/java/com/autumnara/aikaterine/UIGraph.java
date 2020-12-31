@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.*;
 
-/** A UI component for drawing and handling
-    {@link com.autumnara.aikaterine.VirtueGraph virtue graphs.} */
+/** A UI component for drawing and handling virtue graphs.
+  */
 public class UIGraph extends UIComponent
 {
 
