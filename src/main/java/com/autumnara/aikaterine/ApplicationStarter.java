@@ -1,34 +1,22 @@
 package com.autumnara.aikaterine;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class ApplicationStarter
 {
 
     public static void main(String[] argv)
     {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
-        // Request OpenGL version 3.3
-        config.gles30ContextMajorVersion = 3;
-        config.gles30ContextMinorVersion = 3;
-
-        // Request a 600x400 window
-        config.width = 600;
-        config.height = 400;
-
-        // Center the window
-        config.x = -1;
-        config.y = -1;
+        // Don't use OpenGL ES. Request OpenGL 3.3
+        config.useOpenGL3(false, 3, 3);
 
         // Set the window title
-        config.title = "Aikaterine";
+        config.setTitle("Aikaterine");
 
-        // Enable window resizing
-        config.resizable = true;
-
-        new LwjglApplication(new Application(), config);
+        new Lwjgl3Application(new Application(), config);
     }
 
 }
