@@ -23,6 +23,6 @@ public final class VirtueNode extends Virtue
     public Position position;
 
     /** The color of the virtue. */
-    public ColorRGB color;
+    public Color color;
 
 }

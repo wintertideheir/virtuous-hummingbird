@@ -1,7 +1,7 @@
 package com.autumnara.aikaterine;
 
 /** A color in red-green-blue representation. */
-public final class ColorRGB
+public final class Color
 {
 
     /** The normalized red component.
@@ -16,16 +16,16 @@ public final class ColorRGB
         Must be between 0f and 1f. */
     public final float green;
 
-    /** Constructor for an RGB color from it's components.
+    /** Constructor for a color from RGB components.
         @param red   the normalized red component.
                      Must be between 0f and 1f.
         @param blue  the normalized blue component.
                      Must be between 0f and 1f.
         @param green the normalized green component.
                      Must be between 0f and 1f. */
-    public ColorRGB(float red,
-                    float blue,
-                    float green)
+    public Color(float red,
+                 float blue,
+                 float green)
     {
         if (red < 0 || red > 1)
         {
@@ -45,16 +45,35 @@ public final class ColorRGB
         this.green = green;
     }
 
-    /** Constructor for a color in RGB representation from a color in
-        HSV representation.
-        @param color a color in HSV format */
-    public ColorRGB(ColorHSV color)
+    /** Create a RGB color from hue, saturation, and value.
+        @param hue        the normalized hue.
+                          Must be between {@code 0f} and {@code 1f}.
+        @param saturation the normalized saturation. 
+                          Must be between {@code 0f} and {@code 1f}.
+        @param value      the normalized value.
+                          Must be between {@code 0f} and {@code 1f}. */
+    public static Color fromHSV(float hue,
+                                float saturation,
+                                float value)
     {
-        float chroma = color.saturation * color.value;
+        if (hue < 0f || hue > 1f)
+        {
+            throw new IllegalArgumentException("Hue is not between 0 and 1.");
+        }
+        if (saturation < 0f || saturation > 1f)
+        {
+            throw new IllegalArgumentException("Saturation is not between 0 and 1.");
+        }
+        if (value < 0f || value > 1f)
+        {
+            throw new IllegalArgumentException("Value is not between 0 and 1.");
+        }
 
-        float a = color.hue * 6;
+        float chroma = saturation * value;
+
+        float a = hue * 6;
         float b = chroma * (1 - Math.abs((a % 2) - 1));
-        float c = color.value - chroma;
+        float c = value - chroma;
 
         switch ((int) a)
         {
