@@ -48,7 +48,7 @@ public class Virtue
             return false;
         }
 
-        return this.name == (Virtue)obj.name;
+        return this.name == (((Virtue)obj).name);
     }
 
     @Override

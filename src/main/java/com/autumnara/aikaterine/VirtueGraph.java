@@ -14,7 +14,7 @@ public final class VirtueGraph extends DirectedAcyclicGraph<VirtueNode, DefaultE
       */
     public VirtueGraph()
     {
-        super(this.getClass().byName("org.jgrapht.graph.DefaultEdge"));
+        super(DefaultEdge.class);
     }
 
 }

@@ -89,36 +89,18 @@ public final class Color
         switch ((int) a)
         {
             case 0:
-                this.red = chroma;
-                this.green = b;
-                this.blue = 0;
-                break;
+                return new Color(chroma, b, 0);
             case 1:
-                this.red = b;
-                this.green = chroma;
-                this.blue = 0;
-                break;
+                return new Color(b, chroma, 0);
             case 2:
-                this.red = 0;
-                this.green = chroma;
-                this.blue = b;
-                break;
+                return new Color(0, chroma, b);
             case 3:
-                this.red = 0;
-                this.green = b;
-                this.blue = chroma;
-                break;
+                return new Color(0, b, chroma);
             case 4:
-                this.red = b;
-                this.green = 0;
-                this.blue = chroma;
-                break;
+                return new Color(b, 0, chroma);
             case 5:
             case 6:
-                this.red = chroma;
-                this.green = 0;
-                this.blue = b;
-                break;
+                return new Color(chroma, 0, b);
             default:
                 throw new IllegalStateException("Color conversion from HSV to RGB failed for unknown reasons.");
         }

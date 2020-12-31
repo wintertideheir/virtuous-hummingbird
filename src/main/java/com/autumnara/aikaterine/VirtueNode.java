@@ -14,7 +14,7 @@ public final class VirtueNode extends Virtue
     public VirtueNode(String   name,
                       String   description,
                       Position position,
-                      ColorRGB color)
+                      Color    color)
     {
         super(name, description);
         this.position    = position;

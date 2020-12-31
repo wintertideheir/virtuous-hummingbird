@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClassName = 'com.autumnara.aikaterine.App'
+    mainClassName = 'com.autumnara.aikaterine.ApplicationStarter'
 }
 
 task myJavadocs(type: Javadoc) {
