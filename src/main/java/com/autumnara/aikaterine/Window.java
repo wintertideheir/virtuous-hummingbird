@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.BufferUtils.*;
+import static org.lwjgl.BufferUtils.createIntBuffer;
 
 /** A window.
   */
@@ -31,13 +31,9 @@ public final class Window extends AbstractResource
       *
       * @param title the window title.
       */
-    public Window(int minimumWidth,
-                  int minimumHeight,
-                  String title)
+    public Window(String title)
     {
-        this.minimumWidth  = minimumWidth;
-        this.minimumHeight = minimumHeight;
-        this.title         = title;
+        this.title = title;
     }
 
     /** Create and initialize the window with GLFW and OpenGL.
@@ -50,23 +46,25 @@ public final class Window extends AbstractResource
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); // Request OpenGL x.3
         glfwWindowHint(GLFW_OPENGL_PROFILE,            // Do not use OpenGL compatibility mode
                        GLFW_OPENGL_CORE_PROFILE);
-		    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);     // Start the window maximized
+		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);     // Start the window maximized
 
         this.windowId = glfwCreateWindow(100, 100, this.title, // Create this window
                                          NULL, NULL);
         glfwMakeContextCurrent(this.windowId);                 // Set OpenGL to use this window
         GL.createCapabilities();                               // Initialize OpenGL
 
-        IntBuffer width = createIntBuffer(1);
-        IntBuffer height = createIntBuffer(1);
-        glfwGetFramebufferSize​(windowId, width, height);        // Get the size of this window
-        this.viewport = new Viewport(width.get(0), height.get(0));
+        IntBuffer initial_width = createIntBuffer(1);
+        IntBuffer initial_height = createIntBuffer(1);
+        glfwGetFramebufferSize​(windowId, initial_width, initial_height); // Get the size of this window
+        this.viewport = new Viewport(initial_width.get(0),
+                                     initial_height.get(0));
         this.viewport.activate();
 
         glfwSetFramebufferSizeCallback(this.windowId,             // Resize the OpenGL drawing area whenever the window changes
                                        (window, width, height) ->
         {
             this.viewport = new Viewport(width, height);
+            this.viewport.activate();
         });
 
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Set the OpenGL clear color to black
