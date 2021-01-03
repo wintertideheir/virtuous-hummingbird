@@ -21,6 +21,10 @@ public final class Window extends AbstractResource
       */
     private long windowId;
 
+    /** The primary OpenGL viewport.
+      */
+    private Viewport viewport;
+
     /** Constructor for a window.
       *
       * Does not create, initialize, or display this window.
@@ -53,14 +57,16 @@ public final class Window extends AbstractResource
         glfwMakeContextCurrent(this.windowId);                 // Set OpenGL to use this window
         GL.createCapabilities();                               // Initialize OpenGL
 
-        IntBuffer pixels_width = createIntBuffer(1);
-        IntBuffer pixels_height = createIntBuffer(1);
-        glfwGetFramebufferSize​(this.windowId, pixels_width, pixels_height); // Find out the dimensions of the window
-        glViewport(0, 0, pixels_width.get(0), pixels_height.get(0));        // Set the OpenGL drawing area to the window
-        glfwSetFramebufferSizeCallback(this.windowId,                       // Resize the OpenGL drawing area whenever the window changes
+        IntBuffer width = createIntBuffer(1);
+        IntBuffer height = createIntBuffer(1);
+        glfwGetFramebufferSize​(windowId, width, height);        // Get the size of this window
+        this.viewport = new Viewport(width.get(0), height.get(0));
+        this.viewport.activate();
+
+        glfwSetFramebufferSizeCallback(this.windowId,             // Resize the OpenGL drawing area whenever the window changes
                                        (window, width, height) ->
         {
-            glViewport(0, 0, width, height);
+            this.viewport = new Viewport(width, height);
         });
 
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Set the OpenGL clear color to black
