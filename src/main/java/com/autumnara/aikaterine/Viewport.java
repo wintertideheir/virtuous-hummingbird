@@ -27,6 +27,14 @@ public final class Viewport
       */
     public final int height;
 
+    /** Whether this viewport is a root viewport.
+      *
+      * Root viewports are viewports created for
+      * {@link com.autumnara.aikaterine.Window windows} and should not
+      * be used by {@link com.autumnara.aikaterine.AbstractView views}.
+      */
+    public final boolean isRoot;
+
     /** Constructor for a viewport from it's components.
       *
       * @param x      the positive x-offset of the new viewport
@@ -39,11 +47,14 @@ public final class Viewport
       *               in pixels.
       * @param height the positive height of the new viewport,
       *               in pixels.
+      * @param isRoot whether this viewport is a root viewport, and
+      *               therefore belongs solely to a window.
       */
     private Viewport(int x,
                      int y,
                      int width,
-                     int height)
+                     int height,
+                     boolean isRoot)
     {
         if (x <= 0)
         {
@@ -66,9 +77,10 @@ public final class Viewport
         this.y      = y;
         this.width  = width;
         this.height = height;
+        this.isRoot = isRoot;
     }
 
-    /** Constructor for a viewport from a GLFW window.
+    /** Constructor for root viewport for a window.
       *
       * @param windowId the GLFW identifier for the window
       */
@@ -77,7 +89,7 @@ public final class Viewport
         IntBuffer width = createIntBuffer(1);
         IntBuffer height = createIntBuffer(1);
         glfwGetFramebufferSize​(windowId, width, height);
-        return new Viewport(0, 0, width.get(0), height.get(0));
+        return new Viewport(0, 0, width.get(0), height.get(0), true);
     }
 
     /** Create a new viewport within this viewport.
@@ -112,7 +124,7 @@ public final class Viewport
                                                "Either it's height and/or y-offset is too large.");
         }
 
-        return new Viewport(x, y, width, height);
+        return new Viewport(x, y, width, height, false);
     }
 
     /** Activate the viewport through
