@@ -79,6 +79,19 @@ public final class Viewport
         this.height = height;
         this.isRoot = isRoot;
     }
+    
+    /** Copy constructor for a viewport.
+      *
+      * @param original the viewport to be copied.
+      */
+    public Viewport(Viewport original)
+    {
+        return new Viewport(original.x,
+                            original.y,
+                            original.width,
+                            original.height,
+                            false);
+    }
 
     /** Constructor for root viewport for a window.
       *
