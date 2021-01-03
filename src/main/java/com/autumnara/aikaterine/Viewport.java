@@ -1,10 +1,6 @@
 package com.autumnara.aikaterine;
 
-import java.nio.IntBuffer;
-
-import static org.lwjgl.glfw.GLFW.glfwGetFramebufferSize​;
 import static org.lwjgl.opengl.GL33.glViewport;
-import static org.lwjgl.BufferUtils.createIntBuffer;
 
 public final class Viewport
 {
@@ -95,14 +91,13 @@ public final class Viewport
 
     /** Constructor for root viewport for a window.
       *
-      * @param windowId the GLFW identifier for the window
+      * @param width  the width of the window in pixels
+      * @param height the height of the window in pixels
       */
-    public static Viewport windowViewport(long windowId)
+    public Viewport(int width,
+                    int height)
     {
-        IntBuffer width = createIntBuffer(1);
-        IntBuffer height = createIntBuffer(1);
-        glfwGetFramebufferSize​(windowId, width, height);
-        return new Viewport(0, 0, width.get(0), height.get(0), true);
+        this(0, 0, width, height, true);
     }
 
     /** Create a new viewport within this viewport.
