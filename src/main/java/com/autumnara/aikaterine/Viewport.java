@@ -12,12 +12,12 @@ public final class Viewport
     /** The x-offset of the viewport relative to the bottom-left
       * corner.
       */
-    public final int x;
+    private final int x;
 
     /** The y-offset of the viewport relative to the bottom-left
       * corner.
       */
-    public final int y;
+    private final int y;
 
     /** The width of the viewport.
       */
