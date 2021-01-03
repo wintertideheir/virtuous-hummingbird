@@ -1,6 +1,6 @@
 package com.autumnara.aikaterine;
 
-public class AbstractView extends AbstractResource
+public abstract class AbstractView extends AbstractResource
 {
 
     public final void render()
