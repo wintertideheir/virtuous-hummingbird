@@ -82,11 +82,11 @@ public final class Viewport
       */
     public Viewport(Viewport original)
     {
-        return new Viewport(original.x,
-                            original.y,
-                            original.width,
-                            original.height,
-                            false);
+        this(original.x,
+             original.y,
+             original.width,
+             original.height,
+             false);
     }
 
     /** Constructor for root viewport for a window.
