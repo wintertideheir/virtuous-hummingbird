@@ -12,20 +12,20 @@ public final class Viewport
     /** The x-offset of the viewport relative to the bottom-left
       * corner.
       */
-    private final int x;
+    public final int x;
 
     /** The y-offset of the viewport relative to the bottom-left
       * corner.
       */
-    private final int y;
+    public final int y;
 
     /** The width of the viewport.
       */
-    private final int width;
+    public final int width;
 
     /** The height of the viewport.
       */
-    private final int height;
+    public final int height;
 
     /** Constructor for a viewport from it's components.
       *
@@ -121,20 +121,6 @@ public final class Viewport
     public void activate()
     {
         glViewport(x, y, width, height);
-    }
-
-    /** Get the width of the viewport in pixels.
-      */
-    public int getWidth()
-    {
-        return this.width;
-    }
-
-    /** Get the height of the viewport in pixels.
-      */
-    public int getHeight()
-    {
-        return this.height;
     }
 
 }
