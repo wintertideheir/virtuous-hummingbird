@@ -65,6 +65,10 @@ public abstract class AbstractView extends AbstractResource
         this.onSetViewport();
     }
 
+    /** Adjust the view to the viewport.
+      */
+    protected abstract void onSetViewport();
+
     /** Get the width of the viewport.
       */
     protected final int getViewportWidth()
