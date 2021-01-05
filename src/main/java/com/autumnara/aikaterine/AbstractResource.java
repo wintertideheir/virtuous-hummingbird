@@ -61,6 +61,6 @@ public abstract class AbstractResource
       *
       * Objects should free their resources here.
       */
-    protected void onTerminate() {}
+    protected abstract void onTerminate();
 
 }
