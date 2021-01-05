@@ -9,26 +9,47 @@ package com.autumnara.aikaterine;
 public abstract class AbstractView extends AbstractResource
 {
 
-    /** The OpenGL viewport this view should be drawn through.
+    /** This view's OpenGL viewport.
       */
     private Viewport viewport;
 
+    /** A promise for this view's OpenGL viewport.
+      */
+    private Promise<Viewport> viewportPromise;
+
     /** Constructor for a view.
       *
-      * This constructor ensures that the viewport is set before the
-      * view can be initialized.
+      * This constructor ensures that the viewport is promised before
+      * the view can be initialized.
       *
-      * @param viewport The OpenGL non-root viewport to draw this view
-      *                 through 
+      * @param viewportPromise A promised OpenGL non-root viewport to
+      *                        draw this view through
       */
-    public AbstractView(Viewport viewport)
+    public AbstractView(Promise<Viewport> viewportPromise)
     {
-        if (viewport.isRoot)
+        this.viewportPromise = viewportPromise;
+    }
+
+    /** Get the viewport.
+      *
+      * This method will get the viewport from a viewport promise if it
+      * doesn't exist.
+      */
+    protected final Viewport getViewport()
+    {
+        if (this.viewport == null)
         {
-            throw new IllegalArgumentException("View cannot be initialized with a viewport belonging to a window.");
+            this.viewport = this.viewportPromise.get();
+
+            this.viewportPromise = null;
+
+            if (this.viewport.isRoot)
+            {
+                throw new IllegalArgumentException("View cannot use a viewport belonging to a window.");
+            }
         }
 
-        this.viewport = viewport;
+        return this.viewport;
     }
 
     /** Render this view.
@@ -68,19 +89,5 @@ public abstract class AbstractView extends AbstractResource
     /** Adjust the view to the viewport.
       */
     protected abstract void onSetViewport();
-
-    /** Get the width of the viewport.
-      */
-    protected final int getViewportWidth()
-    {
-        return this.viewport.width;
-    }
-
-    /** Get the height of the viewport.
-      */
-    protected final int getViewportHeight()
-    {
-        return this.viewport.height;
-    }
 
 }
