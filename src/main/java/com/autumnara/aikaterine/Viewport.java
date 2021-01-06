@@ -2,6 +2,8 @@ package com.autumnara.aikaterine;
 
 import static org.lwjgl.opengl.GL33.glViewport;
 
+/** An OpenGL viewport.
+  */
 public final class Viewport
 {
 
@@ -136,7 +138,7 @@ public final class Viewport
     }
 
     /** Activate the viewport through
-      * {@link org.lwjgl.opengl.GL33.glViewport glViewport}.
+      * {@link org.lwjgl.opengl.GL33#glViewport}.
       */
     public void activate()
     {
