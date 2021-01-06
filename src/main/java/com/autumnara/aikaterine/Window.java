@@ -83,9 +83,9 @@ public final class Window extends AbstractResource
         this.assertInitialized();
         while (!glfwWindowShouldClose(this.windowId))
         {
-			      glClear(GL_COLOR_BUFFER_BIT);
-			      glfwSwapBuffers(this.windowId);
-			      glfwPollEvents();
+            glClear(GL_COLOR_BUFFER_BIT);
+			glfwSwapBuffers(this.windowId);
+			glfwPollEvents();
 		}
     }
 
@@ -94,7 +94,7 @@ public final class Window extends AbstractResource
     @Override
     protected void onTerminate()
     {
-    		glfwTerminate();
+        glfwTerminate();
     }
 
 }
