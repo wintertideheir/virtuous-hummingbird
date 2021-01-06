@@ -25,8 +25,6 @@ public final class VirtueGraphView extends AbstractView
 
     /** Constructor for a virtue graph view.
       *
-      * @param viewportPromise the viewport promise for the
-      *                        {@link AbstractView} constructor
       * @param graph           the virtue graph to be rendered
       * @param scaleMinimum    the minimum view scale
       * @param scale           the inital view scale. The view scale is
@@ -36,14 +34,11 @@ public final class VirtueGraphView extends AbstractView
       *                        value must always be positive.
       * @param scaleMaximum    the maximum view scale
       */
-    public VirtueGraphView(Promise<Viewport> viewportPromise,
-                           VirtueGraph       graph,
-                           float             scaleMinimum,
-                           float             scale,
-                           float             scaleMaximum)
+    public VirtueGraphView(VirtueGraph graph,
+                           float       scaleMinimum,
+                           float       scale,
+                           float       scaleMaximum)
     {
-        super(viewportPromise);
-
         if (scaleMinimum > scaleMaximum)
         {
             throw new IllegalArgumentException("Virtue graph view scale minimum must be less than or equal to the scale maximum.");

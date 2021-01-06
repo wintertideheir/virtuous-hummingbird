@@ -42,6 +42,13 @@ public abstract class AbstractResource
         }
     }
 
+    /** Return whether this object has been initialized.
+     */
+    public final boolean isInitialized()
+    {
+        return this.initialized;
+    }
+
     /** Terminate this component.
       *
       * This method calls {@link #onTerminate} and marks this

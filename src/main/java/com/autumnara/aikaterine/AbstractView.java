@@ -11,46 +11,7 @@ public abstract class AbstractView extends AbstractResource
 
     /** This view's OpenGL viewport.
       */
-    private Viewport viewport;
-
-    /** A promise for this view's OpenGL viewport.
-      */
-    private Promise<Viewport> viewportPromise;
-
-    /** Constructor for a view.
-      *
-      * This constructor ensures that the viewport is promised before
-      * the view can be initialized.
-      *
-      * @param viewportPromise A promised OpenGL non-root viewport to
-      *                        draw this view through
-      */
-    public AbstractView(Promise<Viewport> viewportPromise)
-    {
-        this.viewportPromise = viewportPromise;
-    }
-
-    /** Get the viewport.
-      *
-      * This method will get the viewport from a viewport promise if it
-      * doesn't exist.
-      */
-    protected final Viewport getViewport()
-    {
-        if (this.viewport == null)
-        {
-            this.viewport = this.viewportPromise.get();
-
-            this.viewportPromise = null;
-
-            if (this.viewport.isRoot)
-            {
-                throw new IllegalArgumentException("View cannot use a viewport belonging to a window.");
-            }
-        }
-
-        return this.viewport;
-    }
+    protected Viewport viewport;
 
     /** Render this view.
       *
@@ -72,18 +33,21 @@ public abstract class AbstractView extends AbstractResource
 
     /** Set the viewport.
       *
+      * This function will call {@link #onSetViewport} the after the
+      * first time the viewport has been set. This function should be
+      * called before {@link #initialize}.
+      *
       * @param viewport the new viewport
       */
     public final void setViewport(Viewport viewport)
     {
-        if (viewport.isRoot)
+        if (this.isInitialized())
         {
-            throw new IllegalArgumentException("View cannot use a viewport belonging to a window.");
+            this.viewport = viewport;
+            this.onSetViewport();
+        } else {
+            this.viewport = viewport;
         }
-
-        this.viewport = viewport;
-
-        this.onSetViewport();
     }
 
     /** Adjust the view to the viewport.

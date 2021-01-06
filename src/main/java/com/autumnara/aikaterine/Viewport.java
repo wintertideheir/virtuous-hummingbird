@@ -25,14 +25,6 @@ public final class Viewport
       */
     public final int height;
 
-    /** Whether this viewport is a root viewport.
-      *
-      * Root viewports are viewports created for
-      * {@link com.autumnara.aikaterine.Window windows} and should not
-      * be used by {@link com.autumnara.aikaterine.AbstractView views}.
-      */
-    public final boolean isRoot;
-
     /** Constructor for a viewport from it's components.
       *
       * @param x      the positive x-offset of the new viewport
@@ -51,8 +43,7 @@ public final class Viewport
     private Viewport(int x,
                      int y,
                      int width,
-                     int height,
-                     boolean isRoot)
+                     int height)
     {
         if (x <= 0)
         {
@@ -75,7 +66,6 @@ public final class Viewport
         this.y      = y;
         this.width  = width;
         this.height = height;
-        this.isRoot = isRoot;
     }
     
     /** Copy constructor for a viewport.
@@ -87,8 +77,7 @@ public final class Viewport
         this(original.x,
              original.y,
              original.width,
-             original.height,
-             false);
+             original.height);
     }
 
     /** Constructor for root viewport for a window.
@@ -99,7 +88,7 @@ public final class Viewport
     public Viewport(int width,
                     int height)
     {
-        this(0, 0, width, height, true);
+        this(0, 0, width, height);
     }
 
     /** Create a new viewport within this viewport.
@@ -134,7 +123,7 @@ public final class Viewport
                                                "Either it's height and/or y-offset is too large.");
         }
 
-        return new Viewport(x, y, width, height, false);
+        return new Viewport(x, y, width, height);
     }
 
     /** Activate the viewport through
