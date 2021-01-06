@@ -30,9 +30,10 @@ public final class Shader implements AutoCloseable
       * This constructor requires an active OpenGL context. The shader
       * will be sourced and compiled.
       *
-      * @param filename the filename of the resource, relative to the
-      *                 resource directory. This value should
-      *                 <i>not</i> begin with a backslash.
+      * @param resourceFilename the filename of the resource, relative
+      *                         to the resource directory. This value
+      *                         should <i>not</i> begin with a
+      *                         backslash.
       * @param type the type of shader.
       */
     public Shader(String resourceFilename,
