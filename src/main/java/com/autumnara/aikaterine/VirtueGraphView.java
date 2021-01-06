@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine;
 
+import static org.lwjgl.opengl.GL33.*;
+
 /** A view of a virtue graph.
   *
   * TODO: Complete this class.
@@ -16,6 +18,10 @@ public final class VirtueGraphView extends AbstractView
     public final float scaleMinimum;
 
     public final float scaleMaximum;
+
+    private ShaderProgram nodeShader;
+
+    private ShaderProgram linkShader;
 
     /** Constructor for a virtue graph view.
       *
@@ -64,10 +70,28 @@ public final class VirtueGraphView extends AbstractView
     }
 
     @Override
-    protected void onInitialize() {}
+    protected void onInitialize()
+    {
+        try (Shader vertex   = new Shader("NodeVertex.glsl",   GL_VERTEX_SHADER);
+             Shader fragment = new Shader("NodeFragment.glsl", GL_FRAGMENT_SHADER))
+        {
+            this.nodeShader = new ShaderProgram(new Shader[] {vertex, fragment});
+        }
+
+        try (Shader vertex   = new Shader("LinkVertex.glsl",   GL_VERTEX_SHADER);
+             Shader fragment = new Shader("LinkFragment.glsl", GL_FRAGMENT_SHADER))
+        {
+            this.linkShader = new ShaderProgram(new Shader[] {vertex, fragment});
+        }
+
+    }
 
     @Override
-    protected void onTerminate() {}
+    protected void onTerminate()
+    {
+        glDeleteProgram(this.nodeShader.reference);
+        glDeleteProgram(this.linkShader.reference);
+    }
 
     @Override
     protected void onRender() {}
