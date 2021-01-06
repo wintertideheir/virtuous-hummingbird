@@ -15,7 +15,15 @@ public final class Window extends AbstractResource
 
     /** The window title.
       */
-    public final String title;
+    private final static String TITLE = "Aikaterine";
+
+    /** The OpenGL major version.
+      */
+    private final static int GL_VERSION_MAJOR = 3;
+
+    /** The OpenGL minor version.
+      */
+    private final static int GL_VERSION_MINOR = 3;
 
     /** The GLFW window ID.
       */
@@ -28,30 +36,27 @@ public final class Window extends AbstractResource
     /** Constructor for a window.
       *
       * Does not create, initialize, or display this window.
-      *
-      * @param title the window title.
       */
-    public Window(String title)
-    {
-        this.title = title;
-    }
+    public Window() {}
 
     /** Create and initialize the window with GLFW and OpenGL.
       */
     @Override
     protected void onInitialize()
     {
-        glfwInit();                                    // Initialize GLFW
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Request OpenGL 3.x
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); // Request OpenGL x.3
-        glfwWindowHint(GLFW_OPENGL_PROFILE,            // Do not use OpenGL compatibility mode
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,
+                       GL_VERSION_MINOR);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,
+                       GLFW_CONTEXT_VERSION_MINOR);
+        glfwWindowHint(GLFW_OPENGL_PROFILE,        // Do not use OpenGL compatibility mode
                        GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);     // Start the window maximized
+		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // Start the window maximized
 
-        this.windowId = glfwCreateWindow(100, 100, this.title, // Create this window
+        this.windowId = glfwCreateWindow(100, 100, TITLE, // Create this window
                                          NULL, NULL);
-        glfwMakeContextCurrent(this.windowId);                 // Set OpenGL to use this window
-        GL.createCapabilities();                               // Initialize OpenGL
+        glfwMakeContextCurrent(this.windowId);             // Set OpenGL to use this window
+        GL.createCapabilities();                           // Initialize OpenGL
 
         IntBuffer initial_width = createIntBuffer(1);
         IntBuffer initial_height = createIntBuffer(1);
@@ -81,7 +86,7 @@ public final class Window extends AbstractResource
 			      glClear(GL_COLOR_BUFFER_BIT);
 			      glfwSwapBuffers(this.windowId);
 			      glfwPollEvents();
-		    }
+		}
     }
 
     /** Destroy the window and free it's resources.
