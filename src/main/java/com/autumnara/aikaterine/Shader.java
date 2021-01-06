@@ -9,8 +9,16 @@ import java.util.stream.Collectors;
 /** An OpenGL shader.
   *
   * This is a utility class to create and manage shaders safely.
+  * Calling {@link java.lang.AutoCloseable#close} is recommended after
+  * this shader is no longer needed. E.g.
+  * <pre> {@code
+  *     try (Shader s = new Shader(pathname, type))
+  *     {
+  *         \\ Use the shader here ...
+  *     }
+  * } </pre>
   */
-public final class Shader
+public final class Shader implements AutoCloseable
 {
 
     /** The shader reference.
@@ -51,6 +59,12 @@ public final class Shader
         return new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/" + filename)))
             .lines()
             .collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public void close()
+    {
+        glDeleteShader(this.reference);
     }
 
 }
