@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL33.*;
   *
   * This is a utility class to create and manage shaders programs safely.
   */
-public final class ShaderProgram
+public final class ShaderProgram extends AbstractResource
 {
 
     /** The shader program reference.
@@ -35,12 +35,24 @@ public final class ShaderProgram
         {
             glDetachShader(this.reference, shader.reference);
         }
+
+        this.initialize();
+    }
+
+    @Override
+    protected void onInitialize() {}
+
+    @Override
+    protected void onTerminate()
+    {
+        glDeleteProgram(this.reference);
     }
 
     /** Use this shader program.
       */
     public void use()
     {
+        this.assertActive();
         glUseProgram(this.reference);
     }
 
