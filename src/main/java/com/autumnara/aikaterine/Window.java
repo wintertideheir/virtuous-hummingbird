@@ -80,7 +80,7 @@ public final class Window extends AbstractResource
      */
     public void loop()
     {
-        this.assertInitialized();
+        this.assertActive();
         while (!glfwWindowShouldClose(this.windowId))
         {
             glClear(GL_COLOR_BUFFER_BIT);

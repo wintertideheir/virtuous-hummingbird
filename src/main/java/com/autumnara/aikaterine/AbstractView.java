@@ -15,12 +15,12 @@ public abstract class AbstractView extends AbstractResource
 
     /** Render this view.
       *
-      * This method makes sure this view is initialized, activates the
+      * This method makes sure this view is active, activates the
       * viewport, and then calls {#onRender}.
       */
     public final void render()
     {
-        this.assertInitialized();
+        this.assertActive();
         this.viewport.activate();
         this.onRender();
     }
@@ -35,13 +35,13 @@ public abstract class AbstractView extends AbstractResource
       *
       * This function will call {@link #onSetViewport} the after the
       * first time the viewport has been set. This function should be
-      * called before {@link #initialize}.
+      * called at least once before {@link #initialize}.
       *
       * @param viewport the new viewport
       */
     public final void setViewport(Viewport viewport)
     {
-        if (this.isInitialized())
+        if (this.isActive())
         {
             this.viewport = viewport;
             this.onSetViewport();

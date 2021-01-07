@@ -9,9 +9,15 @@ package com.autumnara.aikaterine;
 public abstract class AbstractResource
 {
 
-    /** Whether this component has been initialized or not.
+    /** The stage the resource is in.
       */
-    private boolean initialized = false;
+    private Stage stage = Stage.CONSTRUCTED;
+
+    private enum Stage {
+        CONSTRUCTED,
+        INITIALIZED,
+        TERMINATED
+    }
 
     /** Initialize this object.
       * 
@@ -20,48 +26,61 @@ public abstract class AbstractResource
       */
     public final void initialize()
     {
-        if (this.initialized)
+        if (this.stage == Stage.INITIALIZED)
         {
-            throw new IllegalStateException(this.getClass().getName() + " being initialized has already been initialized.");
+            throw new IllegalStateException("Resource being initialized has already been initialized.");
+        }
+        if (this.stage == Stage.TERMINATED)
+        {
+            throw new IllegalStateException("Resource being initialized has already been terminated.");
         }
         this.onInitialize();
-        this.initialized = true;
+        this.stage = Stage.INITIALIZED;
     }
 
     /** Initialize the internals of this object.
       */
     protected abstract void onInitialize();
 
-    /** Assert that this object has been initialized.
+    /** Assert that this object is active.
       */
-    public final void assertInitialized()
+    public final void assertActive()
     {
-        if (!this.initialized)
+        if (this.stage == Stage.CONSTRUCTED)
         {
-            throw new IllegalStateException(this.getClass().getName() + " has not been initialized.");
+            throw new IllegalStateException("Resource has not been initialized.");
+        }
+        if (this.stage == Stage.TERMINATED)
+        {
+            throw new IllegalStateException("Resource has been terminated.");
         }
     }
 
-    /** Return whether this object has been initialized.
+    /** Return whether this object is active.
      */
-    public final boolean isInitialized()
+    public final boolean isActive()
     {
-        return this.initialized;
+        return this.stage == Stage.INITIALIZED;
     }
 
     /** Terminate this component.
       *
       * This method calls {@link #onTerminate} and marks this
-      * component as not initialized.
+      * component as terminated.
       */
     public final void terminate()
     {
-        if (!this.initialized)
+        if (this.stage == Stage.CONSTRUCTED)
         {
-            throw new IllegalStateException(this.getClass().getName() + " being terminated has already been terminated.");
+            throw new IllegalStateException("Resource being terminated has not been initialized yet.");
         }
+        if (this.stage == Stage.TERMINATED)
+        {
+            throw new IllegalStateException("Resource being terminated has already been terminated.");
+        }
+
         this.onTerminate();
-        this.initialized = false;
+        this.stage = Stage.TERMINATED;
     }
 
     /** Terminate this object.
