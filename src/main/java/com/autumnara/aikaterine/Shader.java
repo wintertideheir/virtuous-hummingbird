@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
   *     }
   * } </pre>
   */
-public final class Shader implements AutoCloseable
+public final class Shader extends AbstractResource
 {
 
     /** The shader reference.
@@ -45,6 +45,17 @@ public final class Shader implements AutoCloseable
                        this.getResourceAsString(resourceFilename));
         
         glCompileShader(this.reference);
+
+        this.initialize();
+    }
+
+    @Override
+    protected void onInitialize() {}
+
+    @Override
+    protected void onTerminate()
+    {
+        glDeleteShader(this.reference);
     }
 
     /** Retireve a resource included with the final JAR as a string.
@@ -60,12 +71,6 @@ public final class Shader implements AutoCloseable
         return new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/" + filename)))
             .lines()
             .collect(Collectors.joining("\n"));
-    }
-
-    @Override
-    public void close()
-    {
-        glDeleteShader(this.reference);
     }
 
 }

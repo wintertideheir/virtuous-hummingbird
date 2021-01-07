@@ -2,18 +2,23 @@ package com.autumnara.aikaterine;
 
 /** An object that needs to be initialized and terminated.
   *
-  * This class has an internal state that must be intialized to be
+  * <p> This class has an internal state that must be intialized to be
   * accessed and terminated to properly release it's resources. This
   * class behaves like a data resources (e.g. files and data streams).
+  *
+  * <p> Resources should strongly avoid throwing exceptions in
+  * {@link #onInitialize} and {@link #onTerminate}..
   */
 public abstract class AbstractResource
+implements AutoCloseable
 {
 
     /** The stage the resource is in.
       */
     private Stage stage = Stage.CONSTRUCTED;
 
-    private enum Stage {
+    private enum Stage
+    {
         CONSTRUCTED,
         INITIALIZED,
         TERMINATED
@@ -88,5 +93,16 @@ public abstract class AbstractResource
       * Objects should free their resources here.
       */
     protected abstract void onTerminate();
+
+    /** {@inheritDoc}
+      *
+      * This method merely calls {@link #terminate}.
+      */
+    @Override
+    public void close()
+    {
+        this.terminate();
+    }
+
 
 }
