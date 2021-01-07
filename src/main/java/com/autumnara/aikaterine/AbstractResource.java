@@ -1,5 +1,9 @@
 package com.autumnara.aikaterine;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+
 /** An object that needs to be initialized and terminated.
   *
   * <p> This class has an internal state that must be intialized to be
@@ -22,6 +26,26 @@ implements AutoCloseable
         CONSTRUCTED,
         INITIALIZED,
         TERMINATED
+    }
+
+    /** Retireve a resource included with the final JAR as a string.
+      *
+      * <p> For example, to retrieve the resource
+      * "src/resource/default.cfg", call
+      * {@code this.getResourceAsString("default.cfg")},
+      * assuming "src/resource" is the resource directory.
+      *
+      * @param filename the filename of the resource, relative to the
+      *                 resource directory. This value should
+      *                 <i>not</i> begin with a backslash.
+      *
+      * @return The contents of the resource
+      */
+    protected final String getResourceAsString(String filename)
+    {
+        return new BufferedReader(new InputStreamReader(AbstractResource.class.getResourceAsStream("/" + filename)))
+            .lines()
+            .collect(Collectors.joining("\n"));
     }
 
     /** Initialize this object.
@@ -103,6 +127,5 @@ implements AutoCloseable
     {
         this.terminate();
     }
-
 
 }

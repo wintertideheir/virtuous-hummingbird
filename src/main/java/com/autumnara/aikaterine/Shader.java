@@ -2,10 +2,6 @@ package com.autumnara.aikaterine;
 
 import static org.lwjgl.opengl.GL33.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
-
 /** An OpenGL shader.
   *
   * This is a utility class to create and manage shaders safely.
@@ -56,21 +52,6 @@ public final class Shader extends AbstractResource
     protected void onTerminate()
     {
         glDeleteShader(this.reference);
-    }
-
-    /** Retireve a resource included with the final JAR as a string.
-      *
-      * @param filename the filename of the resource, relative to the
-      *                 resource directory. This value should
-      *                 <i>not</i> begin with a backslash.
-      *
-      * @return The contents of the resource
-      */
-    private final String getResourceAsString(String filename)
-    {
-        return new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/" + filename)))
-            .lines()
-            .collect(Collectors.joining("\n"));
     }
 
 }
