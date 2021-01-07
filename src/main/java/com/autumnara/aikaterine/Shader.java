@@ -38,7 +38,7 @@ public final class Shader extends AbstractResource
         this.reference = glCreateShader(type);
 
         glShaderSource(this.reference,
-                       this.getResourceAsString(resourceFilename));
+                       AbstractResource.getResourceAsString(resourceFilename));
         
         glCompileShader(this.reference);
 

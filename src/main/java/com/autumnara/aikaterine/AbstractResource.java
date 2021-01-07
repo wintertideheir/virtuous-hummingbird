@@ -41,7 +41,7 @@ implements AutoCloseable
       *
       * @return The contents of the resource
       */
-    protected final String getResourceAsString(String filename)
+    public static final String getResourceAsString(String filename)
     {
         return new BufferedReader(new InputStreamReader(AbstractResource.class.getResourceAsStream("/" + filename)))
             .lines()
