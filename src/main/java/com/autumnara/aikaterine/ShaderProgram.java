@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL33.*;
 /** An OpenGL shader program.
   *
   * This is a utility class to create and manage shaders programs safely.
+  *
+  * <b>Note:</b> this class is autoinitialized.
   */
 public final class ShaderProgram extends AbstractResource
 {

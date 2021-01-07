@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
   * class behaves like a data resources (e.g. files and data streams).
   *
   * <p> Resources should strongly avoid throwing exceptions in
-  * {@link #onInitialize} and {@link #onTerminate}..
+  * {@link #onInitialize} and {@link #onTerminate}.
+  *
+  * <p> A few objects may be "autoinitalized," which indicates that one
+  * or more constructors will call {@link #initialize}.
   */
 public abstract class AbstractResource
 implements AutoCloseable

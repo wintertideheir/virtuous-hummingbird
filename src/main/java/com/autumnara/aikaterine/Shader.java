@@ -13,6 +13,8 @@ import static org.lwjgl.opengl.GL33.*;
   *         \\ Use the shader here ...
   *     }
   * } </pre>
+  *
+  * <b>Note:</b> this class is autoinitialized.
   */
 public final class Shader extends AbstractResource
 {
