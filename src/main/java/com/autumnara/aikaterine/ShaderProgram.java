@@ -44,4 +44,64 @@ public final class ShaderProgram
         glUseProgram(this.reference);
     }
 
+    /** Set a 1-dimensional uniform.
+      *
+      * @param location the location of the uniform
+      * @param x the x value of the unifrom
+      */
+    public void uniform(int   location,
+                        float x)
+    {
+        this.use();
+        glUniform1f(location, x);
+    }
+
+    /** Set a 2-dimensional uniform.
+      *
+      * @param location the location of the uniform
+      * @param x the x value of the unifrom
+      * @param y the y value of the unifrom
+      */
+    public void uniform(int   location,
+                        float x,
+                        float y)
+    {
+        this.use();
+        glUniform2f(location, x, y);
+    }
+
+    /** Set a 3-dimensional uniform.
+      *
+      * @param location the location of the uniform
+      * @param x the x value of the unifrom
+      * @param y the y value of the unifrom
+      * @param z the z value of the unifrom
+      */
+    public void uniform(int   location,
+                        float x,
+                        float y,
+                        float z)
+    {
+        this.use();
+        glUniform3f(location, x, y, z);
+    }
+
+    /** Set a 4-dimensional uniform.
+      *
+      * @param location the location of the uniform
+      * @param x the x value of the unifrom
+      * @param y the y value of the unifrom
+      * @param z the z value of the unifrom
+      * @param w the w value of the unifrom
+      */
+    public void uniform(int   location,
+                        float x,
+                        float y,
+                        float z,
+                        float w)
+    {
+        this.use();
+        glUniform4f(location, x, y, z, w);
+    }
+
 }
