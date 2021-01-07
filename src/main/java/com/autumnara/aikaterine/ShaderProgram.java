@@ -58,6 +58,17 @@ public final class ShaderProgram extends AbstractResource
         glUseProgram(this.reference);
     }
 
+    /** Get the location of a uniform.
+      *
+      * @param name the name of the uniform
+      * @return the uniform location
+      */
+    public int getUniformLocation(String name)
+    {
+        this.assertActive();
+        return glGetUniformLocation(this.reference, name);
+    }
+
     /** Set a 1-dimensional uniform.
       *
       * @param location the location of the uniform
