@@ -28,14 +28,14 @@ public final class ShaderProgram extends AbstractResource
 
         for (Shader shader : shaders)
         {
-            glAttachShader(this.reference, shader.reference);
+            glAttachShader(this.reference, shader.getReference());
         }
 
         glLinkProgram(this.reference);
 
         for (Shader shader : shaders)
         {
-            glDetachShader(this.reference, shader.reference);
+            glDetachShader(this.reference, shader.getReference());
         }
     }
 

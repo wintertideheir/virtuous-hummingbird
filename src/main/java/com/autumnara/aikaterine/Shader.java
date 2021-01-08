@@ -21,7 +21,7 @@ public final class Shader extends AbstractResource
 
     /** The shader reference.
       */
-    public final int reference;
+    private final int reference;
 
     /** Constructor for a shader from a resource name.
       *
@@ -43,6 +43,14 @@ public final class Shader extends AbstractResource
                        AbstractResource.getResourceAsString(resourceFilename));
         
         glCompileShader(this.reference);
+    }
+
+    /** Get the OpenGL shader reference.
+      */
+    public int getReference()
+    {
+        this.assertActive();
+        return this.reference;
     }
 
     @Override
