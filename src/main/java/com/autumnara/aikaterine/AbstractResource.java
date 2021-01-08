@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
   * <p> Resources should strongly avoid throwing exceptions in
   * {@link #onInitialize} and {@link #onTerminate}.
   *
-  * <p> A few objects may be "autoinitalized," which indicates that one
-  * or more constructors will call {@link #initialize}.
   */
 public abstract class AbstractResource
 implements AutoCloseable

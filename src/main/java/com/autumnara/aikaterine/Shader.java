@@ -43,8 +43,6 @@ public final class Shader extends AbstractResource
                        AbstractResource.getResourceAsString(resourceFilename));
         
         glCompileShader(this.reference);
-
-        this.initialize();
     }
 
     @Override

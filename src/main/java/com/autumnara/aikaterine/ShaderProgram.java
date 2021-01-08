@@ -37,8 +37,6 @@ public final class ShaderProgram extends AbstractResource
         {
             glDetachShader(this.reference, shader.reference);
         }
-
-        this.initialize();
     }
 
     @Override
