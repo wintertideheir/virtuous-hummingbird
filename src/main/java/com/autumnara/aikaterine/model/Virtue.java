@@ -11,21 +11,21 @@ package com.autumnara.aikaterine.model;
   * Eudaimonist virtue ethics</a> for further information.
   *
   */
-public class Virtue
+class Virtue
 {
 
     /** The unique name of the virtue.
       */
-    public String name;
+    String name;
 
     /** A short description of the virtue.
       */
-    public String description;
+    String description;
 
     /** Constructor for a virtue.
       */
-    public Virtue(String name,
-                  String description)
+    Virtue(String name,
+           String description)
     {
         this.name        = name;
         this.description = description;
@@ -37,7 +37,7 @@ public class Virtue
       * are virtues.
       */
     @Override
-    public boolean equals(Object obj)
+    boolean equals(Object obj)
     {
         if (obj == null)
         {
@@ -52,7 +52,7 @@ public class Virtue
     }
 
     @Override
-    public int hashCode()
+    int hashCode()
     {
         return this.name.hashCode();
     }

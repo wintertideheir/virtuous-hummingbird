@@ -2,26 +2,26 @@ package com.autumnara.aikaterine.model;
 
 /** A color in red-green-blue representation.
   */
-public final class Color
+final class Color
 {
 
     /** The normalized red component.
       *
       * Must be between 0f and 1f.
       */
-    public final float red;
+    final float red;
 
     /** The normalized blue component.
       *
       * Must be between 0f and 1f.
       */
-    public final float blue;
+    final float blue;
 
     /** The normalized green component.
       *
       * Must be between 0f and 1f.
       */
-    public final float green;
+    final float green;
 
     /** Constructor for a color from RGB components.
       *
@@ -32,9 +32,9 @@ public final class Color
       * @param green the normalized green component.
       *              Must be between 0f and 1f.
       */
-    public Color(float red,
-                 float blue,
-                 float green)
+    Color(float red,
+          float blue,
+          float green)
     {
         if (red < 0 || red > 1)
         {
@@ -63,9 +63,9 @@ public final class Color
       * @param value      the normalized value.
       *                   Must be between {@code 0f} and {@code 1f}.
       */
-    public static Color fromHSV(float hue,
-                                float saturation,
-                                float value)
+    static Color fromHSV(float hue,
+                         float saturation,
+                         float value)
     {
         if (hue < 0f || hue > 1f)
         {

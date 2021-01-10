@@ -10,7 +10,7 @@ import static org.lwjgl.BufferUtils.createIntBuffer;
 
 /** A window.
   */
-public final class Window extends AbstractResource
+final class Window extends AbstractResource
 {
 
     /** The window title.
@@ -37,7 +37,7 @@ public final class Window extends AbstractResource
       *
       * Does not create, initialize, or display this window.
       */
-    public Window() {}
+    Window() {}
 
     /** Create and initialize the window with GLFW and OpenGL.
       */
@@ -78,7 +78,7 @@ public final class Window extends AbstractResource
 
     /** Run the application until a window close is requested.
      */
-    public void loop()
+    void loop()
     {
         this.assertActive();
         while (!glfwWindowShouldClose(this.windowId))

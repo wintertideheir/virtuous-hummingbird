@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL33.*;
   *
   * <b>Note:</b> this class is autoinitialized.
   */
-public final class Shader extends AbstractResource
+final class Shader extends AbstractResource
 {
 
     /** The shader reference.
@@ -34,8 +34,8 @@ public final class Shader extends AbstractResource
       *                         backslash.
       * @param type the type of shader.
       */
-    public Shader(String resourceFilename,
-                  int    type)
+    Shader(String resourceFilename,
+           int    type)
     {
         this.reference = glCreateShader(type);
 
@@ -47,7 +47,7 @@ public final class Shader extends AbstractResource
 
     /** Get the OpenGL shader reference.
       */
-    public int getReference()
+    int getReference()
     {
         this.assertActive();
         return this.reference;

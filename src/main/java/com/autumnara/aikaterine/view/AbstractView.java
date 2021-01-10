@@ -6,7 +6,7 @@ package com.autumnara.aikaterine.view;
   * It's responsibility is to draw the model to the screen and pass
   * input to the presenter.
   */
-public abstract class AbstractView extends AbstractResource
+abstract class AbstractView extends AbstractResource
 {
 
     /** This view's OpenGL viewport.
@@ -18,7 +18,7 @@ public abstract class AbstractView extends AbstractResource
       * This method makes sure this view is active, activates the
       * viewport, and then calls {#onRender}.
       */
-    public final void render()
+    final void render()
     {
         this.assertActive();
         this.viewport.activate();
@@ -39,7 +39,7 @@ public abstract class AbstractView extends AbstractResource
       *
       * @param viewport the new viewport
       */
-    public final void setViewport(Viewport viewport)
+    final void setViewport(Viewport viewport)
     {
         if (this.isActive())
         {

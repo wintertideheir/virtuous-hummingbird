@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL33.*;
 
 /** A view of a graph.
   */
-public final class GraphView extends AbstractView
+final class GraphView extends AbstractView
 {
 
     private final float scale;
@@ -26,7 +26,7 @@ public final class GraphView extends AbstractView
       *              to the shortest dimension of this view's viewport.
       *              This value must always be positive.
       */
-    public GraphView(float scale)
+    GraphView(float scale)
     {
         if (scale <= 0)
         {
@@ -75,8 +75,8 @@ public final class GraphView extends AbstractView
       *               the view, in world coordinates
       * @param color  the color of the node
       */
-    public void drawNode(Position offset,
-                         Color    color)
+    void drawNode(Position offset,
+                  Color    color)
     {
         this.assertActive();
 

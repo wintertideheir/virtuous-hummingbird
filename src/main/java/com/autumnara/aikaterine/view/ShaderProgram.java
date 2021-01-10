@@ -8,12 +8,12 @@ import static org.lwjgl.opengl.GL33.*;
   *
   * <b>Note:</b> this class is autoinitialized.
   */
-public final class ShaderProgram extends AbstractResource
+final class ShaderProgram extends AbstractResource
 {
 
     /** The shader program reference.
       */
-    public int reference;
+    int reference;
 
     /** Constructor for a shader program from an array of shaders.
       *
@@ -22,7 +22,7 @@ public final class ShaderProgram extends AbstractResource
       *
       * @param shaders an array of non-null shaders
       */
-    public ShaderProgram(Shader[] shaders)
+    ShaderProgram(Shader[] shaders)
     {
         this.reference = glCreateProgram();
 
@@ -50,7 +50,7 @@ public final class ShaderProgram extends AbstractResource
 
     /** Use this shader program.
       */
-    public void use()
+    void use()
     {
         this.assertActive();
         glUseProgram(this.reference);
@@ -61,7 +61,7 @@ public final class ShaderProgram extends AbstractResource
       * @param name the name of the uniform
       * @return the uniform location
       */
-    public int getUniformLocation(String name)
+    int getUniformLocation(String name)
     {
         this.assertActive();
         return glGetUniformLocation(this.reference, name);
@@ -72,8 +72,8 @@ public final class ShaderProgram extends AbstractResource
       * @param location the location of the uniform
       * @param x the x value of the unifrom
       */
-    public void uniform(int   location,
-                        float x)
+    void uniform(int   location,
+                 float x)
     {
         this.use();
         glUniform1f(location, x);
@@ -85,9 +85,9 @@ public final class ShaderProgram extends AbstractResource
       * @param x the x value of the unifrom
       * @param y the y value of the unifrom
       */
-    public void uniform(int   location,
-                        float x,
-                        float y)
+    void uniform(int   location,
+                 float x,
+                 float y)
     {
         this.use();
         glUniform2f(location, x, y);
@@ -100,10 +100,10 @@ public final class ShaderProgram extends AbstractResource
       * @param y the y value of the unifrom
       * @param z the z value of the unifrom
       */
-    public void uniform(int   location,
-                        float x,
-                        float y,
-                        float z)
+    void uniform(int   location,
+                 float x,
+                 float y,
+                 float z)
     {
         this.use();
         glUniform3f(location, x, y, z);
@@ -117,11 +117,11 @@ public final class ShaderProgram extends AbstractResource
       * @param z the z value of the unifrom
       * @param w the w value of the unifrom
       */
-    public void uniform(int   location,
-                        float x,
-                        float y,
-                        float z,
-                        float w)
+    void uniform(int   location,
+                 float x,
+                 float y,
+                 float z,
+                 float w)
     {
         this.use();
         glUniform4f(location, x, y, z, w);

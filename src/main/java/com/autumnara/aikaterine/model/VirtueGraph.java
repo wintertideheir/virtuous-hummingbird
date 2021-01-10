@@ -7,12 +7,12 @@ import org.jgrapht.graph.DefaultEdge;
 
 /** A graph of virtues with node representations.
   */
-public final class VirtueGraph extends DefaultDirectedGraph<VirtueNode, DefaultEdge>
+final class VirtueGraph extends DefaultDirectedGraph<VirtueNode, DefaultEdge>
 {
 
     /** Constructor for a virtue graph.
       */
-    public VirtueGraph()
+    VirtueGraph()
     {
         super(DefaultEdge.class);
     }

@@ -6,15 +6,15 @@ package com.autumnara.aikaterine.model;
   * representation is a circle with a defined position and color.
   * Virtues that have similar colors ought to be similar.
   */
-public final class VirtueNode extends Virtue
+final class VirtueNode extends Virtue
 {
 
     /** Constructor for a virtue represented as a node.
       */
-    public VirtueNode(String   name,
-                      String   description,
-                      Position position,
-                      Color    color)
+    VirtueNode(String   name,
+               String   description,
+               Position position,
+               Color    color)
     {
         super(name, description);
         this.position    = position;
@@ -23,10 +23,10 @@ public final class VirtueNode extends Virtue
 
     /** The position of the node in space.
       */
-    public Position position;
+    Position position;
 
     /** The color of the virtue.
       */
-    public Color color;
+    Color color;
 
 }

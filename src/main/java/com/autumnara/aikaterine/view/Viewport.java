@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL33.glViewport;
 
 /** An OpenGL viewport.
   */
-public final class Viewport
+final class Viewport
 {
 
     /** The x-offset of the viewport relative to the bottom-left
@@ -19,11 +19,11 @@ public final class Viewport
 
     /** The width of the viewport.
       */
-    public final int width;
+    final int width;
 
     /** The height of the viewport.
       */
-    public final int height;
+    final int height;
 
     /** Constructor for a viewport from it's components.
       *
@@ -72,7 +72,7 @@ public final class Viewport
       *
       * @param original the viewport to be copied.
       */
-    public Viewport(Viewport original)
+    Viewport(Viewport original)
     {
         this(original.x,
              original.y,
@@ -85,8 +85,8 @@ public final class Viewport
       * @param width  the width of the window in pixels
       * @param height the height of the window in pixels
       */
-    public Viewport(int width,
-                    int height)
+    Viewport(int width,
+             int height)
     {
         this(0, 0, width, height);
     }
@@ -107,10 +107,10 @@ public final class Viewport
       * @param height the positive height of the new viewport,
       *               in pixels.
       */
-    public Viewport subViewport(int x,
-                                int y,
-                                int width,
-                                int height)
+    Viewport subViewport(int x,
+                         int y,
+                         int width,
+                         int height)
     {
         if (this.width < (x + width))
         {
@@ -129,7 +129,7 @@ public final class Viewport
     /** Activate the viewport through
       * {@link org.lwjgl.opengl.GL33#glViewport}.
       */
-    public void activate()
+    void activate()
     {
         glViewport(x, y, width, height);
     }
