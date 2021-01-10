@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine.view;
 
+import com.autumnara.aikaterine.shared.AbstractResource;
+
 import static org.lwjgl.opengl.GL33.*;
 
 /** An OpenGL shader program.

@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine.view;
 
+import com.autumnara.aikaterine.shared.AbstractResource;
+
 import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.GL;

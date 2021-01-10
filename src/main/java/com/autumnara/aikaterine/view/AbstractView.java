@@ -1,5 +1,7 @@
 package com.autumnara.aikaterine.view;
 
+import com.autumnara.aikaterine.shared.AbstractResource;
+
 /** An abstract view.
   *
   * The view is one component of the model-view-presenter (MVP) model.
