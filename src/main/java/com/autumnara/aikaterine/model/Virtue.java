@@ -37,7 +37,7 @@ class Virtue
       * are virtues.
       */
     @Override
-    boolean equals(Object obj)
+    public boolean equals(Object obj)
     {
         if (obj == null)
         {
@@ -52,7 +52,7 @@ class Virtue
     }
 
     @Override
-    int hashCode()
+    public int hashCode()
     {
         return this.name.hashCode();
     }
