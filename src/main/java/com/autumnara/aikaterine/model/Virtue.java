@@ -22,13 +22,26 @@ class Virtue
       */
     String description;
 
+    /** The position of this virtue when drawn in two-dimensional
+      * space.
+      */
+    Position position;
+
+    /** The color associated with this virtue.
+      */
+    Color color;
+
     /** Constructor for a virtue.
       */
-    Virtue(String name,
-           String description)
+    Virtue(String   name,
+           String   description,
+           Position position,
+           Color    color)
     {
         this.name        = name;
         this.description = description;
+        this.position    = position;
+        this.color       = color;
     }
 
     /** {@inheritDoc}
