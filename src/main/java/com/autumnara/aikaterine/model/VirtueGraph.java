@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine;
+package com.autumnara.aikaterine.model;
 
 import com.autumnara.aikaterine.VirtueNode;
 

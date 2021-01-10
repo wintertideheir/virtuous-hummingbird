@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine;
+package com.autumnara.aikaterine.view;
 
 import java.nio.IntBuffer;
 

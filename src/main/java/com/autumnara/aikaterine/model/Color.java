@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine;
+package com.autumnara.aikaterine.model;
 
 /** A color in red-green-blue representation.
   */
