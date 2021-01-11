@@ -75,6 +75,7 @@ final class GraphView extends AbstractView
       *               the view, in world coordinates
       * @param color  the color of the node
       */
+/* TODO: Replace references to the Position and Color classes.
     void drawNode(Position offset,
                   Color    color)
     {
@@ -97,5 +98,6 @@ final class GraphView extends AbstractView
                                 color.green,
                                 color.blue);
     }
+*/
 
 }
