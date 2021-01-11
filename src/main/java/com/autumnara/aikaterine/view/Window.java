@@ -5,6 +5,7 @@ import com.autumnara.aikaterine.shared.AbstractResource;
 import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.GL;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -46,11 +47,13 @@ final class Window extends AbstractResource
     @Override
     protected void onInitialize()
     {
+        GLFWErrorCallback.createPrint(System.err).set();
+
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,
                        GL_VERSION_MINOR);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,
-                       GLFW_CONTEXT_VERSION_MINOR);
+                       GL_VERSION_MINOR);
         glfwWindowHint(GLFW_OPENGL_PROFILE,        // Do not use OpenGL compatibility mode
                        GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // Start the window maximized

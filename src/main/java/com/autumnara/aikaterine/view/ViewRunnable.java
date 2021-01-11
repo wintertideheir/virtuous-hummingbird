@@ -20,6 +20,12 @@ implements Runnable
     }
 
     @Override
-    public void run() {}
+    public void run()
+    {
+        Window window = new Window();
+        window.initialize();
+        window.loop();
+        window.terminate();
+    }
 
 }

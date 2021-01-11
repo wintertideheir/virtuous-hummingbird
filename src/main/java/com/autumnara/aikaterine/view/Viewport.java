@@ -45,13 +45,13 @@ final class Viewport
                      int width,
                      int height)
     {
-        if (x <= 0)
+        if (x < 0)
         {
-            throw new IllegalArgumentException("Viewport x-offset must be positive.");
+            throw new IllegalArgumentException("Viewport x-offset must be greater than equal to zero.");
         }
-        if (y <= 0)
+        if (y < 0)
         {
-            throw new IllegalArgumentException("Viewport y-offset must be positive.");
+            throw new IllegalArgumentException("Viewport y-offset must be greater than equal to zero.");
         }
         if (width <= 0) 
         {

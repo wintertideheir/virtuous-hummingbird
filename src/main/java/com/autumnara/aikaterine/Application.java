@@ -31,14 +31,18 @@ public final class Application
         BlockingQueue<Object> viewToPresenterQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
         BlockingQueue<Object> presentertoViewQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
 
-        new Thread(new ModelRunnable(presenterToModelQueue,
-                                     modelToPresenterQueue)).start();
-        new Thread(new ViewRunnable(presentertoViewQueue,
-                                    viewToPresenterQueue)).start();
-        new PresenterRunnable(modelToPresenterQueue,
-                              presenterToModelQueue,
-                              viewToPresenterQueue,
-                              presentertoViewQueue).run();
+        Runnable modelRunnable = new ModelRunnable(presenterToModelQueue,
+                                                   modelToPresenterQueue);
+        Runnable viewRunnable = new ViewRunnable(presentertoViewQueue,
+                                                 viewToPresenterQueue);
+        Runnable presenterRunnable = new PresenterRunnable(modelToPresenterQueue,
+                                                           presenterToModelQueue,
+                                                           viewToPresenterQueue,
+                                                           presentertoViewQueue);
+
+        new Thread(modelRunnable, "Model").start();
+        new Thread(viewRunnable, "View").start();
+        presenterRunnable.run();
 
     }
 
