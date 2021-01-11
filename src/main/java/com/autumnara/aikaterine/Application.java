@@ -4,8 +4,17 @@ import com.autumnara.aikaterine.model.ModelRunnable;
 import com.autumnara.aikaterine.presenter.PresenterRunnable;
 import com.autumnara.aikaterine.view.ViewRunnable;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+
 public final class Application
 {
+
+    /** The capacity of
+      * {@link java.util.concurrent.ArrayBlockingQueue queue's}
+      * used for component communication.
+      */
+    private final static int QUEUE_CAPACITY = 16;
 
     /** Constructor for an Application.
       *
@@ -17,10 +26,20 @@ public final class Application
     public static void main(String[] args)
     {
 
-        Thread modelThread = new Thread(new ModelRunnable(), "modelThread");
-        Thread viewThread  = new Thread(new ViewRunnable(),  "viewThread");
+        BlockingQueue<Object> modelToPresenterQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
+        BlockingQueue<Object> presenterToModelQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
+        BlockingQueue<Object> viewToPresenterQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
+        BlockingQueue<Object> presentertoViewQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
 
-        new PresenterRunnable().run();
+        Thread modelThread = new Thread(new ModelRunnable(presenterToModelQueue,
+                                                          modelToPresenterQueue));
+        Thread viewThread  = new Thread(new ViewRunnable(presentertoViewQueue,
+                                                         viewToPresenterQueue));
+
+        new PresenterRunnable(modelToPresenterQueue,
+                              presenterToModelQueue,
+                              viewToPresenterQueue,
+                              presentertoViewQueue).run();
 
     }
 
