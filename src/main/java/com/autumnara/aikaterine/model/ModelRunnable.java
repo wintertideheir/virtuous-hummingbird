@@ -6,17 +6,17 @@ public final class ModelRunnable
 implements Runnable
 {
 
-    private final BlockingQueue<Object> fromPresenter;
+    private final BlockingQueue<Object> fromUI;
 
-    private final BlockingQueue<Object> toPresenter;
+    private final BlockingQueue<Object> toUI;
 
     /** Constructor for a runnable execution thread  
       */
-    public ModelRunnable(BlockingQueue<Object> fromPresenter,
-                         BlockingQueue<Object> toPresenter)
+    public ModelRunnable(BlockingQueue<Object> fromUI,
+                         BlockingQueue<Object> toUI)
     {
-        this.fromPresenter = fromPresenter;
-        this.toPresenter   = toPresenter;
+        this.fromUI = fromUI;
+        this.toUI   = toUI;
     }
 
     @Override

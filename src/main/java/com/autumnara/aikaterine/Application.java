@@ -1,8 +1,7 @@
 package com.autumnara.aikaterine;
 
 import com.autumnara.aikaterine.model.ModelRunnable;
-import com.autumnara.aikaterine.presenter.PresenterRunnable;
-import com.autumnara.aikaterine.view.ViewRunnable;
+import com.autumnara.aikaterine.ui.UIRunnable;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -26,24 +25,16 @@ public final class Application
     public static void main(String[] args)
     {
 
-        BlockingQueue<Object> modelToPresenterQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
-        BlockingQueue<Object> presenterToModelQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
-        BlockingQueue<Object> viewToPresenterQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
-        BlockingQueue<Object> presentertoViewQueue  = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
+        BlockingQueue<Object> modelToUIQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
+        BlockingQueue<Object> UIToModelQueue = new ArrayBlockingQueue<>(Application.QUEUE_CAPACITY);
 
-        Runnable modelRunnable = new ModelRunnable(presenterToModelQueue,
-                                                   modelToPresenterQueue);
-        Runnable viewRunnable = new ViewRunnable(presentertoViewQueue,
-                                                 viewToPresenterQueue);
-        Runnable presenterRunnable = new PresenterRunnable(modelToPresenterQueue,
-                                                           presenterToModelQueue,
-                                                           viewToPresenterQueue,
-                                                           presentertoViewQueue);
+        Runnable modelRunnable = new ModelRunnable(modelToUIQueue,
+                                                   UIToModelQueue);
+        Runnable uiRunnable = new UIRunnable(UIToModelQueue,
+                                             modelToUIQueue);
 
         new Thread(modelRunnable, "Model").start();
-        new Thread(viewRunnable, "View").start();
-        presenterRunnable.run();
-
+        uiRunnable.run();
     }
 
 }

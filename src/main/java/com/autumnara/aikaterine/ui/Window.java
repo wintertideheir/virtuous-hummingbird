@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.view;
+package com.autumnara.aikaterine.ui;
 
 import com.autumnara.aikaterine.shared.AbstractResource;
 

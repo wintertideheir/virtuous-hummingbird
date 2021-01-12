@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.view;
+package com.autumnara.aikaterine.ui;
 
 import static org.lwjgl.opengl.GL33.glViewport;
 
