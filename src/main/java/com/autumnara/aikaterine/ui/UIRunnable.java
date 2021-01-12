@@ -43,9 +43,9 @@ implements Runnable
     public void run()
     {
         Window window = new Window();
-        window.initialize();
+        window.open();
         window.loop();
-        window.terminate();
+        window.close();
     }
 
 }
