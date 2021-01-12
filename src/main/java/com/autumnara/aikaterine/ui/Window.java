@@ -3,6 +3,7 @@ package com.autumnara.aikaterine.ui;
 import com.autumnara.aikaterine.shared.AbstractResource;
 
 import java.nio.IntBuffer;
+import java.util.concurrent.TimeUnit;
 
 import org.lwjgl.opengl.GL;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -86,11 +87,30 @@ final class Window extends AbstractResource
     void loop()
     {
         this.assertActive();
+
         while (!glfwWindowShouldClose(this.windowId))
         {
+            long startTime = System.nanoTime();
+
             glClear(GL_COLOR_BUFFER_BIT);
+            // Draw here ...
 			glfwSwapBuffers(this.windowId);
 			glfwPollEvents();
+
+            long endTime = System.nanoTime();
+
+            // The minimum interval between frames, in nanoseconds.
+            // A little faster than, but approximately equal to 60 frames-per-second.
+            final long frameInterval = 1000000000 / 60;
+
+            try
+            {
+                TimeUnit.NANOSECONDS.sleep(endTime - startTime - frameInterval);
+            }
+            catch (InterruptedException e)
+            {
+                throw new Error(e);
+            }
 		}
     }
 
