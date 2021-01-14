@@ -1,4 +1,4 @@
-# Rules and Guidelines for Constributors 
+# Rules and Guidelines for Contributors 
 
 ## Waterfall
 
