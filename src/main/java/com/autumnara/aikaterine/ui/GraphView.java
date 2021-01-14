@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.ui;
+package com.autumnara.hummingbird.ui;
 
 import static org.lwjgl.opengl.GL33.*;
 

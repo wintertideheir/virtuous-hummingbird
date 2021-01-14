@@ -1,6 +1,6 @@
-package com.autumnara.aikaterine.ui;
+package com.autumnara.hummingbird.ui;
 
-import com.autumnara.aikaterine.shared.AbstractResource;
+import com.autumnara.hummingbird.shared.AbstractResource;
 
 /** An abstract view.
   *

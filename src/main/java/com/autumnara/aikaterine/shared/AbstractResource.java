@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.shared;
+package com.autumnara.hummingbird.shared;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

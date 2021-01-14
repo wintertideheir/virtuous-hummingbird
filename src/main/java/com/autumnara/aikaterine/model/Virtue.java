@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.model;
+package com.autumnara.hummingbird.model;
 
 /** A virtue.
   * 

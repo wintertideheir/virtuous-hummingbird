@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.model;
+package com.autumnara.hummingbird.model;
 
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;

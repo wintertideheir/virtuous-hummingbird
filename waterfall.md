@@ -1,4 +1,4 @@
-# Waterfall Document for Aikaterine
+# Waterfall Document for Virtuous Hummingbird
 
 Waterfall version: N/A
 
@@ -19,9 +19,9 @@ The primary benefit of the waterfall model is that it's simplicity and rigor ena
 
 The primary criticism of the waterfall model is that it may be necessary to return to previous stages if either the requirements change or if previously unknown issues arise.
 
-## How does Aikaterine implement the waterfall model?
+## How does Virtuous Hummingbird implement the waterfall model?
 
-As a compromise, Aikaterine uses a modification of the waterfall model called the _destructive waterfall model_.
+As a compromise, Virtuous Hummingbird uses a modification of the waterfall model called the _destructive waterfall model_.
 This model is identical to the waterfall model, except that in case that a stage uncovers a error, shortcoming, or contradiction in the previous stage, the stage initiates _destruction_,
 
 1. __Termination__ Complete termination of all analysis, design, coding, testing, and maintenance.
@@ -30,7 +30,7 @@ This model is identical to the waterfall model, except that in case that a stage
 4. __Expropriation__ Scavenge the deleted parts of the project for any useful writing, code, or tools. 
 5. __Annihilation__ End destruction and continue development.
 
-However, because carrying out destruction would be onerous in practice, Aikaterine uses Git to approximate the process as closely as possible.
+However, because carrying out destruction would be onerous in practice, Virtuous Hummingbird uses Git to approximate the process as closely as possible.
 Only one branch must be a _conforming_ branch that closely follows the destructive waterfall method.
 All other branches must be _non-conforming_ branches.
 

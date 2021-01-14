@@ -1,4 +1,4 @@
-package com.autumnara.aikaterine.ui;
+package com.autumnara.hummingbird.ui;
 
 import java.util.concurrent.BlockingQueue;
 

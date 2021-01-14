@@ -1,4 +1,4 @@
-# Products Requirements Document for Aikaterine
+# Products Requirements Document for Virtuous Hummingbird
 
 ## Table of Contents
 1. Introduction

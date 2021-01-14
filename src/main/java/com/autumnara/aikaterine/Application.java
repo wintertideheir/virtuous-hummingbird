@@ -1,7 +1,7 @@
-package com.autumnara.aikaterine;
+package com.autumnara.hummingbird;
 
-import com.autumnara.aikaterine.model.ModelRunnable;
-import com.autumnara.aikaterine.ui.UIRunnable;
+import com.autumnara.hummingbird.model.ModelRunnable;
+import com.autumnara.hummingbird.ui.UIRunnable;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ArrayBlockingQueue;

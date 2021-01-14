@@ -1,6 +1,6 @@
-package com.autumnara.aikaterine.ui;
+package com.autumnara.hummingbird.ui;
 
-import com.autumnara.aikaterine.shared.AbstractResource;
+import com.autumnara.hummingbird.shared.AbstractResource;
 
 import java.nio.IntBuffer;
 import java.util.concurrent.TimeUnit;
@@ -82,7 +82,7 @@ final class Window
 
         // Create a window and ready it for rendering
         this.windowId =
-            glfwCreateWindow(100, 100, "Aikaterine", // Create this window
+            glfwCreateWindow(100, 100, "Virtuous Hummingbird", // Create this window
                              NULL, NULL);
         glfwMakeContextCurrent(this.windowId);       // Set OpenGL to use this window
     }
