@@ -1,5 +1,11 @@
 # Rules and Guidelines for Constributors 
 
+## Waterfall
+
+All contributors are expected to read the waterfall document, `waterfall.md`.
+
+All contributions _must_ adhere to the destructive waterfall model.
+
 ## Documentation
 
 All JavaDoc documentation _must_ begin with `/**`.
