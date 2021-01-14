@@ -1,5 +1,7 @@
 # Waterfall Document for Aikaterine
 
+Waterfall version: N/A
+
 ## What is the Waterfall Model?
 
 The waterfall model of project management and software development describes the creation of a final product through sequential stages.
