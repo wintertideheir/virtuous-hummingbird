@@ -19,6 +19,13 @@
 6. Conclusion
 
 ## Introduction
+
+Virtuous Hummingbird is a program for the organization and advancement of personal virtue.
+By virtue, we mean the virtues of virtue ethics, personal qualities indicating a pattern of repeated behavior.
+These qualities are related causally to form a hierarchical tree of virtues. 
+The simple nature of virtues and virtue trees makes virtue ethics an unusually intuitive and practical ethical theory.
+By presenting a way to create, edit, visualize, and track these virtues, Virtuous Hummingbird facilitates living a virtuous life.
+
 ## Market Assessment
 ### Target Demographic
 ### Target Use Cases
