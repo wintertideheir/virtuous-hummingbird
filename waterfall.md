@@ -32,3 +32,12 @@ However, because carrying out destruction would be onerous in practice, Aikateri
 Conforming branches must have a versioned waterfall document. The version of a waterfall document may be composed of up to six natural numbers which correspond to the phases specification, analysis, design, implementation, verification, and maintenance respectively. The version is formatted as a period seperated list of numbers, i.e. `a.b.c.d.e.f`. If a phase has not been completed, the corresponding number does not exist. If a phase is completed and no number exists for it, it shall be assigned the number 0. If no phase has been completed, the version should read `N/A`.
 
 Every destruction cycle increments the number associated with the first affected phase and removes the following numbers. Non-conforming branches must not have a versioned waterfall document. A temporary planning document is recommended instead.
+
+## Where is each phase of the waterfall model located?
+
+Each phase of the waterfall method belongs within it's own directory.
+* _Specification_ belongs in `doc/requirements`.
+* _Analysis_ belongs in `doc/analysis`.
+* _Design_ belongs in `doc/design`.
+* _Implementation_ belongs in `src/main`.
+* _Verification_ belongs in `src/test`.
