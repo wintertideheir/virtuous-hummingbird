@@ -27,7 +27,27 @@ The simple nature of virtues and virtue trees makes virtue ethics an unusually i
 By presenting a way to create, edit, visualize, and track these virtues, Virtuous Hummingbird facilitates living a virtuous life.
 
 ## Market Assessment
+
 ### Target Demographic
+
+The target demographic is between 25 and 35 years of age.
+This age group has the maturity to recognize the value of an ethical system, and enough time to reap the benefits of a full implementation.
+
+The target demographic is male, because young men appear to take greater risks and have less of a sense of purpose in life.
+The downsides of generally greater risk taking can be best mitigated by carefully selecting which risks have the highest return on investment, a task any ethical theory can help with.
+Virtue ethics in particular favors long-term develop of the virtues, and therefore uniquely discourages short-term risk-taking.
+
+The target demographic should also be educated, with at least some college, but preferably a bachelor's degree.
+Virtue ethics works best when applied to a varied and numerous set of decisions, because their sheer potential complexity requires a deliberately simple approach.
+College-educated users manage intellectually challenging classes and/or jobs, which therefore requires managing a varied and numerous set of decisions.
+
+The target demographic is unmarried and without dependents, and preferably single. As a consequence they will spend less time on relationships that will likely not benefit from ethical theory.
+
+The target demographic values an individualistic approach to life and a Protestant work ethic.
+Individualism is the principle that one ought to be independent and self-reliant, which encourages self-directed learning.
+The Protestant work ethic is the belief that work, discipline, and frugality are a divine obligation.
+A Protestant work ethic requires the hard work needed to make use of virtue ethics.
+
 ### Target Use Cases
 ### Competing and Comparable Products
 ## Product Overview
