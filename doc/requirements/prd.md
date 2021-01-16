@@ -41,7 +41,8 @@ The target demographic should also be educated, with at least some college, but 
 Virtue ethics works best when applied to a varied and numerous set of decisions, because their sheer potential complexity requires a deliberately simple approach.
 College-educated users manage intellectually challenging classes and/or jobs, which therefore requires managing a varied and numerous set of decisions.
 
-The target demographic is unmarried and without dependents, and preferably single. As a consequence they will spend less time on relationships that will likely not benefit from ethical theory.
+The target demographic is unmarried and without dependents, and preferably single.
+As a consequence they will spend less time on relationships that will likely not benefit from ethical theory.
 
 The target demographic values an individualistic approach to life and a Protestant work ethic.
 Individualism is the principle that one ought to be independent and self-reliant, which encourages self-directed learning.
@@ -49,6 +50,21 @@ The Protestant work ethic is the belief that work, discipline, and frugality are
 A Protestant work ethic requires the hard work needed to make use of virtue ethics.
 
 ### Target Use Cases
+
+Our target demographic will likely have problems efficiently managing their time.
+In many cases, a combination of a calendar, task-list, and time-tracker can help plan, prioritize, and track their activities.
+As the the number and variety of activities increases, however, optimally prioritizing them becomes more difficult.
+Virtue ethics can help this problem by offering a long-term, continuous, and simple method of organization.
+
+First, these activities must be integrated into a tree of virtues.
+A virtue is a trait with an associated pattern of behavior.
+Because nearly all virtues are done for the sake of other virtues, we can represent virtues as a two-dimensional node graph.
+The user constructs these virtue trees, assigns initial weights, and then begins recording the consequences of activities.
+
+Virtuous Hummingbird will then learn which virtues the user values the most and present a set of activities that best reflect the virtue tree.
+In essence, Virtuous Hummingbird is a form of machine learning applied to task prioritization with an element of deliberation.
+By combining hard work and automation, task prioritization is easy.
+
 ### Competing and Comparable Products
 ## Product Overview
 ## Product Requirements
