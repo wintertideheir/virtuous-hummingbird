@@ -66,6 +66,41 @@ In essence, Virtuous Hummingbird is a form of machine learning applied to task p
 By combining hard work and automation, task prioritization is easy.
 
 ### Competing and Comparable Products
+
+The products that offer the closest functionality to Virtuous Hummingbird are task trackers.
+Task trackers expand on the basic task-list with features such as categories, tags, and prioritization.
+Their primary advantage is their simplicity of use.
+Lists are very simple to create, edit, and view.
+Their primary disadvantage is their difficulty in scaling as the number and variety of tasks grows.
+Task-trackers attempt to mitigate their scaling problems with organization tools, requiring at least a little planning.
+There are several popular task-trackers available as of January 2021:
+
+* __Google Tasks__, _free_.
+  A widely used product on account of it being bundled with the standard apps for a Google account.
+  It provides the ability to create sub-tasks, set due dates, and send notifications.
+  It integrates with other Google apps, namely Gmail and Google Calendar.
+* __Microsoft To Do__, _from $5 per user per month_.
+  This product appears to offer similar features to Google Tasks.
+* __Remember The Milk__, _free_ or _$40 per year_.
+  A simple task-list service with a focus on everyday, non-business application.
+  Features an advanced auto-complete feature that makes creating tasks convenient.
+  It can use e-mail, text, Twitter, and other apps.
+  It can connect files from Google Drive and Dropbox to tasks.
+  It features a smart search feature and priority system.  
+* __Trello__, _free_ to _$17.5 per user per month_.
+  A professional-focused task tracker.
+  Based around dividing tasks into teams.
+  These tasks can be detailed with comments, attachments, and due dates, and then viewed with an sophisticated interface.
+  Programming and automation is available to streamline that process as well.
+* __Todoist__, _free_ to _$5 per user per month_.
+  A task-tracker with many interesting features.
+  It's core feature are well-detailed tasks.
+  It also allows collaboration on tasks, including delegation and comments.
+  Gamification is present as well, with a karma system and productivity visualizations.
+* __Asana__, _free_ to _per contract pricing_.
+  A feature-risk task-tracker with many different ways of viewing a task list, including a time-line view, a table view, a multi-list view, etc.
+  It also features programming / automation to streamline task creation and management.
+
 ## Product Overview
 ## Product Requirements
 ### Functional Requirements
