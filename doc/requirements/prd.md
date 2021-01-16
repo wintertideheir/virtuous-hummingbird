@@ -101,6 +101,26 @@ There are several popular task-trackers available as of January 2021:
   A feature-risk task-tracker with many different ways of viewing a task list, including a time-line view, a table view, a multi-list view, etc.
   It also features programming / automation to streamline task creation and management.
 
+Another class of products to consider are time-tracking apps.
+Rather than planning an activity in advance, time-tracking apps record an activity as it occurs.
+They often have similar features to task-trackers, as well as billing, export, and retrospective editing features.
+There are several popular time-tracking apps, as of January 2021:
+
+* __Toggl Track__, _free_ or _$9 per user per month_.
+  An easy-to-use tracking app.
+  Activities can be tracked with or without a name, project, or tags, and then edited later.
+  It also integrates very well with Google apps and works on many different platforms.
+* __Harvest__, _free_ or _$12 per user per month_.
+  A team focused time-tracker.
+  Teams can connect their logs to an administration log.
+  It can also integrate well with task-trackers and other apps.
+* __Everhour__, _free_ or _$5 per user per month_.
+  A light-weight time-tracker.
+  It integrates well with other productivity apps and offers employee integration.
+
+Calendar applications often provide very simple versions of the functionality mentioned above.
+Full capability is provided only in conjunction with the above apps.
+
 ## Product Overview
 ## Product Requirements
 ### Functional Requirements
