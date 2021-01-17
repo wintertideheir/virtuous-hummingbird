@@ -4,19 +4,19 @@
 1. Introduction
 2. Market Assessment
     1. Target Demographic
-    2. Target Use Cases
+    2. Target Problem
     3. Competing and Comparable Products
-3. Product Overview
-4. Product Requirements
-    1. Functional Requirements
-    2. Usability Requirements
-    3. Technical Requirements
-    4. Environmental Requirements
-5. Supporting Data
+3. Product Details
+    1. Product Overview
+    2. Functional Requirements
+    3. Usability Requirements
+    4. Technical Requirements
+    5. Environmental Requirements
+4. Supporting Data
     1. Assumptions
     2. Constraints
     3. Dependencies
-6. Conclusion
+5. Conclusion
 
 ## Introduction
 
@@ -49,7 +49,7 @@ Individualism is the principle that one ought to be independent and self-reliant
 The Protestant work ethic is the belief that work, discipline, and frugality are a divine obligation.
 A Protestant work ethic requires the hard work needed to make use of virtue ethics.
 
-### Target Use Cases
+### Target Problem
 
 Our target demographic will likely have problems efficiently managing their time.
 In many cases, a combination of a calendar, task-list, and time-tracker can help plan, prioritize, and track their activities.
@@ -121,12 +121,12 @@ There are several popular time-tracking apps, as of January 2021:
 Calendar applications often provide very simple versions of the functionality mentioned above.
 Full capability is provided only in conjunction with the above apps.
 
-## Product Overview
-## Product Requirements
+## Product Details
+### Product Overview
 ### Functional Requirements
 ### Usability Requirements
 ### Technical Requirements
-### Environmental Requirements    
+### Environmental Requirements
 ## Supporting Data
 ### Assumptions
 ### Constraints
