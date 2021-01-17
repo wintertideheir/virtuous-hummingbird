@@ -11,7 +11,7 @@
     1. Functional Requirements
     2. Usability Requirements
     3. Technical Requirements
-    4. Environmental Requirements    
+    4. Environmental Requirements
 5. Supporting Data
     1. Assumptions
     2. Constraints
@@ -86,7 +86,7 @@ There are several popular task-trackers available as of January 2021:
   Features an advanced auto-complete feature that makes creating tasks convenient.
   It can use e-mail, text, Twitter, and other apps.
   It can connect files from Google Drive and Dropbox to tasks.
-  It features a smart search feature and priority system.  
+  It features a smart search feature and priority system.
 * __Trello__, _free_ to _$17.5 per user per month_.
   A professional-focused task tracker.
   Based around dividing tasks into teams.
