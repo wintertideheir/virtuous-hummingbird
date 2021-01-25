@@ -122,8 +122,46 @@ Calendar applications often provide very simple versions of the functionality me
 Full capability is provided only in conjunction with the above apps.
 
 ## Product Details
+
 ### Product Overview
+
 ### Functional Requirements
+
+__Requirement 1__
+The application must only use one window.
+The primary reason for this requirement is to reduce dependence on a tiling window manager.
+This requirement also reduces the complexity of multiple windows and multiple UI components.
+
+__Requirement 2__
+The application must be divided into three easily accessible views,
+* the virtue tree view,
+* the recording view,
+* and the statistics and recommendation view.
+
+This division should mirror the three different functions of Virtuous Hummingbird.
+The virtue tree view should be dedicated to creating and organizing virtues.
+The recording view should be dedicated to recording activities or evaluations of virtues.
+The statistics and recommendation view should be dedicated to general statistical trends on the virtue tree and recommendations on which virtues to practice next.
+
+__Requirement 2.1__
+The virtue tree view must be composed of three parts,
+* an editing and viewing component to view and edit the attributes of virtues,
+* a virtue tree graph view to display parts of a virtue tree,
+* a settings component to save and load files, change settings, etc.
+
+__Requirements 2.2__
+The recording view must have the following features:
+* A large, conspicuous multipurpose button that cycles between the following states:
+  * A pre-recording state, shown as a play button.
+    Activating the button should begin recording a new activity session.
+    This state should be active by default unless overridden by other states.
+  * A recording state, shown as a stop button.
+    Activating the button should end the current recording.
+    The button should only be active when there is an active recording that was started by the pre-recording state.
+  * A submission state, shown as a check button.
+    Activating the button should submit a new activity session with the given parameters.
+    This state should be only be active when the user submits enough parameters to create a valid activity session. 
+
 ### Usability Requirements
 ### Technical Requirements
 ### Environmental Requirements
