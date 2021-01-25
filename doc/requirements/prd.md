@@ -30,6 +30,14 @@ These qualities are related causally to form a hierarchical tree of virtues.
 The simple nature of virtues and virtue trees makes virtue ethics an unusually intuitive and practical ethical theory.
 By presenting a way to create, edit, visualize, and track these virtues, Virtuous Hummingbird facilitates living a virtuous life.
 
+## Business Requirements
+
+### Business Purpose
+
+### Stakeholders
+
+### Business Requirements
+
 ## Market Assessment
 
 ### Target Demographic
