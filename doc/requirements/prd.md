@@ -2,21 +2,25 @@
 
 ## Table of Contents
 1. Introduction
-2. Market Assessment
+2. Business Requirements
+    1. Business Purpose
+    2. Stakeholders
+    3. Business Requirements
+3. Market Assessment
     1. Target Demographic
     2. Target Problem
     3. Competing and Comparable Products
-3. Product Details
+4. Product Details
     1. Product Overview
     2. Functional Requirements
     3. Usability Requirements
     4. Technical Requirements
     5. Environmental Requirements
-4. Supporting Data
+5. Supporting Data
     1. Assumptions
     2. Constraints
     3. Dependencies
-5. Conclusion
+6. Conclusion
 
 ## Introduction
 
