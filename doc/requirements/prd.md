@@ -32,7 +32,39 @@ By presenting a way to create, edit, visualize, and track these virtues, Virtuou
 
 ## Business Requirements
 
+The first person (I/me/myself) refers to [wintertideheir](www.github.com/wintertideheir).
+
 ### Business Purpose
+
+There are several reasons to create Virtuous Hummingbird, in order of descending priority:
+
+1. __To create a prototype for a more advanced version of Virtuous Hummingbird.__
+   As far as I know, there is no analogous software or system in the public view.
+   Without a basic example to refine, I can't be sure that this idea has any merit.
+   I can't even base our priors on existing productivity software, because Virtuous Hummingbird is _ethically_ focused.
+   Ethics encompasses more of life than productivity, and is therefore exponentially more complex.
+   An ethical process also has a greater inherent chance for failure, unrelated to it's complexity, as it's a scientific process, rather than an engineering process.
+   Productivity can be engineered in response to a set of requirements, but ethics must be refined through science.
+   Given all these factors for failure, a prototype can show both where the ethical theory and the software can be improved.
+
+2. __As a portfolio example.__
+   Virtuous Hummingbird can serve as a programming portfolio piece, particularly as an example of the waterfall method.
+   I don't have any other complete, well designed projects to showcase my programming ability, and I might want to apply for a software engineering related position in the future.
+   By selecting a modern language and modern tooling (presently Java 8 and Gradle), I can show that I am up-to-date.
+   If I choose to rewrite Virtuous Hummingbird in another language, I can demonstrate agility and knowledge with multiple programming languages and environments.
+   These different approaches to demonstrating competence should be easy if I perform the waterfall correctly.
+
+
+3. __To live a more virtuous life.__
+   Virtuous Hummingbird is likely too simple to be a truly effective tool of virtue.
+   The underlying ethical theory is well-developed and explored, given that eudaimonist virtue theory was developed in ancient Greece.
+   Selecting a specific moral theory, however, is a matter of science, not of art or mathematics.
+   The mathematical approach to morality posits that ethics can be argued and that a single ethical theory can become universally accepted based on logic alone.
+   This approach has clearly been disproved on a practical level by the length of philosophy.
+   Neither can ethics be considered an art, because ethical theories require internal logical consistency.
+   Ethics appears to me to be a process of testing out which ethical theories match our personal conception of a good life.
+   As we become better aligned with our suited ethical theory, we reinforce our belief in our correctness.
+   With this view, it's clear that there is no other path to making life virtuous and to creating a tool to do so than through a cycle of constant iteration and improvement in both.
 
 ### Stakeholders
 
