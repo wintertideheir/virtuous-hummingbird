@@ -54,7 +54,6 @@ There are several reasons to create Virtuous Hummingbird, in order of descending
    If I choose to rewrite Virtuous Hummingbird in another language, I can demonstrate agility and knowledge with multiple programming languages and environments.
    These different approaches to demonstrating competence should be easy if I perform the waterfall correctly.
 
-
 3. __To live a more virtuous life.__
    Virtuous Hummingbird is likely too simple to be a truly effective tool of virtue.
    The underlying ethical theory is well-developed and explored, given that eudaimonist virtue theory was developed in ancient Greece.
@@ -67,6 +66,11 @@ There are several reasons to create Virtuous Hummingbird, in order of descending
    With this view, it's clear that there is no other path to making life virtuous and to creating a tool to do so than through a cycle of constant iteration and improvement in both.
 
 ### Stakeholders
+
+The only stakeholder presently associated with Virtuous Hummingbird is me.
+However, by dedicating time and effort to this project, I am indirectly affecting my present and future.
+As I am working on a few other projects, software-related and -unrelated, I must ensure that I am allocating time efficiently above all.
+Future endeavors also depend on quick turnover of previous projects.
 
 ### Business Requirements
 
