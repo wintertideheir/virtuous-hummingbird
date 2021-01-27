@@ -15,10 +15,174 @@
 \tableofcontents
 
 \section{Introduction}
+
+Virtuous Hummingbird is a program for the organization and advancement of personal virtue.
+By virtue, we mean the virtues of virtue ethics, personal qualities indicating a pattern of repeated behavior.
+These qualities are related causally to form a hierarchical tree of virtues. 
+The simple nature of virtues and virtue trees makes virtue ethics an unusually intuitive and practical ethical theory.
+By presenting a way to create, edit, visualize, and track these virtues, Virtuous Hummingbird facilitates living a virtuous life.
+
 \section{Business Requirements}
+
+\subsection{Business Purpose}
+
+There are several reasons to create Virtuous Hummingbird, in order of descending priority:
+
+\begin{description}
+
+    \item[to prototype]
+    As far as I know, there is no analogous software or system in the public view.
+    Without a basic example to refine, I can't be sure that this idea has any merit.
+    I can't even base our priors on existing productivity software, because Virtuous Hummingbird is \textit{ethically} focused.
+    Ethics encompasses more of life than productivity, and is therefore exponentially more complex.
+    An ethical process also has a greater inherent chance for failure, unrelated to it's complexity, as it's a scientific process, rather than an engineering process.
+    Productivity can be engineered in response to a set of requirements, but ethics must be refined through science.
+    Given all these factors for failure, a prototype can show both where the ethical theory and the software can be improved.
+ 
+    \item[to create a portfolio example]
+    Virtuous Hummingbird can serve as a programming portfolio piece, particularly as an example of the waterfall method.
+    I don't have any other complete, well designed projects to showcase my programming ability, and I might want to apply for a software engineering related position in the future.
+    By selecting a modern language and modern tooling (presently Java 8 and Gradle), I can show that I am up-to-date.
+    If I choose to rewrite Virtuous Hummingbird in another language, I can demonstrate agility and knowledge with multiple programming languages and environments.
+    These different approaches to demonstrating competence should be easy if I perform the waterfall correctly.
+ 
+    \item[to live a more virtuous life]
+    Virtuous Hummingbird is likely too simple to be a truly effective tool of virtue.
+    The underlying ethical theory is well-developed and explored, given that eudaimonist virtue theory was developed in ancient Greece.
+    Selecting a specific moral theory, however, is a matter of science, not of art or mathematics.
+    The mathematical approach to morality posits that ethics can be argued and that a single ethical theory can become universally accepted based on logic alone.
+    This approach has clearly been disproved on a practical level by the length of philosophy.
+    Neither can ethics be considered an art, because ethical theories require internal logical consistency.
+    Ethics appears to me to be a process of testing out which ethical theories match our personal conception of a good life.
+    As we become better aligned with our suited ethical theory, we reinforce our belief in our correctness.
+    With this view, it's clear that there is no other path to making life virtuous and to creating a tool to do so than through a cycle of constant iteration and improvement in both.
+ 
+\end{description}
+
+\subsection{Stakeholders}
+
+The only stakeholder presently associated with Virtuous Hummingbird is me.
+However, by dedicating time and effort to this project, I am indirectly affecting my present and future.
+As I am working on a few other projects, software-related and -unrelated, I must ensure that I am allocating time efficiently above all.
+Future endeavors also depend on quick turnover of previous projects.
+
+\subsection{Business Requirements}
+
+\textbf{Requirement 1}, \textit{Priority 1}, \textit{Purpose 2}
+The project must be thoroughly and well documented.
+A new contributor with an intermediate understanding of the various technologies used should be able to understand how the code functions without reading the code itself.
+There should be project documentation for multiple levels of complexity of analysis.
+This requirement ensures that our project easily demonstrates competence without direct interaction.
+
 \section{Market Assessment}
+
+\subsection{Target Demographic}
+
+The target demographic is between 25 and 35 years of age.
+This age group has the maturity to recognize the value of an ethical system, and enough time to reap the benefits of a full implementation.
+
+The target demographic is male, because young men appear to take greater risks and have less of a sense of purpose in life.
+The downsides of generally greater risk taking can be best mitigated by carefully selecting which risks have the highest return on investment, a task any ethical theory can help with.
+Virtue ethics in particular favors long-term develop of the virtues, and therefore uniquely discourages short-term risk-taking.
+
+The target demographic should also be educated, with at least some college, but preferably a bachelor's degree.
+Virtue ethics works best when applied to a varied and numerous set of decisions, because their sheer potential complexity requires a deliberately simple approach.
+College-educated users manage intellectually challenging classes and/or jobs, which therefore requires managing a varied and numerous set of decisions.
+
+The target demographic is unmarried and without dependents, and preferably single.
+As a consequence they will spend less time on relationships that will likely not benefit from ethical theory.
+
+The target demographic values an individualistic approach to life and a Protestant work ethic.
+Individualism is the principle that one ought to be independent and self-reliant, which encourages self-directed learning.
+The Protestant work ethic is the belief that work, discipline, and frugality are a divine obligation.
+A Protestant work ethic requires the hard work needed to make use of virtue ethics.
+
+\subsection{Target Problem}
+
+Our target demographic will likely have problems efficiently managing their time.
+In many cases, a combination of a calendar, task-list, and time-tracker can help plan, prioritize, and track their activities.
+As the the number and variety of activities increases, however, optimally prioritizing them becomes more difficult.
+Virtue ethics can help this problem by offering a long-term, continuous, and simple method of organization.
+
+First, these activities must be integrated into a tree of virtues.
+A virtue is a trait with an associated pattern of behavior.
+Because nearly all virtues are done for the sake of other virtues, we can represent virtues as a two-dimensional node graph.
+The user constructs these virtue trees, assigns initial weights, and then begins recording the consequences of activities.
+
+Virtuous Hummingbird will then learn which virtues the user values the most and present a set of activities that best reflect the virtue tree.
+In essence, Virtuous Hummingbird is a form of machine learning applied to task prioritization with an element of deliberation.
+By combining hard work and automation, task prioritization is easy.
+
+\subsection{Competing and Comparable Products}
+
+The products that offer the closest functionality to Virtuous Hummingbird are task trackers.
+Task trackers expand on the basic task-list with features such as categories, tags, and prioritization.
+Their primary advantage is their simplicity of use.
+Lists are very simple to create, edit, and view.
+Their primary disadvantage is their difficulty in scaling as the number and variety of tasks grows.
+Task-trackers attempt to mitigate their scaling problems with organization tools, requiring at least a little planning.
+There are several popular task-trackers available as of January 2021:
+
+\begin{description}
+    \item[Google Tasks], free.
+    A widely used product on account of it being bundled with the standard apps for a Google account.
+    It provides the ability to create sub-tasks, set due dates, and send notifications.
+    It integrates with other Google apps, namely Gmail and Google Calendar.
+    \item[Microsoft To Do], from \$5 per user per month.
+    This product appears to offer similar features to Google Tasks.
+    \item[Remember The Milk], free or \$40 per year.
+    A simple task-list service with a focus on everyday, non-business application.
+    Features an advanced auto-complete feature that makes creating tasks convenient.
+    It can use e-mail, text, Twitter, and other apps.
+    It can connect files from Google Drive and Dropbox to tasks.
+    It features a smart search feature and priority system.
+    \item[Trello], free to \$17.5 per user per month.
+    A professional-focused task tracker.
+    Based around dividing tasks into teams.
+    These tasks can be detailed with comments, attachments, and due dates, and then viewed with an sophisticated interface.
+    Programming and automation is available to streamline that process as well.
+    \item[Todoist], free to \$5 per user per month.
+    A task-tracker with many interesting features.
+    It's core feature are well-detailed tasks.
+    It also allows collaboration on tasks, including delegation and comments.
+    Gamification is present as well, with a karma system and productivity visualizations.
+    \item[Asana], free to per contract pricing.
+    A feature-risk task-tracker with many different ways of viewing a task list, including a time-line view, a table view, a multi-list view, etc.
+    It also features programming / automation to streamline task creation and management.
+\end{description}
+
+Another class of products to consider are time-tracking apps.
+Rather than planning an activity in advance, time-tracking apps record an activity as it occurs.
+They often have similar features to task-trackers, as well as billing, export, and retrospective editing features.
+There are several popular time-tracking apps, as of January 2021:
+
+\begin{description}
+    \item[Toggl Track], free or \$9 per user per month.
+    An easy-to-use tracking app.
+    Activities can be tracked with or without a name, project, or tags, and then edited later.
+    It also integrates very well with Google apps and works on many different platforms.
+    \item[Harvest], free or \$12 per user per month.
+    A team focused time-tracker.
+    Teams can connect their logs to an administration log.
+    It can also integrate well with task-trackers and other apps.
+    \item[Everhour], free or \$5 per user per month.
+    A light-weight time-tracker.
+    It integrates well with other productivity apps and offers employee integration.
+\end{description}
+
+Calendar applications often provide very simple versions of the functionality mentioned above.
+Full capability is provided only in conjunction with the above apps.
+
 \section{Product Details}
+\subsection{Product Overview}
+\subsection{Functional Requirements}
+\subsection{Usability Requirements}
+\subsection{Technical Requirements}
+\subsection{Environmental Requirements}
 \section{Supporting Data}
+\subsection{Assumptions}
+\subsection{Constraints}
+\subsection{Dependencies}
 \section{Conclusion}
 
 \end{document}
