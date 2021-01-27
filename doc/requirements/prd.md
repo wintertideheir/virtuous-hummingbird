@@ -74,6 +74,12 @@ Future endeavors also depend on quick turnover of previous projects.
 
 ### Business Requirements
 
+__Requirement 1__, _Priority 1_, _Purpose 2_
+The project must be thoroughly and well documented.
+A new contributor with an intermediate understanding of the various technologies used should be able to understand how the code functions without reading the code itself.
+There should be project documentation for multiple levels of complexity of analysis.
+This requirement ensures that our project easily demonstrates competence without direct interaction.
+
 ## Market Assessment
 
 ### Target Demographic
