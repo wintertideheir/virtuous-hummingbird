@@ -1,8 +1,10 @@
 \documentclass{article}
 
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{titling}
 \usepackage{mdframed}
+\usepackage{pdflscape}
 
 \setlength{\droptitle}{-25mm}
 \title{Product Requirements Document \\ \vspace{1mm} \normalsize For Virtuous Hummingbird}
@@ -70,6 +72,15 @@ The information associated with these nodes would be specific to the virtues of 
 Finally, multiple utilities would be built around this base.
 
 \section{Business Requirements}
+
+\begin{landscape}
+    \begin{figure}
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{summary.tex}
+    \end{figure}
+\end{landscape}
+
 \setreqtype{Business}{business}
 
 \subsection{Prototyping}

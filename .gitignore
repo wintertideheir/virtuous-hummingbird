@@ -1,9 +1,2 @@
 .gradle
 build
-
-*.aux
-*.log
-*.out
-*.pdf
-*.dvi
-*.toc
