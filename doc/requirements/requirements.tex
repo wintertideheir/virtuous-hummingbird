@@ -1,10 +1,7 @@
 \documentclass{article}
 
-\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{titling}
-\usepackage{mdframed}
-\usepackage{pdflscape}
 
 \setlength{\droptitle}{-25mm}
 \title{Product Requirements Document \\ \vspace{1mm} \normalsize For Virtuous Hummingbird}
@@ -12,32 +9,6 @@
 \predate{}
 \date{}
 \postdate{}
-
-\newcommand{\requirementname}{Undefined}
-\newcommand{\requirementlabel}{undefined}
-\newcommand{\setreqtype}[2]
-    {
-        \renewcommand{\requirementname}{#1}
-        \renewcommand{\requirementlabel}{#2}
-    }
-\newenvironment{requirement}[2][]
-    {
-        \begin{mdframed}
-        \label{\requirementlabel-#2}
-        \vspace{2.5mm}
-        \begin{center}
-            {
-                \large
-                \requirementname\ Requirement #2
-            
-                #1
-            }
-        \end{center}
-        \vspace{2.5mm}
-    }
-    {
-        \end{mdframed}
-    }
 
 \begin{document}
 
