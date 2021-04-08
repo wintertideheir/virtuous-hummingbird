@@ -45,7 +45,33 @@ Finally, multiple utilities would be built around this base.
 
 \subsection{Purpose}
 
-% What problem will this product solve?
+\name targets the problem of mapping virtue ethics.
+Mapping is the process of creating symbolic representations of objects and their relationships.
+Mapping virtue ethics is the process of creating symbolic representations of virtues, vices, goods, and their relationships.
+Common mapping systems and software are ineffective at mapping virtue ethics because one's understanding of a large number of objects can shift rapidly.
+For example, we could map the physical virtues by describing how they relate to different anatomical structures.
+We could then use that mapping to decide which skills we're deficient in and therefore what exercises we ought to do.
+Then, perhaps, after a sojourn in the land of exercise science, we decide that we would be better representing physical virtues by what kinetic chain or motion they rely on.
+How would we transform our existing map, and how would we preserve the utilities we'd already derived from it?
+The problem of mapping virtue ethics is the problem of creating and preserving utility across significant changes to the representation.
+
+\name improves on existing concept-mapping software by restricting what kinds of maps can be created.
+
+First, all concept-maps are directed graphs, and the primary map is acyclic.
+Directed graphs have an inherent structure that facilitates writing predictable sequence-based utilities.
+Acyclic graphs furthermore prevent utilities from having to arbitrarily break endless loops.
+These requirements make \name predictable and therefore easy to use.
+
+Second, only certain classes of objects and relationships can be represented.
+Because \name is primarily concerned with virtue ethics, representable objects include virtues, vices, goods, activities, and metrics.
+Each representable object has a fixed internal structure made of simple fields to ensure consistent behavior for utilities.
+The map also has an macroscopic structure, enforced by the small number of representable relationships.
+The center of the primary map is a tree of virtues and vices, of which each can have an associated tree of goods, activities, or metrics attached.
+
+By standardizing on what kinds of maps \name will accept, we have streamlined the process of creating representations of virtue.
+To create a virtue map, users will first create a tree of virtues and a tree of goods.
+Then they will create activities and metrics for any virtue or good.
+Editing, navigating, and viewing the map involve selecting an object type and specifying additional parameters based on the object.
 
 \subsection{Objectives}
 
