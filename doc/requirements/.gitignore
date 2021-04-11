@@ -3,5 +3,4 @@
 *.out
 *.dvi
 *.toc
-
-requirements.pdf
+*.pdf
