@@ -28,7 +28,7 @@ This model is identical to the waterfall model, except that in case that a stage
 2. __Deletion__ Delete of all parts of the entire project, including the waterfall design document, that is affected by the error, shortcoming, or contradiction.
 3. __Revision__ Revise the waterfall document to remove the error, address the shortcoming, or fix the contradiction.
 4. __Expropriation__ Scavenge the deleted parts of the project for any useful writing, code, or tools. 
-5. __Annihilation__ End destruction and continue development.
+5. __Continuation__ End destruction and continue development.
 
 However, because carrying out destruction would be onerous in practice, Virtuous Hummingbird uses Git to approximate the process as closely as possible.
 Only one branch must be a _conforming_ branch that closely follows the destructive waterfall method.
