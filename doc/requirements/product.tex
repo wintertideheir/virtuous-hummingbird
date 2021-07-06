@@ -91,8 +91,19 @@ Their hypothetical nature arises from the imperfect knowledge of the user.
 Their representational nature reflects their electronic nature, as opposed the metaphysical nature of their counterparts.
 
 The predominant object class is the virtue class.
-Every virtue has a name, description, and transient data.
-Virtues may be virtues or vices, intrinsic or extrinsic, abstract or well-defined traits.
+Every virtue must have a name, description, and a value.
+The value stores information about the virtuousness of the virtue.
+
+Additionally, virtues may have a metric.
+Metrics are programs that determine the virtuousness of a virtue and store that information in a virtue's value.
+For the purposes of ease of use and flexibility, they should be programmed in Python 3.
+
+Activities are a series of actions that affect traits.
+They have a name, and a description of the activity.
+
+Finally, there are two link classes that represent a relationship between virtues and activities.
+The virtue-virtue link class represents the relationship between a virtue that is partially composed of another virtue.
+The virtue-activity link class represents the relationship between a virtue that is related to an activity.
 
 \section{Comparables}
 
